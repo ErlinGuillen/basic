@@ -5,98 +5,69 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Basic Project</title>
 <style>
-    
-:root {
-    --bg-color: #f0f2f5;
-    --card-bg: white;
-    --text-main: #2c3e50;
-    --text-sub: #555;
-    --hr-color: #eee;
-}
+    :root {
+        --bg-color: #f0f2f5;
+        --card-bg: white;
+        --text-main: #2c3e50;
+        --text-sub: #555;
+        --hr-color: #eee;
+    }
 
-/* These colors apply when 'dark-mode' is active */
-body.dark-mode {
-    --bg-color: #1a1a1a;
-    --card-bg: #2d2d2d;
-    --text-main: #f0f2f5;
-    --text-sub: #ccc;
-    --hr-color: #444;
-}
+    body.dark-mode {
+        --bg-color: #1a1a1a;
+        --card-bg: #2d2d2d;
+        --text-main: #f0f2f5;
+        --text-sub: #ccc;
+        --hr-color: #444;
+    }
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    background-color: var(--bg-color);
-    transition: background-color 0.3s ease;
-}
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        background-color: var(--bg-color);
+        transition: background-color 0.3s ease;
+    }
 
-.card {
-    text-align: center;
-    background: var(--card-bg);
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    max-width: 600px;
-    transition: all 0.3s ease;
-}
+    .card {
+        text-align: center;
+        background: var(--card-bg);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        max-width: 600px;
+        transition: all 0.3s ease;
+    }
 
-/* Dark Mode Button Styling */
-#theme-toggle {
-    margin-bottom: 20px;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 20px;
-    border: none;
-    background: #2c3e50;
-    color: white;
-    font-weight: bold;
-    transition: transform 0.2s ease;
-}
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    }
 
-body.dark-mode #theme-toggle {
-    background: #f0f2f5;
-    color: #1a1a1a;
-}
+    #theme-toggle {
+        margin-bottom: 20px;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 20px;
+        border: none;
+        background: #2c3e50;
+        color: white;
+        font-weight: bold;
+        transition: transform 0.2s ease;
+    }
 
-h1 { color: var(--text-main); }
-p { color: var(--text-sub); line-height: 1.6; }
-hr { border: 0; border-top: 1px solid var(--hr-color); margin: 25px 0; }
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    background-color: #f0f2f5;
-}
+    body.dark-mode #theme-toggle {
+        background: #f0f2f5;
+        color: #1a1a1a;
+    }
 
-.card {
-    text-align: center;
-    background: white;
-    padding: 40px;
-    border-radius: 15px;
-    /* Fixed the shadow property name here */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
-    max-width: 600px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* This is the hover effect! */
-.card:hover {
-    transform: translateY(-10px); /* Lifts the card up */
-    box-shadow: 0 12px 24px rgba(0,0,0,0.15); /* Deepens the shadow */
-}
-
-h1 { color: #2c3e50; }
-p { color: #555; line-height: 1.6; }
-hr { border: 0; border-top: 1px solid #eee; margin: 25px 0; }
+    h1 { color: var(--text-main); }
+    p { color: var(--text-sub); line-height: 1.6; }
+    hr { border: 0; border-top: 1px solid var(--hr-color); margin: 25px 0; }
 </style>
 </head>
 <body>
