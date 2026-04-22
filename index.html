@@ -131,13 +131,30 @@
     margin: 15px 0;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
+
+    #search-bar {
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: 1px solid var(--hr-color);
+    background: var(--bg-color);
+    color: var(--text-main);
+    width: 250px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#search-bar:focus {
+    border-color: #2c3e50;
+    width: 300px; /* Expands slightly when you click it */
+}
 </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-title">My Food Dictionary</div>
-        <button id="theme-toggle">Switch to Dark Mode</button>
-    </nav>
+<nav class="navbar">
+    <div class="nav-title">My Food Dictionary</div>
+    <input type="text" id="search-bar" placeholder="Search definitions..." onkeyup="searchFood()">
+    <button id="theme-toggle">Switch to Dark Mode</button>
+</nav>
     <div class="grid-container">
         <div class="mini-card">
           <h1>Hello World!</h1>
@@ -186,7 +203,7 @@
         <p><strong>Part of Speech:</strong> Noun</p>
         </div>
         <div class="mini-card">
-        <h1>Water</h1></h1>
+        <h1>Water</h1>
         <img src="https://images.unsplash.com/photo-1602904761432-f9ad96133982?w=400" alt="water">
         <p>Definition: A clear, colorless, odorless, and tasteless liquid that is essential for all known forms of life.</p>
         <p><i>Sentence: "It is important to drink plenty of water every day to stay hydrated."</i></p>
@@ -205,6 +222,21 @@
                 btn.textContent = 'Switch to Dark Mode';
             }
         });
+
+function searchFood() {
+    let input = document.getElementById('search-bar').value.toLowerCase();
+    let cards = document.getElementsByClassName('mini-card');
+
+    for (let i = 0; i < cards.length; i++) {
+        let title = cards[i].getElementsByTagName('h1')[0].innerText.toLowerCase();
+        // If the title includes the search text, show it; otherwise, hide it
+        if (title.includes(input)) {
+            cards[i].style.display = "";
+        } else {
+            cards[i].style.display = "none";
+        }
+    }
+}
     </script>
 </body>
 </html>
