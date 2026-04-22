@@ -71,7 +71,7 @@
 </style>
 </head>
 <body>
-    <button id="theme-toggle">Switch to Light Mode</button>
+    <button id="theme-toggle">Switch to Dark Mode</button>
     <div class="card">
         <h1>Hello World!</h1>
         <p>Your site is officially live.</p>
@@ -98,9 +98,9 @@
             
             // Update button text
             if (document.body.classList.contains('dark-mode')) {
-                btn.textContent = 'Switch to Dark Mode';
-            } else {
                 btn.textContent = 'Switch to Light Mode';
+            } else {
+                btn.textContent = 'Switch to Dark Mode';
             }
         });
     </script>
