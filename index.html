@@ -8,13 +8,14 @@
 body {
     font-family: sans-serif;
     display: flex;
+    flex-direction: column; /* This stacks your content vertically */
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
     background-color: #f0f2f5;
 }
-
+    
 h1 {
     color: #333;
 }
@@ -25,11 +26,17 @@ p {
     </style>
 </head>
 <body>
-   <h1>Hello World!</h1>
-   <p>Your site is officially live.</p>
-   <h1>Coffee</h1>
-   <p>A hot drink made from roasted beans.</p>
-   <p>I drink black coffee every morning.</p>
-   <p>Noun</p>
+    <div style="text-align: center; background: white; padding: 40px; border-radius: 15px; shadow: 0 4px 10px rgba(0,0,0,0.1);">
+        <h1>Hello World!</h1>
+        <p>Your site is officially live.</p>
+        <hr><h1>Coffee</h1>
+        <p>Definition: A dark brown, caffeinated drink made from ground, roasted beans; or the beans themselves.</p>
+        <p><i>Sentence: "I started my morning with a hot cup of coffee to help me wake up."</i></p>
+        <p>Noun</p>
+        <hr> <h1>Tea</h1>
+        <p>Definition: A drink made by soaking dried leaves in water.</p>
+        <p><i>Sentence: Would you like a cup of herbal tea?</i></p>
+        <p>Noun</p>
+    </div>
 </body>
 </html>
