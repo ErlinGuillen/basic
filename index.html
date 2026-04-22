@@ -68,20 +68,40 @@
     transition: transform 0.2s ease;
 }
 
-    .card {
-        text-align: center;
-        background: var(--card-bg);
-        padding: 40px;
-        border-radius: 15px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        max-width: 600px;
-        transition: all 0.3s ease;
-    }
+/* This container holds all your mini-cards */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    box-sizing: border-box;
+}
 
-    .card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 12px 24px rgba(0,0,0,0.15);
-    }
+/* Individual food cards */
+.mini-card {
+    text-align: center;
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.mini-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+}
+
+/* Make sure images stay uniform inside mini-cards */
+.mini-card img {
+    height: 200px;
+    object-fit: cover; /* This crops images to fit perfectly without stretching */
+}
 
     #theme-toggle {
         margin-bottom: 20px;
@@ -118,45 +138,51 @@
         <div class="nav-title">My Food Dictionary</div>
         <button id="theme-toggle">Switch to Dark Mode</button>
     </nav>
-    <div class="card">
+    <div class="grid-container">
         <h1>Hello World!</h1>
         <p>Your site is officially live.</p>
-        <hr>
+        <div class="mini-card">
         <h1>Coffee</h1>
         <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400" alt="A cup of coffee">
         <p>Definition: A dark brown, caffeinated drink made from ground, roasted beans.</p>
         <p><i>Sentence: "I started my morning with a hot cup of coffee."</i></p>
         <p><strong>Part of Speech:</strong> Noun</p>
-        <hr>
+        </div>
+        <div class="mini-card">
         <h1>Tea</h1>
         <img src="https://images.unsplash.com/photo-1577016029703-cc22a7c0c28c?w=400" alt="A cup of tea">
         <p>Definition: A beverage made by steeping leaves in hot water.</p>
         <p><i>Sentence: "I enjoyed a warm cup of herbal tea."</i></p>
         <p><strong>Part of Speech:</strong> Noun</p>
-        <hr>
+         </div>
+        <div class="mini-card">
         <h1>Milk</h1>
         <img src="https://images.unsplash.com/photo-1588710929895-6ee7a0a4d155?w=400" alt="A glass of milk">
         <p>Definition: A white liquid produced by the mammary glands of mammals, used as a primary source of nutrition for young mammals and as a food product for humans.</p>
         <p><i>Sentence: "I poured a cold glass of milk to go with my chocolate chip cookies."</i></p>
         <p><strong>Part of Speech:</strong> Noun</p>
-        <hr>
+         </div>
+        <div class="mini-card">
         <h1>Taco</h1>
         <img src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=400" alt="A plate of tacos">
         <p>Definition: A traditional Mexican dish consisting of a small hand-sized corn or wheat tortilla topped with a filling.</p>
         <p><i>Sentence: "I ordered a steak taco topped with fresh cilantro, onions, and a squeeze of lime."</i></p>
         <p><strong>Part of Speech:</strong> Noun</p>
-        <hr>
+         </div>
+        <div class="mini-card">
         <h1>Sandwich</h1>
         <img src="https://images.unsplash.com/photo-1553909489-cd47e0907980?w=400" alt="sandwich">
         <p>Definition: An item of food consisting of two or more slices of bread with a filling between them, such as meat, cheese, or vegetables.</p>
         <p><i>Sentence: "I packed a turkey and swiss sandwich with extra lettuce for my lunch today."</i></p>
         <p><strong>Part of Speech:</strong> Noun</p>
-        <hr>
+        </div>
+        <div class="mini-card">
         <h1>Ice</h1>
         <img src="https://images.unsplash.com/photo-1590430752967-d0e116909be1?w=400" alt="Clear ice cubes">
         <p>Definition: Frozen water, a brittle, transparent crystalline solid formed when liquid water is cooled below $0°C$ ($32°F$).</p>
         <p><i>Sentence: "I added a few cubes of ice to my lemonade to keep it cold on the hot summer afternoon."</i></p>
         <p><strong>Part of Speech:</strong> Noun</p>
+        </div>
     </div>
     <script>
         const btn = document.getElementById('theme-toggle');
