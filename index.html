@@ -6,37 +6,56 @@
 <title>My Basic Project</title>
 <style>
 body {
-    font-family: sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
-    flex-direction: column; /* This stacks your content vertically */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
     background-color: #f0f2f5;
 }
-    
-h1 {
-    color: #333;
+
+.card {
+    text-align: center;
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    /* Fixed the shadow property name here */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+    max-width: 600px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-p {
-    color: #666;
+/* This is the hover effect! */
+.card:hover {
+    transform: translateY(-10px); /* Lifts the card up */
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15); /* Deepens the shadow */
 }
+
+h1 { color: #2c3e50; }
+p { color: #555; line-height: 1.6; }
+hr { border: 0; border-top: 1px solid #eee; margin: 25px 0; }
     </style>
 </head>
 <body>
-    <div style="text-align: center; background: white; padding: 40px; border-radius: 15px; shadow: 0 4px 10px rgba(0,0,0,0.1);">
+    <div class="card">
         <h1>Hello World!</h1>
         <p>Your site is officially live.</p>
-        <hr><h1>Coffee</h1>
-        <p>Definition: A dark brown, caffeinated drink made from ground, roasted beans; or the beans themselves.</p>
-        <p><i>Sentence: "I started my morning with a hot cup of coffee to help me wake up."</i></p>
-        <p>Part of Speech: Noun</p>
-        <hr> <h1>Tea</h1>
-        <p>Definition: A beverage made by steeping cured or fresh leaves of the Camellia sinensis plant in hot water.</p>
-        <p><i>Sentence: "I enjoyed a warm cup of herbal tea while reading my book by the window."</i></p>
-        <p>Part of Speech: Noun</p>
+        <hr>
+        <h1>Coffee</h1>
+        <p>Definition: A dark brown, caffeinated drink made from ground, roasted beans.</p>
+        <p><i>"I started my morning with a hot cup of coffee."</i></p>
+        <p><strong>Part of Speech:</strong> Noun</p>
+        <hr>
+        <h1>Tea</h1>
+        <p>Definition: A beverage made by steeping leaves in hot water.</p>
+        <p><i>"I enjoyed a warm cup of herbal tea."</i></p>
+        <p><strong>Part of Speech:</strong> Noun</p>
+        <h1>Milk</h1>
+        <p>Definition: A white liquid produced by the mammary glands of mammals, used as a primary source of nutrition for young mammals and as a food product for humans.</p>
+        <p><i>"I poured a cold glass of milk to go with my chocolate chip cookies."</i></p>
+        <p><strong>Part of Speech:</strong> Noun</p>
     </div>
 </body>
 </html>
