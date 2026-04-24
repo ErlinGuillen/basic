@@ -4,10 +4,23 @@
   <meta charset="UTF-8">
   <title>Music App</title>
   <style>
-    body {
-      display: flex;
-      margin: 0;
-    }
+body {
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center;     /* Centers vertically */
+  min-height: 100vh;       /* Makes body full screen height */
+  background-color: #f0f2f5; 
+  margin: 0;
+  font-family: sans-serif;
+}
+
+.app {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+}
     audio {
       width: 100%;
       margin-top: 15px;
@@ -15,13 +28,12 @@
   </style>
 </head>
 <body>
-  <div class="app">
-    <h1>🎵 Music App</h1>
-    <input type="file" id="fileInput" accept="audio/*">
-
-    <audio id="player" controls></audio>
-  </div>
-<pre>v0.0.1</pre>
+<div class="app">
+  <h1>🎵 Music App</h1>
+  <input type="file" id="fileInput" accept="audio/*">
+  <canvas id="visualizer" width="300" height="100"></canvas> <audio id="player" controls></audio>
+</div>
+<pre>v0.0.2</pre>
   <script>
     const fileInput = document.getElementById('fileInput');
     const player = document.getElementById('player');
