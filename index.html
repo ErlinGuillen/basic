@@ -10,7 +10,7 @@
   input[type="range"] { -webkit-appearance: none; width: 100%; background: rgba(255, 255, 255, 0.1); border-radius: 10px; height: 6px; outline: none; }
   input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 15px; height: 15px; background: white; border-radius: 50%; cursor: pointer; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); }
 
-  input[type="file"]::file-selector-button { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3); color: white; padding: 8px 16px; border-radius: 10px; cursor: pointer; transition: 0.3s; argin-right: 10px; }
+  input[type="file"]::file-selector-button { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3); color: white; padding: 8px 16px; border-radius: 10px; cursor: pointer; transition: 0.3s; margin-right: 10px; }
   input[type="file"]::file-selector-button:hover { background: rgba(255, 255, 255, 0.2); }
     
   body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 100vh; display: flex; justify-content: center; align-items: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -76,7 +76,7 @@
     <div class="theme-dot" onclick="setTheme('linear-gradient(135deg, #f093fb 0%, #f5576c 100%)')" style="background: #f5576c; width: 15px; height: 15px; border-radius: 50%; cursor: pointer; border: 1px solid white;"></div>
   </div>
   <!-- Version --> 
-  <pre style="text-align: center;">Build 27</pre>
+  <pre style="text-align: center;">Build 27.1</pre>
   </div>
   <script>
     // const function collection
@@ -148,7 +148,7 @@
       timeLabel.textContent = `${current} / ${total}`;
     });
     // 3. Seek to a new time when the user moves the slider
-    seekBar.addEventListener('input', () => {
+    seekBar.addEventListener('input', (e) => {
       const seekTime = (e.target.value / 100) * player.duration;
       player.currentTime = seekTime;
     });
