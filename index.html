@@ -33,19 +33,52 @@ body {
   <input type="file" id="fileInput" accept="audio/*">
   <canvas id="visualizer" width="300" height="100"></canvas> <audio id="player" controls></audio>
 </div>
-<pre>v0.0.2</pre>
-  <script>
-    const fileInput = document.getElementById('fileInput');
-    const player = document.getElementById('player');
+<pre>v0.0.3</pre>
+<script>
+const fileInput = document.getElementById('fileInput');
+const player = document.getElementById('player');
+const canvas = document.getElementById('visualizer');
+const ctx = canvas.getContext('2d');
 
-    fileInput.addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        const url = URL.createObjectURL(file);
-        player.src = url;
-        player.play();
-      }
-    });
+let audioSource;
+let analyser;
+
+fileInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    const url = URL.createObjectURL(file);
+    player.src = url;
+
+    // Initialize Audio Context on first play
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    audioSource = audioCtx.createMediaElementSource(player);
+    analyser = audioCtx.createAnalyser();
+    
+    audioSource.connect(analyser);
+    analyser.connect(audioCtx.destination);
+    analyser.fftSize = 64; // Controls number of bars
+
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      analyser.getByteFrequencyData(dataArray);
+
+      // Drawing simple bars
+      dataArray.forEach((value, i) => {
+        const barHeight = value / 2;
+        ctx.fillStyle = `hsl(${i * 10}, 70%, 50%)`; // Color changes per bar
+        ctx.fillRect(i * 10, canvas.height - barHeight, 8, barHeight);
+      });
+
+      requestAnimationFrame(animate);
+    }
+    
+    animate();
+    player.play();
+  }
+});
   </script>
 </body>
 </html>
