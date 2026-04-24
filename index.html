@@ -43,62 +43,59 @@ canvas {
 </div>
 <pre>v0.0.3</pre>
 <script>
-let audioCtx;
-let audioSource;
-let analyser;
+  // 1. Move variables to the top so they persist
+  let audioCtx;
+  let audioSource;
+  let analyser;
   
-const fileInput = document.getElementById('fileInput');
-const player = document.getElementById('player');
-const canvas = document.getElementById('visualizer');
-const ctx = canvas.getContext('2d');
+  const fileInput = document.getElementById('fileInput');
+  const player = document.getElementById('player');
+  const canvas = document.getElementById('visualizer');
+  const ctx = canvas.getContext('2d');
 
-let audioSource;
-let analyser;
+  fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      player.src = url;
 
-fileInput.addEventListener('change', (e) => {
-  const file = e.target.files[0];
-  if (file) {
-    const url = URL.createObjectURL(file);
-    player.src = url;
+      // 2. Initialize the Audio Context only once
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        audioSource = audioCtx.createMediaElementSource(player);
+        analyser = audioCtx.createAnalyser();
+        audioSource.connect(analyser);
+        analyser.connect(audioCtx.destination);
+        analyser.fftSize = 128; // Increased for a cooler look
+        
+        // Start the animation loop once the context exists
+        animate();
+      }
+      player.play();
+    }
+  });
 
-    // Initialize Audio Context on first play
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    audioSource = audioCtx.createMediaElementSource(player);
-    analyser = audioCtx.createAnalyser();
-    
-    audioSource.connect(analyser);
-    analyser.connect(audioCtx.destination);
-    analyser.fftSize = 64; // Controls number of bars
+  function animate() {
+    // 3. This makes the function loop at 60fps
+    requestAnimationFrame(animate);
 
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
-
-    function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
     analyser.getByteFrequencyData(dataArray);
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     const barWidth = (canvas.width / bufferLength) * 2.5;
     let x = 0;
 
     dataArray.forEach((value) => {
-       const barHeight = value / 2;
-       ctx.fillStyle = `rgb(${barHeight + 100}, 50, 255)`; // Dynamic blue/purple
-       ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-       x += barWidth + 1; // 1px gap between bars
+      const barHeight = value / 2;
+      // Using HSL makes it easy to create a rainbow effect
+      ctx.fillStyle = `hsl(${barHeight + 200}, 70%, 50%)`; 
+      ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+      x += barWidth + 1;
     });
-      
-    if (!audioCtx) {
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      audioSource = audioCtx.createMediaElementSource(player);
-      analyser = audioCtx.createAnalyser();
-      audioSource.connect(analyser);
-      analyser.connect(audioCtx.destination);
-    }
-    
-    animate();
-    player.play();
   }
-});
-  </script>
+</script>
 </body>
 </html>
