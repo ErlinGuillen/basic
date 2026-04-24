@@ -74,16 +74,10 @@
     transform: scale(1.05);
   }
 
-  #playBtn {
-    padding: 8px 16px;
-    cursor: pointer;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-  }
-  
   #seekBar {
     flex-grow: 1; /* This makes the seek bar take up all available space */
     cursor: pointer;
+    background: linear-gradient(to right, #fff 0%, #fff var(--progress, 0%), rgba(255, 255, 255, 0.1) var(--progress, 0%), rgba(255, 255, 255, 0.1) 100%);
   }
 </style>
 </head>
@@ -107,7 +101,7 @@
     <span id="timeLabel">0:00</span>
   </div>
   <!-- Version --> 
-  <pre style="text-align: center;">Build 15</pre>
+  <pre style="text-align: center;">Build 16</pre>
 </div>
   <script>
     // const function collection
@@ -120,13 +114,22 @@
     
     // playBtn.addEventListener
     playBtn.addEventListener('click', () => {
-      const songTitle = document.getElementById('songTitle');
       if (player.paused) {
+        player.volume = 0;
         player.play();
-        playBtn.textContent = 'pause'; // Material icon name
+        playBtn.textContent = 'pause';
+    
+        // Quick fade in over 500ms
+        let fadeIn = setInterval(() => {
+           if (player.volume < volumeSlider.value) {
+            player.volume = Math.min(player.volume + 0.1, volumeSlider.value);
+          } else {
+            clearInterval(fadeIn);
+          }
+        }, 50);
       } else {
         player.pause();
-        playBtn.textContent = 'play_arrow'; // Material icon name
+        playBtn.textContent = 'play_arrow';
       }
     });
     
@@ -137,6 +140,8 @@
     
     // player.addEventListener
     player.addEventListener('timeupdate', () => {
+      const percentage = (player.currentTime / player.duration) * 100;
+      seekBar.style.setProperty('--progress', `${percentage}%`);
       const formatTime = (time) => {
       const min = Math.floor(time / 60);
       const sec = Math.floor(time % 60).toString().padStart(2, '0');
