@@ -7,50 +7,80 @@
   </style>
 </head>
 <style>
+  @keyframes pulse {
+    0% { opacity: 0.8; }
+    50% { opacity: 1; transform: scale(1.02); }
+    100% { opacity: 0.8; }
+  }
   
-body {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+  input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    height: 6px;
+    outline: none;
+  }
 
-.ui {
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  padding: 30px;
-  width: 400px;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  color: white;
-}
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
 
-.controls {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column; /* Stacked for better spacing */
-  gap: 15px;
-  padding: 10px;
-}
+  .ui {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 30px;
+    width: 400px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    color: white;
+  }
 
-#playBtn {
-  background: white;
-  color: #764ba2;
-  font-weight: bold;
-  border: none;
-  padding: 12px;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
+  .controls {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column; /* Stacked for better spacing */
+    gap: 15px;
+    padding: 10px;
+  }
 
-#playBtn:hover {
-  transform: scale(1.05);
-}
+  .playing {
+    animation: pulse 2s infinite ease-in-out;
+    color: #fff;
+  }
+  
+  #playBtn {
+    background: white;
+    color: #764ba2;
+    font-weight: bold;
+    border: none;
+    padding: 12px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  #playBtn:hover {
+    transform: scale(1.05);
+  }
 
   #playBtn {
     padding: 8px 16px;
@@ -84,7 +114,7 @@ body {
     <span id="timeLabel">0:00</span>
   </div>
   <!-- Version --> 
-  <pre style="text-align: center;">Build 13</pre>
+  <pre style="text-align: center;">Build 14</pre>
 </div>
   <script>
     // const function collection
@@ -97,13 +127,16 @@ body {
     
     // playBtn.addEventListener
     playBtn.addEventListener('click', () => {
-     if (player.paused) {
-       player.play();
-       playBtn.textContent = 'Pause';
-     } else {
-       player.pause();
-       playBtn.textContent = 'Play';
-     }
+      const songTitle = document.getElementById('songTitle');
+      if (player.paused) {
+        player.play();
+        playBtn.textContent = 'Pause';
+        songTitle.classList.add('playing'); // Start pulse
+      } else {
+        player.pause();
+        playBtn.textContent = 'Play';
+        songTitle.classList.remove('playing'); // Stop pulse
+      }
     });
     
     // volumeSlider.addEventListener
