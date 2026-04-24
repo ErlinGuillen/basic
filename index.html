@@ -33,6 +33,15 @@ canvas {
   border-radius: 8px;
   margin: 10px 0;
 }
+
+pre {
+  font-size: 10px;
+  color: #888;
+  margin-top: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+    
   </style>
 </head>
 <body>
@@ -41,7 +50,7 @@ canvas {
   <input type="file" id="fileInput" accept="audio/*">
   <canvas id="visualizer" width="300" height="100"></canvas> <audio id="player" controls></audio>
 </div>
-<pre>v0.0.5</pre>
+<pre>v0.0.6</pre>
 <script>
   // 1. Move variables to the top so they persist
   let audioCtx;
@@ -91,6 +100,8 @@ canvas {
     dataArray.forEach((value) => {
       const barHeight = value / 2;
       // Using HSL makes it easy to create a rainbow effect
+      ctx.shadowBlur = 10;
+      ctx.shadowColor = `hsl(${barHeight + 200}, 70%, 50%)`;
       ctx.fillStyle = `hsl(${barHeight + 200}, 70%, 50%)`; 
       ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
       x += barWidth + 1;
