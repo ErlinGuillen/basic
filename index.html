@@ -6,23 +6,83 @@
   <style>
   </style>
 </head>
+<style>
+  .controls {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #f4f4f4;
+    padding: 10px;
+    border-radius: 8px;
+    width: fit-content;
+  }
+
+  #playBtn {
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+</style>
 <body>
-  <div>
-    <h1>🎵 Music App</h1>
-    <input type="file" id="fileInput" accept="audio/*">
-    <audio id="player" controls></audio>
+  <!-- Structure --> 
+<div>
+  <h1>🎵 Music App</h1>
+  <input type="file" id="fileInput" accept="audio/*">
+  <!-- Upload File -->  
+  <audio id="player"></audio>
+  <!-- Controls -->  
+  <div class="controls">
+    <button id="playBtn">Play</button>
+    <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1">
+    <span id="timeLabel">0:00</span>
   </div>
-  // version
+</div>
+  <!-- Version --> 
   <pre>Build 2</pre>
   <script>
     const fileInput = document.getElementById('fileInput');
     const player = document.getElementById('player');
+    const playBtn = document.getElementById('playBtn');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const timeLabel = document.getElementById('timeLabel');
 
     fileInput.addEventListener('change', (e) => {
       const file = e.target.files[0];
       if (file) {
         const url = URL.createObjectURL(file);
         player.src = url;
+        player.play();
+      }
+    });
+    // playBtn.addEventListener
+    playBtn.addEventListener('click', () => {
+     if (player.paused) {
+       player.play();
+       playBtn.textContent = 'Pause';
+     } else {
+       player.pause();
+       playBtn.textContent = 'Play';
+     }
+    });
+    // volumeSlider.addEventListener
+    volumeSlider.addEventListener('input', (e) => {
+      player.volume = e.target.value;
+    });
+    // player.addEventListener
+    player.addEventListener('timeupdate', () => {
+      const minutes = Math.floor(player.currentTime / 60);
+      const seconds = Math.floor(player.currentTime % 60).toString().padStart(2, '0');
+      timeLabel.textContent = `${minutes}:${seconds}`;
+    });
+    // fileInput.addEventListener   
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const url = URL.createObjectURL(file);
+        player.src = url;
+        playBtn.textContent = 'Pause';
         player.play();
       }
     });
