@@ -122,13 +122,14 @@ canvas {
 </div>
   <audio id="player"></audio> 
 </div>
-<pre>v0.6</pre>
+<pre>v0.7</pre>
 <script>
   // 1. Move variables to the top so they persist
   let audioCtx;
   let audioSource;
   let analyser;
   let barHeights = new Array(64).fill(0);
+  let hueOffset = 200; // Default blue/purple theme
   
   const fileInput = document.getElementById('fileInput');
   const player = document.getElementById('player');
@@ -218,6 +219,18 @@ document.querySelector('.volume-container span:last-child').addEventListener('cl
   player.volume = 1;
   volumeSlider.value = 1;
 });
+
+canvas.addEventListener('click', () => {
+    // Jump the hue by 40 degrees each click
+    hueOffset = (hueOffset + 40) % 360;
+    
+    // Optional: Flash the background briefly to show the change
+    document.body.style.transition = 'none';
+    document.body.style.backgroundColor = '#fff';
+    setTimeout(() => {
+        document.body.style.transition = 'background 0.1s linear';
+    }, 50);
+});
   
 function formatTime(seconds) {
   if (isNaN(seconds)) return "0:00";
@@ -262,7 +275,7 @@ function animate() {
         favCtx.fillStyle = '#007bff';
     } else {
         // Use the average volume to pulse the color
-        favCtx.fillStyle = `hsl(${average + 200}, 70%, 50%)`;
+        favCtx.fillStyle = `hsl(${average + hueOffset}, 70%, 50%)`;
     }
     
     favCtx.beginPath();
@@ -271,11 +284,11 @@ function animate() {
     faviconLink.href = faviconCanvas.toDataURL();
     // ------------------------------
 
-    canvas.style.boxShadow = `0 0 ${average / 5}px hsl(${average + 200}, 70%, 50%)`;
+    canvas.style.boxShadow = `0 0 ${average / 5}px hsl(${average + hueOffset}, 70%, 50%)`;
     const scale = 1 + (average / 1000);
     document.querySelector('.app').style.transform = `scale(${scale})`;
     const angle = (average * 2) % 360;
-    document.body.style.background = `linear-gradient(${angle}deg, #f0f2f5, hsl(${average + 200}, 70%, 90%))`;
+    document.body.style.background = `linear-gradient(${angle}deg, #f0f2f5, hsl(${average + hueOffset}, 70%, 90%))`;
 
     const barWidth = (canvas.width / bufferLength) * 2.5;
     let x = 0;
@@ -292,8 +305,8 @@ function animate() {
         const displayHeight = Math.max(0, barHeights[i]);
 
         ctx.shadowBlur = 15;
-        ctx.shadowColor = `hsl(${displayHeight + 200}, 70%, 50%)`;
-        ctx.fillStyle = `hsl(${displayHeight + 200}, 70%, 50%)`;
+        ctx.shadowColor = `hsl(${displayHeight + hueOffset}, 70%, 50%)`;
+        ctx.fillStyle = `hsl(${displayHeight + hueOffset}, 70%, 50%)`;
         ctx.fillRect(x, canvas.height - displayHeight, barWidth, displayHeight);
         x += barWidth + 1;
     });
