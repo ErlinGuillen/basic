@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
   <title>Music App</title>
   <style>
   @keyframes pulse {
@@ -100,13 +101,13 @@
   <audio id="player"></audio>
   <!-- Controls -->  
   <div class="controls">
-    <button id="playBtn">Play</button>
+    <button id="playBtn" class="material-symbols-rounded">play_arrow</button>
     <input type="range" id="seekBar" value="0" step="1">
     <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1">
     <span id="timeLabel">0:00</span>
   </div>
   <!-- Version --> 
-  <pre style="text-align: center;">Build 14</pre>
+  <pre style="text-align: center;">Build 15</pre>
 </div>
   <script>
     // const function collection
@@ -122,12 +123,10 @@
       const songTitle = document.getElementById('songTitle');
       if (player.paused) {
         player.play();
-        playBtn.textContent = 'Pause';
-        songTitle.classList.add('playing'); // Start pulse
+        playBtn.textContent = 'pause'; // Material icon name
       } else {
         player.pause();
-        playBtn.textContent = 'Play';
-        songTitle.classList.remove('playing'); // Stop pulse
+        playBtn.textContent = 'play_arrow'; // Material icon name
       }
     });
     
@@ -138,9 +137,16 @@
     
     // player.addEventListener
     player.addEventListener('timeupdate', () => {
-      const minutes = Math.floor(player.currentTime / 60);
-      const seconds = Math.floor(player.currentTime % 60).toString().padStart(2, '0');
-      timeLabel.textContent = `${minutes}:${seconds}`;
+      const formatTime = (time) => {
+      const min = Math.floor(time / 60);
+      const sec = Math.floor(time % 60).toString().padStart(2, '0');
+      return `${min}:${sec}`;
+    };
+
+      const current = formatTime(player.currentTime);
+      const total = isNaN(player.duration) ? "0:00" : formatTime(player.duration);
+  
+      timeLabel.textContent = `${current} / ${total}`;
     });
     
     // seekBar.addEventListener collection
