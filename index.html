@@ -42,16 +42,46 @@ pre {
   text-transform: uppercase;
   letter-spacing: 1px;
 }
+
+.controls {
+  margin-top: 15px;
+}
+
+#playPauseBtn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+#playPauseBtn:hover {
+  background: #0056b3;
+  transform: scale(1.05);
+}
+
+#playPauseBtn:active {
+  transform: scale(0.95);
+}
     
-  </style>
+</style>
 </head>
 <body>
 <div class="app">
   <h1>🎵 Music App</h1>
   <input type="file" id="fileInput" accept="audio/*">
-  <canvas id="visualizer" width="300" height="100"></canvas> <audio id="player" controls></audio>
+  <canvas id="visualizer" width="300" height="100"></canvas>
+  
+  <div class="controls">
+    <button id="playPauseBtn">Play</button>
+  </div>
+
+  <audio id="player"></audio> 
 </div>
-<pre>v0.0.8</pre>
+<pre>v0.1</pre>
 <script>
   // 1. Move variables to the top so they persist
   let audioCtx;
@@ -62,13 +92,14 @@ pre {
   const player = document.getElementById('player');
   const canvas = document.getElementById('visualizer');
   const ctx = canvas.getContext('2d');
-
+  const playPauseBtn = document.getElementById('playPauseBtn');
+  
   fileInput.addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (file) {
       const url = URL.createObjectURL(file);
       player.src = url;
-
+      playPauseBtn.innerText = 'Pause';
       // 2. Initialize the Audio Context only once
       if (!audioCtx) {
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -77,7 +108,6 @@ pre {
         audioSource.connect(analyser);
         analyser.connect(audioCtx.destination);
         analyser.fftSize = 128; // Increased for a cooler look
-        
         // Start the animation loop once the context exists
         animate();
       }
@@ -90,6 +120,21 @@ pre {
   const duration = Math.floor(player.duration);
   console.log(`${currentTime}s / ${duration}s`);
   });
+
+  // Toggle Play/Pause
+playPauseBtn.addEventListener('click', () => {
+  if (player.paused) {
+    player.play();
+    playPauseBtn.innerText = 'Pause';
+    // Ensure AudioContext resumes if it was suspended by the browser
+    if (audioCtx && audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+  } else {
+    player.pause();
+    playPauseBtn.innerText = 'Play';
+  }
+});
 
 function animate() {
   requestAnimationFrame(animate);
