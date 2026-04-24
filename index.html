@@ -83,6 +83,15 @@ input[type="file"] {
 input[type="range"] {
   accent-color: #007bff; /* Makes the slider thumb blue */
 }
+
+canvas {
+  width: 100%;       
+  height: 150px;     
+  background: #000;  
+  border-radius: 8px;
+  margin: 10px 0;
+  display: block; /* Removes any weird bottom spacing */
+}
     
 </style>
 </head>
@@ -111,7 +120,7 @@ input[type="range"] {
 </div>
   <audio id="player"></audio> 
 </div>
-<pre>v0.3.2</pre>
+<pre>v0.4</pre>
 <script>
   // 1. Move variables to the top so they persist
   let audioCtx;
@@ -217,6 +226,12 @@ function formatTime(seconds) {
   
 function animate() {
   requestAnimationFrame(animate);
+
+  if (canvas.width !== canvas.clientWidth || canvas.height !== canvas.clientHeight) {
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
+  }
+  
   const bufferLength = analyser.frequencyBinCount;
   const dataArray = new Uint8Array(bufferLength);
   analyser.getByteFrequencyData(dataArray);
