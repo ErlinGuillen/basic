@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Music App</title>
+  <style>
+    body {
+      display: flex;
+      margin: 0;
+    }
+    audio {
+      width: 100%;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <h1>🎵 Music App</h1>
+    <input type="file" id="fileInput" accept="audio/*">
+
+    <audio id="player" controls></audio>
+  </div>
+<pre>v0.0.1</pre>
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const player = document.getElementById('player');
+
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const url = URL.createObjectURL(file);
+        player.src = url;
+        player.play();
+      }
+    });
+  </script>
+</body>
+</html>
