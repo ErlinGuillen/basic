@@ -20,6 +20,7 @@ body {
   border-radius: 15px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   text-align: center;
+  transition: transform 0.05s ease-out, background-color 0.2s ease;
 }
     audio {
       width: 100%;
@@ -50,7 +51,7 @@ pre {
   <input type="file" id="fileInput" accept="audio/*">
   <canvas id="visualizer" width="300" height="100"></canvas> <audio id="player" controls></audio>
 </div>
-<pre>v0.0.7</pre>
+<pre>v0.0.8</pre>
 <script>
   // 1. Move variables to the top so they persist
   let audioCtx;
@@ -90,34 +91,36 @@ pre {
   console.log(`${currentTime}s / ${duration}s`);
   });
 
-  function animate() {
-    // 3. This makes the function loop at 60fps
-    requestAnimationFrame(animate);
+function animate() {
+  requestAnimationFrame(animate);
+  const bufferLength = analyser.frequencyBinCount;
+  const dataArray = new Uint8Array(bufferLength);
+  analyser.getByteFrequencyData(dataArray);
 
-    const bufferLength = analyser.frequencyBinCount;
-    const dataArray = new Uint8Array(bufferLength);
-    analyser.getByteFrequencyData(dataArray);
+  canvas.width = canvas.clientWidth;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    canvas.width = canvas.clientWidth;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // --- Move Pulse Logic Here (Outside the loop) ---
+  const average = dataArray.reduce((a, b) => a + b) / dataArray.length;
+  const scale = 1 + (average / 1000); // Subtle pulse
+  document.querySelector('.app').style.transform = `scale(${scale})`;
+  
+  // Also change the body background color slightly based on bass
+  document.body.style.backgroundColor = `rgb(${240 - average}, ${242 - average}, ${245 - average})`;
+  // ------------------------------------------------
 
-    const barWidth = (canvas.width / bufferLength) * 2.5;
-    let x = 0;
+  const barWidth = (canvas.width / bufferLength) * 2.5;
+  let x = 0;
 
-    dataArray.forEach((value) => {
-      const barHeight = value / 2;
-      // Inside animate function
-      const average = dataArray.reduce((a, b) => a + b) / dataArray.length;
-      const scale = 1 + (average / 500); // Slight pulse
-      document.querySelector('.app').style.transform = `scale(${scale})`;
-      // Using HSL makes it easy to create a rainbow effect
-      ctx.shadowBlur = 10;
-      ctx.shadowColor = `hsl(${barHeight + 200}, 70%, 50%)`;
-      ctx.fillStyle = `hsl(${barHeight + 200}, 70%, 50%)`; 
-      ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-      x += barWidth + 1;
-    });
-  }
+  dataArray.forEach((value) => {
+    const barHeight = value / 2;
+    ctx.shadowBlur = 15;
+    ctx.shadowColor = `hsl(${barHeight + 200}, 70%, 50%)`;
+    ctx.fillStyle = `hsl(${barHeight + 200}, 70%, 50%)`;
+    ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+    x += barWidth + 1;
+  });
+}
 </script>
 </body>
 </html>
