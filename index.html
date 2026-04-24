@@ -80,6 +80,10 @@ input[type="file"] {
   background: #0056b3;
 }
     
+input[type="range"] {
+  accent-color: #007bff; /* Makes the slider thumb blue */
+}
+    
 </style>
 </head>
 <body>
@@ -97,10 +101,14 @@ input[type="file"] {
   <div id="progressBar" style="background: #007bff; height: 100%; width: 0%; transition: width 0.1s linear;"></div>
 </div>
   
-  <div class="controls">
-    <button id="playPauseBtn">Play</button>
+<div class="controls">
+  <button id="playPauseBtn">Play</button>
+  <div class="volume-container" style="margin-top: 15px; display: flex; align-items: center; justify-content: center; gap: 10px;">
+    <span style="font-size: 14px;">🔈</span>
+    <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="1" style="cursor: pointer; width: 100px;">
+    <span style="font-size: 14px;">🔊</span>
   </div>
-
+</div>
   <audio id="player"></audio> 
 </div>
 <pre>v0.2.1</pre>
@@ -116,6 +124,7 @@ input[type="file"] {
   const ctx = canvas.getContext('2d');
   const playPauseBtn = document.getElementById('playPauseBtn');
   const progressContainer = document.getElementById('progressContainer');
+  const volumeSlider = document.getElementById('volumeSlider');
   
   fileInput.addEventListener('change', (e) => {
     const file = e.target.files[0];
@@ -182,6 +191,10 @@ progressContainer.addEventListener('click', (e) => {
   const duration = player.duration;
 
   player.currentTime = (clickX / width) * duration;
+});
+
+volumeSlider.addEventListener('input', (e) => {
+  player.volume = e.target.value;
 });
   
 function formatTime(seconds) {
