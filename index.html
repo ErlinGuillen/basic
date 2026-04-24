@@ -285,10 +285,20 @@ function animate() {
     // ------------------------------
 
     canvas.style.boxShadow = `0 0 ${average / 5}px hsl(${average + hueOffset}, 70%, 50%)`;
-    const scale = 1 + (average / 1000);
     document.querySelector('.app').style.transform = `scale(${scale})`;
     const angle = (average * 2) % 360;
     document.body.style.background = `linear-gradient(${angle}deg, #f0f2f5, hsl(${average + hueOffset}, 70%, 90%))`;
+
+    const scale = 1 + (average / 1000);
+    const appContainer = document.querySelector('.app');
+
+    if (average > 105) { // Threshold for the "kick" or bass hit
+       const shakeX = (Math.random() - 0.5) * 4; // Random horizontal shift
+       const shakeY = (Math.random() - 0.5) * 4; // Random vertical shift
+       appContainer.style.transform = `scale(${scale}) translate(${shakeX}px, ${shakeY}px)`;
+    } else {
+       appContainer.style.transform = `scale(${scale}) translate(0, 0)`;
+    }
 
     const barWidth = (canvas.width / bufferLength) * 2.5;
     let x = 0;
@@ -311,7 +321,6 @@ function animate() {
         x += barWidth + 1;
     });
 }
-  
 </script>
 </body>
 </html>
