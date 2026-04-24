@@ -111,12 +111,13 @@ input[type="range"] {
 </div>
   <audio id="player"></audio> 
 </div>
-<pre>v0.3.1</pre>
+<pre>v0.3.2</pre>
 <script>
   // 1. Move variables to the top so they persist
   let audioCtx;
   let audioSource;
   let analyser;
+  let barHeights = new Array(64).fill(0);
   
   const fileInput = document.getElementById('fileInput');
   const player = document.getElementById('player');
@@ -222,6 +223,7 @@ function animate() {
 
   canvas.width = canvas.clientWidth;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  canvas.style.boxShadow = `0 0 ${average / 5}px hsl(${average + 200}, 70%, 50%)`;
 
   // --- Move Pulse Logic Here (Outside the loop) ---
   const average = dataArray.reduce((a, b) => a + b) / dataArray.length;
@@ -237,6 +239,15 @@ function animate() {
 
   dataArray.forEach((value) => {
     const barHeight = value / 2;
+
+    if (targetHeight > barHeights[i]) {
+    barHeights[i] = targetHeight;
+    } else {
+      barHeights[i] -= 2; // Adjust this number for faster/slower fall
+    }
+    
+    const displayHeight = Math.max(0, barHeights[i]);
+    
     ctx.shadowBlur = 15;
     ctx.shadowColor = `hsl(${barHeight + 200}, 70%, 50%)`;
     ctx.fillStyle = `hsl(${barHeight + 200}, 70%, 50%)`;
