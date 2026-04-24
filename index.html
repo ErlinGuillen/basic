@@ -57,7 +57,7 @@
   .controls {
     margin-top: 20px;
     display: flex;
-    flex-direction: column; /* Stacked for better spacing */
+    flex-direction: column;
     gap: 15px;
     padding: 10px;
   }
@@ -67,17 +67,13 @@
   #playBtn { background: white; border-radius: 50px; cursor: pointer; transition: transform 0.2s; }
   #playBtn:hover { transform: scale(1.1); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
     
-  #seekBar {
-    flex-grow: 1; /* This makes the seek bar take up all available space */
-    cursor: pointer;
-    background: linear-gradient(to right, #fff 0%, #fff var(--progress, 0%), rgba(255, 255, 255, 0.1) var(--progress, 0%), rgba(255, 255, 255, 0.1) 100%);
-  }
+  #seekBar { flex-grow: 1; cursor: pointer; background: linear-gradient(to right, #fff 0%, #fff var(--progress, 0%), rgba(255, 255, 255, 0.1) var(--progress, 0%), rgba(255, 255, 255, 0.1) 100%); }
 
   #timeLabel { margin-top: 5px; }
 
-  #volumeSlider {
-    background: linear-gradient(to right, #fff 0%, #fff var(--vol-progress, 100%), rgba(255, 255, 255, 0.1) var(--vol-progress, 100%), rgba(255, 255, 255, 0.1) 100%);
-  }
+  #volumeSlider { background: linear-gradient(to right, #fff 0%, #fff var(--vol-progress, 100%), rgba(255, 255, 255, 0.1) var(--vol-progress, 100%), rgba(255, 255, 255, 0.1) 100%); }
+
+  #songTitle { text-align: center; margin-bottom: 10px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
 </style>
 </head>
 <body>
@@ -104,7 +100,7 @@
       </div>
   </div>
   <!-- Version --> 
-  <pre style="text-align: center;">Build 24</pre>
+  <pre style="text-align: center;">Build 25</pre>
   </div>
   <script>
     // const function collection
@@ -150,7 +146,6 @@
       player.volume = e.target.value;
       const volPercentage = e.target.value * 100;
       volumeSlider.style.setProperty('--vol-progress', `${volPercentage}%`);
-
       localStorage.setItem('savedVolume', e.target.value);
     });
     
