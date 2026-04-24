@@ -75,13 +75,17 @@ pre {
   <input type="file" id="fileInput" accept="audio/*">
   <canvas id="visualizer" width="300" height="100"></canvas>
   
+  <div id="progressContainer" style="background: #eee; height: 5px; width: 100%; margin-top: 10px;">
+   <div id="progressBar" style="background: #007bff; height: 100%; width: 0%;"></div>
+  </div>
+  
   <div class="controls">
     <button id="playPauseBtn">Play</button>
   </div>
 
   <audio id="player"></audio> 
 </div>
-<pre>v0.1</pre>
+<pre>v0.1.1</pre>
 <script>
   // 1. Move variables to the top so they persist
   let audioCtx;
@@ -107,19 +111,22 @@ pre {
         analyser = audioCtx.createAnalyser();
         audioSource.connect(analyser);
         analyser.connect(audioCtx.destination);
-        analyser.fftSize = 128; // Increased for a cooler look
-        // Start the animation loop once the context exists
+        analyser.fftSize = 128; 
+        ctx.fillStyle = "#888";
+        ctx.font = "14px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText("Upload a track to start", canvas.width / 2, canvas.height / 2);
         animate();
       }
       player.play();
     }
   });
 
-  player.addEventListener('timeupdate', () => {
+player.addEventListener('timeupdate', () => {
   const currentTime = Math.floor(player.currentTime);
   const duration = Math.floor(player.duration);
   console.log(`${currentTime}s / ${duration}s`);
-  });
+});
 
   // Toggle Play/Pause
 playPauseBtn.addEventListener('click', () => {
@@ -134,6 +141,10 @@ playPauseBtn.addEventListener('click', () => {
     player.pause();
     playPauseBtn.innerText = 'Play';
   }
+});
+
+player.addEventListener('ended', () => {
+  playPauseBtn.innerText = 'Play';
 });
 
 function animate() {
