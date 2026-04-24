@@ -272,8 +272,9 @@ function animate() {
     // ------------------------------
 
     canvas.style.boxShadow = `0 0 ${average / 5}px hsl(${average + 200}, 70%, 50%)`;
-    const angle = (average * 2) % 360;
+    const scale = 1 + (average / 1000);
     document.querySelector('.app').style.transform = `scale(${scale})`;
+    const angle = (average * 2) % 360;
     document.body.style.background = `linear-gradient(${angle}deg, #f0f2f5, hsl(${average + 200}, 70%, 90%))`;
 
     const barWidth = (canvas.width / bufferLength) * 2.5;
