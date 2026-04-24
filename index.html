@@ -30,7 +30,22 @@
     cursor: pointer;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   }
-  
+
+  input[type="file"]::file-selector-button {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-right: 10px;
+  }
+
+  input[type="file"]::file-selector-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+    
   body {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     height: 100vh;
@@ -101,7 +116,7 @@
     <span id="timeLabel">0:00</span>
   </div>
   <!-- Version --> 
-  <pre style="text-align: center;">Build 17</pre>
+  <pre style="text-align: center;">Build 18</pre>
 </div>
   <script>
     // const function collection
@@ -176,6 +191,7 @@
       const file = e.target.files[0];
       if (file) {
         document.getElementById('songTitle').textContent = file.name;
+        document.getElementById('songTitle').classList.add('playing');
         const url = URL.createObjectURL(file);
         player.src = url;
         playBtn.textContent = 'pause';
