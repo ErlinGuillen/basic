@@ -136,10 +136,10 @@ input[type="file"] {
   });
 
 player.addEventListener('timeupdate', () => {
-  const currentTime = Math.floor(player.currentTime);
-  const duration = Math.floor(player.duration);
-  console.log(`${currentTime}s / ${duration}s`);
-  
+  const current = player.currentTime;
+  const total = player.duration;
+
+  // Update the text labels
   document.getElementById('currentTime').innerText = formatTime(current);
   document.getElementById('durationTime').innerText = formatTime(total);
 
@@ -148,8 +148,6 @@ player.addEventListener('timeupdate', () => {
     const progressPercent = (current / total) * 100;
     document.getElementById('progressBar').style.width = progressPercent + '%';
   }
-  
-  console.log(`${Math.floor(currentTime)}s / ${Math.floor(duration)}s`);
 });
 
   // Toggle Play/Pause
