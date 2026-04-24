@@ -43,6 +43,10 @@ canvas {
 </div>
 <pre>v0.0.3</pre>
 <script>
+let audioCtx;
+let audioSource;
+let analyser;
+  
 const fileInput = document.getElementById('fileInput');
 const player = document.getElementById('player');
 const canvas = document.getElementById('visualizer');
@@ -70,20 +74,25 @@ fileInput.addEventListener('change', (e) => {
     const dataArray = new Uint8Array(bufferLength);
 
     function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      analyser.getByteFrequencyData(dataArray);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    analyser.getByteFrequencyData(dataArray);
 
-const barWidth = (canvas.width / bufferLength) * 2.5;
-let x = 0;
+    const barWidth = (canvas.width / bufferLength) * 2.5;
+    let x = 0;
 
-dataArray.forEach((value) => {
-  const barHeight = value / 2;
-  ctx.fillStyle = `rgb(${barHeight + 100}, 50, 255)`; // Dynamic blue/purple
-  ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-  x += barWidth + 1; // 1px gap between bars
-});
-
-      requestAnimationFrame(animate);
+    dataArray.forEach((value) => {
+       const barHeight = value / 2;
+       ctx.fillStyle = `rgb(${barHeight + 100}, 50, 255)`; // Dynamic blue/purple
+       ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+       x += barWidth + 1; // 1px gap between bars
+    });
+      
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      audioSource = audioCtx.createMediaElementSource(player);
+      analyser = audioCtx.createAnalyser();
+      audioSource.connect(analyser);
+      analyser.connect(audioCtx.destination);
     }
     
     animate();
