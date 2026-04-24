@@ -123,6 +123,7 @@
     <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1">
     <span id="muteBtn" class="material-symbols-rounded" style="cursor: pointer; font-size: 20px;">volume_up</span>
     <span id="timeLabel">0:00</span>
+    <button id="speedBtn" style="background: none; border: 1px solid rgba(255,255,255,0.3); color: white; border-radius: 5px; cursor: pointer; padding: 2px 8px; font-size: 12px;">1x</button>
   </div>
   <!-- Version --> 
   <pre style="text-align: center;">Build 21</pre>
@@ -136,6 +137,7 @@
     const timeLabel = document.getElementById('timeLabel');
     const seekBar = document.getElementById('seekBar');
     const muteBtn = document.getElementById('muteBtn');
+    const speedBtn = document.getElementById('speedBtn');
     
     // playBtn.addEventListener
     playBtn.addEventListener('click', () => {
@@ -202,6 +204,17 @@
       muteBtn.textContent = player.muted ? 'volume_off' : 'volume_up';
       // Visual feedback: dim the slider if muted
       volumeSlider.style.opacity = player.muted ? '0.5' : '1';
+    });
+    
+    // speedBtn.addEventListener   
+    const speeds = [1, 1.5, 2, 0.5];
+    let currentSpeedIndex = 0;
+
+    speedBtn.addEventListener('click', () => {
+       currentSpeedIndex = (currentSpeedIndex + 1) % speeds.length;
+       const newSpeed = speeds[currentSpeedIndex];
+       player.playbackRate = newSpeed;
+       speedBtn.textContent = newSpeed + 'x';
     });
     
     // fileInput.addEventListener   
