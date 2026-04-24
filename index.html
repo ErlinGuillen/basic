@@ -76,7 +76,7 @@
     <div class="theme-dot" onclick="setTheme('linear-gradient(135deg, #f093fb 0%, #f5576c 100%)')" style="background: #f5576c; width: 15px; height: 15px; border-radius: 50%; cursor: pointer; border: 1px solid white;"></div>
   </div>
   <!-- Version --> 
-  <pre style="text-align: center;">Build 27.1</pre>
+  <pre style="text-align: center;">Build 27.2</pre>
   </div>
   <script>
     // const function collection
@@ -149,8 +149,7 @@
     });
     // 3. Seek to a new time when the user moves the slider
     seekBar.addEventListener('input', (e) => {
-      const seekTime = (e.target.value / 100) * player.duration;
-      player.currentTime = seekTime;
+      player.currentTime = e.target.value;
     });
     
     // MuteBtn.addEventListener   
@@ -221,7 +220,7 @@
     // function setTheme(gradient)
     const savedTheme = localStorage.getItem('savedTheme');
     if (savedTheme) {
-     document.body.style.background = savedTheme;
+      document.body.style.background = savedTheme;
     }
     
     function setTheme(gradient) {
