@@ -224,82 +224,76 @@ function formatTime(seconds) {
   return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
 }
 
+// 1. Move Favicon setup OUTSIDE the animate function so they are ready to use
+const faviconCanvas = document.createElement('canvas');
+faviconCanvas.width = 32;
+faviconCanvas.height = 32;
+const favCtx = faviconCanvas.getContext('2d');
+
+let faviconLink = document.querySelector("link[rel~='icon']");
+if (!faviconLink) {
+    faviconLink = document.createElement('link');
+    faviconLink.rel = 'icon';
+    document.head.appendChild(faviconLink);
+}
+
 function animate() {
-  requestAnimationFrame(animate);
+    requestAnimationFrame(animate);
 
-  if (canvas.width !== canvas.clientWidth || canvas.height !== canvas.clientHeight) {
-    canvas.width = canvas.clientWidth;
-    canvas.height = canvas.clientHeight;
-  }
+    if (canvas.width !== canvas.clientWidth || canvas.height !== canvas.clientHeight) {
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
+    }
 
-  if (player.paused) {
-        // Default icon when paused (static blue)
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+    analyser.getByteFrequencyData(dataArray);
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Calculate average volume
+    const average = dataArray.reduce((a, b) => a + b) / dataArray.length;
+
+    // --- DYNAMIC FAVICON LOGIC ---
+    favCtx.clearRect(0, 0, 32, 32);
+    if (player.paused) {
         favCtx.fillStyle = '#007bff';
     } else {
-        // Pulsing color based on 'average' volume
-    favCtx.fillStyle = `hsl(${average + 200}, 70%, 50%)`;
-  }
-
-  favCtx.clearRect(0, 0, 32, 32);
-    // Draw a rounded square or circle for the tab icon
-  favCtx.beginPath();
-  favCtx.arc(16, 16, 14, 0, Math.PI * 2);
-  favCtx.fill();
-  faviconLink.href = faviconCanvas.toDataURL();
-
-  const bufferLength = analyser.frequencyBinCount;
-  const dataArray = new Uint8Array(bufferLength);
-  const faviconCanvas = document.createElement('canvas');
-  analyser.getByteFrequencyData(dataArray);
-  faviconCanvas.width = 32;
-  faviconCanvas.height = 32;
-  const favCtx = faviconCanvas.getContext('2d');
-  
-  
-  canvas.width = canvas.clientWidth;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  // 2. Define 'average' FIRST so line 226 can use it
-  const average = dataArray.reduce((a, b) => a + b) / dataArray.length;
-  
-  // 3. Now this will work!
-  canvas.style.boxShadow = `0 0 ${average / 5}px hsl(${average + 200}, 70%, 50%)`;
-
-  const scale = 1 + (average / 1000);
-  document.querySelector('.app').style.transform = `scale(${scale})`;
-  document.body.style.backgroundColor = `rgb(${240 - average}, ${242 - average}, ${245 - average})`;
-
-  const barWidth = (canvas.width / bufferLength) * 2.5;
-  let x = 0;
-
-  // 4. Added 'i' here so we can track which bar is falling
-  dataArray.forEach((value, i) => {
-    const targetHeight = value / 2;
-
-    // Smooth falling logic
-    if (targetHeight > barHeights[i]) {
-      barHeights[i] = targetHeight;
-    } else {
-      barHeights[i] -= 1.5; // Slowly drop
+        // Use the average volume to pulse the color
+        favCtx.fillStyle = `hsl(${average + 200}, 70%, 50%)`;
     }
-
-    let faviconLink = document.querySelector("link[rel~='icon']");
-    if (!faviconLink) {
-      faviconLink = document.createElement('link');
-      faviconLink.rel = 'icon';
-      document.head.appendChild(faviconLink);
-    }
-
-    const displayHeight = Math.max(0, barHeights[i]);
-
-    ctx.shadowBlur = 15;
-    ctx.shadowColor = `hsl(${displayHeight + 200}, 70%, 50%)`;
-    ctx.fillStyle = `hsl(${displayHeight + 200}, 70%, 50%)`;
     
-    // Use displayHeight here for the smooth effect
-    ctx.fillRect(x, canvas.height - displayHeight, barWidth, displayHeight);
-    x += barWidth + 1;
-  });
+    favCtx.beginPath();
+    favCtx.arc(16, 16, 14, 0, Math.PI * 2);
+    favCtx.fill();
+    faviconLink.href = faviconCanvas.toDataURL();
+    // ------------------------------
+
+    canvas.style.boxShadow = `0 0 ${average / 5}px hsl(${average + 200}, 70%, 50%)`;
+    const scale = 1 + (average / 1000);
+    document.querySelector('.app').style.transform = `scale(${scale})`;
+    document.body.style.backgroundColor = `rgb(${240 - average}, ${242 - average}, ${245 - average})`;
+
+    const barWidth = (canvas.width / bufferLength) * 2.5;
+    let x = 0;
+
+    dataArray.forEach((value, i) => {
+        const targetHeight = value / 2;
+
+        if (targetHeight > barHeights[i]) {
+            barHeights[i] = targetHeight;
+        } else {
+            barHeights[i] -= 1.5;
+        }
+
+        const displayHeight = Math.max(0, barHeights[i]);
+
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = `hsl(${displayHeight + 200}, 70%, 50%)`;
+        ctx.fillStyle = `hsl(${displayHeight + 200}, 70%, 50%)`;
+        ctx.fillRect(x, canvas.height - displayHeight, barWidth, displayHeight);
+        x += barWidth + 1;
+    });
 }
   
 </script>
