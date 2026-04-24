@@ -111,7 +111,7 @@ input[type="range"] {
 </div>
   <audio id="player"></audio> 
 </div>
-<pre>v0.3</pre>
+<pre>v0.3.1</pre>
 <script>
   // 1. Move variables to the top so they persist
   let audioCtx;
@@ -195,6 +195,16 @@ progressContainer.addEventListener('click', (e) => {
 
 volumeSlider.addEventListener('input', (e) => {
   player.volume = e.target.value;
+});
+
+document.querySelector('.volume-container span:first-child').addEventListener('click', () => {
+  player.volume = 0;
+  volumeSlider.value = 0;
+});
+
+document.querySelector('.volume-container span:last-child').addEventListener('click', () => {
+  player.volume = 1;
+  volumeSlider.value = 1;
 });
   
 function formatTime(seconds) {
