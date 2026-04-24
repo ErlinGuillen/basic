@@ -101,7 +101,7 @@
     <span id="timeLabel">0:00</span>
   </div>
   <!-- Version --> 
-  <pre style="text-align: center;">Build 16.1</pre>
+  <pre style="text-align: center;">Build 17</pre>
 </div>
   <script>
     // const function collection
@@ -139,18 +139,20 @@
     });
     
     // player.addEventListener
-    player.addEventListener('timeupdate', () => {
+    player.addEventListener('timeupdate', () => { 
+     // 1. Update Seek Bar position
+      seekBar.value = Math.floor(player.currentTime);
+      // 2. Update Progress Gradient
       const percentage = (player.currentTime / player.duration) * 100;
       seekBar.style.setProperty('--progress', `${percentage}%`);
+      // 3. Update Time Label
       const formatTime = (time) => {
-      const min = Math.floor(time / 60);
-      const sec = Math.floor(time % 60).toString().padStart(2, '0');
-      return `${min}:${sec}`;
-    };
-
+        const min = Math.floor(time / 60);
+        const sec = Math.floor(time % 60).toString().padStart(2, '0');
+        return `${min}:${sec}`;
+      };
       const current = formatTime(player.currentTime);
       const total = isNaN(player.duration) ? "0:00" : formatTime(player.duration);
-  
       timeLabel.textContent = `${current} / ${total}`;
     });
     
