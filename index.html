@@ -223,38 +223,43 @@ function animate() {
 
   canvas.width = canvas.clientWidth;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // 2. Define 'average' FIRST so line 226 can use it
+  const average = dataArray.reduce((a, b) => a + b) / dataArray.length;
+  
+  // 3. Now this will work!
   canvas.style.boxShadow = `0 0 ${average / 5}px hsl(${average + 200}, 70%, 50%)`;
 
-  // --- Move Pulse Logic Here (Outside the loop) ---
-  const average = dataArray.reduce((a, b) => a + b) / dataArray.length;
-  const scale = 1 + (average / 1000); // Subtle pulse
+  const scale = 1 + (average / 1000);
   document.querySelector('.app').style.transform = `scale(${scale})`;
-  
-  // Also change the body background color slightly based on bass
   document.body.style.backgroundColor = `rgb(${240 - average}, ${242 - average}, ${245 - average})`;
-  // ------------------------------------------------
 
   const barWidth = (canvas.width / bufferLength) * 2.5;
   let x = 0;
 
-  dataArray.forEach((value) => {
-    const barHeight = value / 2;
+  // 4. Added 'i' here so we can track which bar is falling
+  dataArray.forEach((value, i) => {
+    const targetHeight = value / 2;
 
+    // Smooth falling logic
     if (targetHeight > barHeights[i]) {
-    barHeights[i] = targetHeight;
+      barHeights[i] = targetHeight;
     } else {
-      barHeights[i] -= 2; // Adjust this number for faster/slower fall
+      barHeights[i] -= 1.5; // Slowly drop
     }
-    
+
     const displayHeight = Math.max(0, barHeights[i]);
-    
+
     ctx.shadowBlur = 15;
-    ctx.shadowColor = `hsl(${barHeight + 200}, 70%, 50%)`;
-    ctx.fillStyle = `hsl(${barHeight + 200}, 70%, 50%)`;
-    ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+    ctx.shadowColor = `hsl(${displayHeight + 200}, 70%, 50%)`;
+    ctx.fillStyle = `hsl(${displayHeight + 200}, 70%, 50%)`;
+    
+    // Use displayHeight here for the smooth effect
+    ctx.fillRect(x, canvas.height - displayHeight, barWidth, displayHeight);
     x += barWidth + 1;
   });
 }
+  
 </script>
 </body>
 </html>
