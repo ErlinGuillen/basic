@@ -120,7 +120,7 @@ canvas {
 </div>
   <audio id="player"></audio> 
 </div>
-<pre>v0.4</pre>
+<pre>v0.5</pre>
 <script>
   // 1. Move variables to the top so they persist
   let audioCtx;
@@ -223,7 +223,7 @@ function formatTime(seconds) {
   const secs = Math.floor(seconds % 60);
   return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
 }
-  
+
 function animate() {
   requestAnimationFrame(animate);
 
@@ -231,11 +231,31 @@ function animate() {
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
   }
-  
+
+  if (player.paused) {
+        // Default icon when paused (static blue)
+        favCtx.fillStyle = '#007bff';
+    } else {
+        // Pulsing color based on 'average' volume
+    favCtx.fillStyle = `hsl(${average + 200}, 70%, 50%)`;
+  }
+
+  favCtx.clearRect(0, 0, 32, 32);
+    // Draw a rounded square or circle for the tab icon
+  favCtx.beginPath();
+  favCtx.arc(16, 16, 14, 0, Math.PI * 2);
+  favCtx.fill();
+  faviconLink.href = faviconCanvas.toDataURL();
+
   const bufferLength = analyser.frequencyBinCount;
   const dataArray = new Uint8Array(bufferLength);
+  const faviconCanvas = document.createElement('canvas');
   analyser.getByteFrequencyData(dataArray);
-
+  faviconCanvas.width = 32;
+  faviconCanvas.height = 32;
+  const favCtx = faviconCanvas.getContext('2d');
+  
+  
   canvas.width = canvas.clientWidth;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -261,6 +281,13 @@ function animate() {
       barHeights[i] = targetHeight;
     } else {
       barHeights[i] -= 1.5; // Slowly drop
+    }
+
+    let faviconLink = document.querySelector("link[rel~='icon']");
+    if (!faviconLink) {
+      faviconLink = document.createElement('link');
+      faviconLink.rel = 'icon';
+      document.head.appendChild(faviconLink);
     }
 
     const displayHeight = Math.max(0, barHeights[i]);
