@@ -44,6 +44,27 @@
   .ui-pulse {
      animation: glass-pulse 2s infinite ease-in-out;
   }
+  @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .album-art {
+    width: 120px;
+    height: 120px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    font-size: 50px;
+  }
+
+  .rotating {
+     animation: rotate 5s linear infinite;
+  }
 </style>
 </head>
 <body>
@@ -51,6 +72,7 @@
 <div class="ui">
   <h1 style="text-align: center;">🎵 Music App</h1>
   <!-- MP3 -->  
+  <div class="album-art" id="art">🎵</div>
   <div id="songTitle">
     No song selected
   </div>
@@ -76,7 +98,7 @@
     <div class="theme-dot" onclick="setTheme('linear-gradient(135deg, #f093fb 0%, #f5576c 100%)')" style="background: #f5576c; width: 15px; height: 15px; border-radius: 50%; cursor: pointer; border: 1px solid white;"></div>
   </div>
   <!-- Version --> 
-  <pre style="text-align: center;">Build 28.1</pre>
+  <pre style="text-align: center;">Build 29</pre>
   </div>
   <script>
     // const function collection
@@ -98,6 +120,7 @@
             playBtn.textContent = 'pause';
             songTitle.classList.add('playing');
             uiContainer.classList.add('ui-pulse'); // ADD PULSE HERE
+            document.getElementById('art').classList.add('rotating');
 
             let fadeIn = setInterval(() => {
                 if (player.volume < volumeSlider.value) {
@@ -111,6 +134,7 @@
             playBtn.textContent = 'play_arrow';
             songTitle.classList.remove('playing');
             uiContainer.classList.remove('ui-pulse'); // REMOVE PULSE HERE
+            document.getElementById('art').classList.remove('rotating');
         }
     });
     
