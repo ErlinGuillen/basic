@@ -5,11 +5,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
   <title>Music App</title>
   <style>
-  @keyframes pulse {
-    0% { opacity: 0.8; }
-    50% { opacity: 1; transform: scale(1.02); }
-    100% { opacity: 0.8; }
-  }
+  @keyframes pulse { 0% { opacity: 0.8; } 50% { opacity: 1; transform: scale(1.02); } 100% { opacity: 0.8; } }
   
   input[type="range"] {
     -webkit-appearance: none;
@@ -46,14 +42,7 @@
     background: rgba(255, 255, 255, 0.2);
   }
     
-  body {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
+  body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 100vh; display: flex; justify-content: center; align-items: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 
   .ui {
     background: rgba(255, 255, 255, 0.2);
@@ -79,12 +68,10 @@
     animation: pulse 2s infinite ease-in-out;
     color: #fff;
   }
-  
-  #playBtn {
-    background: white;
-    border-radius: 50px;
-  }
 
+  #playBtn { background: white; border-radius: 50px; cursor: pointer; transition: transform 0.2s; }
+  #playBtn:hover { transform: scale(1.1); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+    
   #seekBar {
     flex-grow: 1; /* This makes the seek bar take up all available space */
     cursor: pointer;
@@ -124,7 +111,7 @@
       </div>
   </div>
   <!-- Version --> 
-  <pre style="text-align: center;">Build 22.1</pre>
+  <pre style="text-align: center;">Build 23</pre>
   </div>
   <script>
     // const function collection
@@ -214,7 +201,7 @@
        player.playbackRate = newSpeed;
        speedBtn.textContent = newSpeed + 'x';
     });
-    
+
     // fileInput.addEventListener   
     fileInput.addEventListener('change', (e) => {
       const file = e.target.files[0];
@@ -227,6 +214,25 @@
         player.play();
       }
     });
+
+    // window.addEventListener   
+    window.addEventListener('keydown', (e) => {
+      // Spacebar to Play/Pause
+      if (e.code === 'Space') {
+          e.preventDefault(); // Stop page from scrolling
+          playBtn.click();
+      }
+    
+      // Left Arrow to seek back 5 seconds
+      if (e.code === 'ArrowLeft') {
+          player.currentTime = Math.max(0, player.currentTime - 5);
+      }
+    
+      // Right Arrow to seek forward 5 seconds
+      if (e.code === 'ArrowRight') {
+          player.currentTime = Math.min(player.duration, player.currentTime + 5);
+      }
+     });
   </script>
 </body>
 </html>
