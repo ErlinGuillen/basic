@@ -101,7 +101,7 @@
     <span id="timeLabel">0:00</span>
   </div>
   <!-- Version --> 
-  <pre style="text-align: center;">Build 16</pre>
+  <pre style="text-align: center;">Build 16.1</pre>
 </div>
   <script>
     // const function collection
@@ -176,7 +176,7 @@
         document.getElementById('songTitle').textContent = file.name;
         const url = URL.createObjectURL(file);
         player.src = url;
-        playBtn.textContent = 'Pause';
+        playBtn.textContent = 'pause';
         player.play();
       }
     });
