@@ -10,17 +10,7 @@
   input[type="range"] { -webkit-appearance: none; width: 100%; background: rgba(255, 255, 255, 0.1); border-radius: 10px; height: 6px; outline: none; }
   input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 15px; height: 15px; background: white; border-radius: 50%; cursor: pointer; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); }
 
-  input[type="file"]::file-selector-button {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    padding: 8px 16px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 0.3s;
-    margin-right: 10px;
-  }
-
+  input[type="file"]::file-selector-button { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3); color: white; padding: 8px 16px; border-radius: 10px; cursor: pointer; transition: 0.3s; argin-right: 10px; }
   input[type="file"]::file-selector-button:hover { background: rgba(255, 255, 255, 0.2); }
     
   body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 100vh; display: flex; justify-content: center; align-items: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -37,15 +27,12 @@
     color: white;
   }
 
-  .controls {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    padding: 10px;
-  }
+  .controls { margin-top: 20px; display: flex; flex-direction: column; gap: 15px; padding: 10px; }
 
   .playing { animation: pulse 2s infinite ease-in-out; color: #fff; }
+
+  .theme-dot { transition: transform 0.2s, border-width 0.2s; }
+  .theme-dot:hover { transform: scale(1.3); border-width: 2px !important; }
 
   #playBtn { background: white; border-radius: 50px; cursor: pointer; transition: transform 0.2s; }
   #playBtn:hover { transform: scale(1.1); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
@@ -89,7 +76,7 @@
     <div class="theme-dot" onclick="setTheme('linear-gradient(135deg, #f093fb 0%, #f5576c 100%)')" style="background: #f5576c; width: 15px; height: 15px; border-radius: 50%; cursor: pointer; border: 1px solid white;"></div>
   </div>
   <!-- Version --> 
-  <pre style="text-align: center;">Build 26</pre>
+  <pre style="text-align: center;">Build 27</pre>
   </div>
   <script>
     // const function collection
@@ -162,10 +149,8 @@
     });
     // 3. Seek to a new time when the user moves the slider
     seekBar.addEventListener('input', () => {
-      player.currentTime = seekBar.value;
-
-      const percentage = (seekBar.value / seekBar.max) * 100;
-      seekBar.style.setProperty('--progress', `${percentage}%`);
+      const seekTime = (e.target.value / 100) * player.duration;
+      player.currentTime = seekTime;
     });
     
     // MuteBtn.addEventListener   
@@ -197,6 +182,20 @@
         player.src = url;
         playBtn.textContent = 'pause';
         player.play();
+      }
+      // Update System Media Metadata
+      if ('mediaSession' in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata({
+          title: file.name,
+          artist: 'Music App',
+          album: 'My Playlist'
+        });
+
+        // Allow system buttons to control the app
+        navigator.mediaSession.setActionHandler('play', () => playBtn.click());
+        navigator.mediaSession.setActionHandler('pause', () => playBtn.click());
+        navigator.mediaSession.setActionHandler('seekbackward', () => player.currentTime -= 5);
+        navigator.mediaSession.setActionHandler('seekforward', () => player.currentTime += 5);
       }
     });
 
