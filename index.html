@@ -47,15 +47,6 @@
     const playBtn = document.getElementById('playBtn');
     const volumeSlider = document.getElementById('volumeSlider');
     const timeLabel = document.getElementById('timeLabel');
-
-    fileInput.addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        const url = URL.createObjectURL(file);
-        player.src = url;
-        player.play();
-      }
-    });
     // playBtn.addEventListener
     playBtn.addEventListener('click', () => {
      if (player.paused) {
