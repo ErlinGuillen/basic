@@ -94,6 +94,10 @@
     cursor: pointer;
     background: linear-gradient(to right, #fff 0%, #fff var(--progress, 0%), rgba(255, 255, 255, 0.1) var(--progress, 0%), rgba(255, 255, 255, 0.1) 100%);
   }
+
+  #timeLabel {
+    margin-top: 5px;
+  }
 </style>
 </head>
 <body>
@@ -155,7 +159,12 @@
       player.volume = e.target.value;
     });
     
-    // player.addEventListener
+    // seekBar.addEventListener collection
+    // 1. When the song is ready, set the slider max to the song duration
+    player.addEventListener('loadedmetadata', () => {
+      seekBar.max = Math.floor(player.duration);
+    });
+    // 2. Update the slider as the song plays (Add this inside your existing timeupdate listener)
     player.addEventListener('timeupdate', () => { 
      // 1. Update Seek Bar position
       seekBar.value = Math.floor(player.currentTime);
@@ -171,17 +180,6 @@
       const current = formatTime(player.currentTime);
       const total = isNaN(player.duration) ? "0:00" : formatTime(player.duration);
       timeLabel.textContent = `${current} / ${total}`;
-    });
-    
-    // seekBar.addEventListener collection
-    // 1. When the song is ready, set the slider max to the song duration
-    player.addEventListener('loadedmetadata', () => {
-      seekBar.max = Math.floor(player.duration);
-    });
-    // 2. Update the slider as the song plays (Add this inside your existing timeupdate listener)
-    player.addEventListener('timeupdate', () => {
-      seekBar.value = Math.floor(player.currentTime);
-      // ... your existing timeLabel code ...
     });
     // 3. Seek to a new time when the user moves the slider
     seekBar.addEventListener('input', () => {
