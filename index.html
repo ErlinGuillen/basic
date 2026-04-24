@@ -41,11 +41,12 @@
   <!-- Controls -->  
   <div class="controls">
     <button id="playBtn">Play</button>
+    <input type="range" id="seekBar" value="0" step="1">
     <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1">
     <span id="timeLabel">0:00</span>
   </div>
   <!-- Version --> 
-  <pre style="text-align: center;">Build 6</pre>
+  <pre style="text-align: center;">Build 10</pre>
 </div>
   <script>
     const fileInput = document.getElementById('fileInput');
@@ -53,6 +54,7 @@
     const playBtn = document.getElementById('playBtn');
     const volumeSlider = document.getElementById('volumeSlider');
     const timeLabel = document.getElementById('timeLabel');
+    const seekBar = document.getElementById('seekBar');
     // playBtn.addEventListener
     playBtn.addEventListener('click', () => {
      if (player.paused) {
@@ -72,6 +74,19 @@
       const minutes = Math.floor(player.currentTime / 60);
       const seconds = Math.floor(player.currentTime % 60).toString().padStart(2, '0');
       timeLabel.textContent = `${minutes}:${seconds}`;
+    });
+    // 1. When the song is ready, set the slider max to the song duration
+    player.addEventListener('loadedmetadata', () => {
+      seekBar.max = Math.floor(player.duration);
+    });
+    // 2. Update the slider as the song plays (Add this inside your existing timeupdate listener)
+    player.addEventListener('timeupdate', () => {
+      seekBar.value = Math.floor(player.currentTime);
+      // ... your existing timeLabel code ...
+    });
+    // 3. Seek to a new time when the user moves the slider
+    seekBar.addEventListener('input', () => {
+      player.currentTime = seekBar.value;
     });
     // fileInput.addEventListener   
     fileInput.addEventListener('change', (e) => {
