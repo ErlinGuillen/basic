@@ -7,25 +7,8 @@
   <style>
   @keyframes pulse { 0% { opacity: 0.8; } 50% { opacity: 1; transform: scale(1.02); } 100% { opacity: 0.8; } }
   
-  input[type="range"] {
-    -webkit-appearance: none;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    height: 6px;
-    outline: none;
-  }
-
-  input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 15px;
-    height: 15px;
-    background: white;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  }
+  input[type="range"] { -webkit-appearance: none; width: 100%; background: rgba(255, 255, 255, 0.1); border-radius: 10px; height: 6px; outline: none; }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 15px; height: 15px; background: white; border-radius: 50%; cursor: pointer; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); }
 
   input[type="file"]::file-selector-button {
     background: rgba(255, 255, 255, 0.1);
@@ -93,14 +76,20 @@
       <input type="range" id="seekBar" value="0" step="1">
       <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1">
     
-      <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-top: 5px;">
+      <div>
           <span id="muteBtn" class="material-symbols-rounded" style="cursor: pointer; font-size: 22px;">volume_up</span>
           <span id="timeLabel" style="font-size: 14px; font-family: monospace;">0:00 / 0:00</span>
           <button id="speedBtn" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; border-radius: 5px; cursor: pointer; padding: 4px 10px; font-size: 12px;">1x</button>
       </div>
   </div>
+  <!-- Themes --> 
+  <div style="display: flex; justify-content: center; gap: 10px; margin-top: 10px;">
+    <div class="theme-dot" onclick="setTheme('linear-gradient(135deg, #667eea 0%, #764ba2 100%)')" style="background: #764ba2; width: 15px; height: 15px; border-radius: 50%; cursor: pointer; border: 1px solid white;"></div>
+    <div class="theme-dot" onclick="setTheme('linear-gradient(135deg, #2af598 0%, #009efd 100%)')" style="background: #009efd; width: 15px; height: 15px; border-radius: 50%; cursor: pointer; border: 1px solid white;"></div>
+    <div class="theme-dot" onclick="setTheme('linear-gradient(135deg, #f093fb 0%, #f5576c 100%)')" style="background: #f5576c; width: 15px; height: 15px; border-radius: 50%; cursor: pointer; border: 1px solid white;"></div>
+  </div>
   <!-- Version --> 
-  <pre style="text-align: center;">Build 25</pre>
+  <pre style="text-align: center;">Build 26</pre>
   </div>
   <script>
     // const function collection
@@ -228,7 +217,18 @@
       if (e.code === 'ArrowRight') {
           player.currentTime = Math.min(player.duration, player.currentTime + 5);
       }
-     });
+    });
+
+    // function setTheme(gradient)
+    const savedTheme = localStorage.getItem('savedTheme');
+    if (savedTheme) {
+     document.body.style.background = savedTheme;
+    }
+    
+    function setTheme(gradient) {
+      document.body.style.background = gradient;
+      localStorage.setItem('savedTheme', gradient);
+    }
   </script>
 </body>
 </html>
