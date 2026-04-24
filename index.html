@@ -76,7 +76,7 @@
     <div class="theme-dot" onclick="setTheme('linear-gradient(135deg, #f093fb 0%, #f5576c 100%)')" style="background: #f5576c; width: 15px; height: 15px; border-radius: 50%; cursor: pointer; border: 1px solid white;"></div>
   </div>
   <!-- Version --> 
-  <pre style="text-align: center;">Build 28</pre>
+  <pre style="text-align: center;">Build 28.1</pre>
   </div>
   <script>
     // const function collection
@@ -91,24 +91,27 @@
     
     // playBtn.addEventListener
     playBtn.addEventListener('click', () => {
-      if (player.paused) {
-        player.volume = 0;
-        player.play();
-        playBtn.textContent = 'pause';
-        document.querySelector('.ui').classList.add('ui-pulse');
-        document.querySelector('.ui').classList.remove('ui-pulse');
-        // Quick fade in over 500ms
-        let fadeIn = setInterval(() => {
-           if (player.volume < volumeSlider.value) {
-            player.volume = Math.min(player.volume + 0.1, volumeSlider.value);
-          } else {
-            clearInterval(fadeIn);
-          }
-        }, 50);
-      } else {
-        player.pause();
-        playBtn.textContent = 'play_arrow';
-      }
+        const uiContainer = document.querySelector('.ui'); // Get the UI container
+        if (player.paused) {
+            player.volume = 0; 
+            player.play(); 
+            playBtn.textContent = 'pause';
+            songTitle.classList.add('playing');
+            uiContainer.classList.add('ui-pulse'); // ADD PULSE HERE
+
+            let fadeIn = setInterval(() => {
+                if (player.volume < volumeSlider.value) {
+                    player.volume = Math.min(player.volume + 0.1, volumeSlider.value);
+                } else {
+                    clearInterval(fadeIn);
+                }
+            }, 50);
+        } else {
+            player.pause(); 
+            playBtn.textContent = 'play_arrow';
+            songTitle.classList.remove('playing');
+            uiContainer.classList.remove('ui-pulse'); // REMOVE PULSE HERE
+        }
     });
     
     // volumeSlider.addEventListener
