@@ -25,6 +25,14 @@ body {
       width: 100%;
       margin-top: 15px;
     }
+
+canvas {
+  width: 100%;       /* Stretch to fit the .app container */
+  height: 150px;     /* Give it more vertical room */
+  background: #000;  /* A dark background makes the rainbow bars pop */
+  border-radius: 8px;
+  margin: 10px 0;
+}
   </style>
 </head>
 <body>
@@ -65,12 +73,15 @@ fileInput.addEventListener('change', (e) => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       analyser.getByteFrequencyData(dataArray);
 
-      // Drawing simple bars
-      dataArray.forEach((value, i) => {
-        const barHeight = value / 2;
-        ctx.fillStyle = `hsl(${i * 10}, 70%, 50%)`; // Color changes per bar
-        ctx.fillRect(i * 10, canvas.height - barHeight, 8, barHeight);
-      });
+const barWidth = (canvas.width / bufferLength) * 2.5;
+let x = 0;
+
+dataArray.forEach((value) => {
+  const barHeight = value / 2;
+  ctx.fillStyle = `rgb(${barHeight + 100}, 50, 255)`; // Dynamic blue/purple
+  ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+  x += barWidth + 1; // 1px gap between bars
+});
 
       requestAnimationFrame(animate);
     }
