@@ -38,9 +38,7 @@
     margin-right: 10px;
   }
 
-  input[type="file"]::file-selector-button:hover {
-    background: rgba(255, 255, 255, 0.2);
-  }
+  input[type="file"]::file-selector-button:hover { background: rgba(255, 255, 255, 0.2); }
     
   body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 100vh; display: flex; justify-content: center; align-items: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 
@@ -64,10 +62,7 @@
     padding: 10px;
   }
 
-  .playing {
-    animation: pulse 2s infinite ease-in-out;
-    color: #fff;
-  }
+  .playing { animation: pulse 2s infinite ease-in-out; color: #fff; }
 
   #playBtn { background: white; border-radius: 50px; cursor: pointer; transition: transform 0.2s; }
   #playBtn:hover { transform: scale(1.1); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
@@ -78,9 +73,7 @@
     background: linear-gradient(to right, #fff 0%, #fff var(--progress, 0%), rgba(255, 255, 255, 0.1) var(--progress, 0%), rgba(255, 255, 255, 0.1) 100%);
   }
 
-  #timeLabel {
-    margin-top: 5px;
-  }
+  #timeLabel { margin-top: 5px; }
 
   #volumeSlider {
     background: linear-gradient(to right, #fff 0%, #fff var(--vol-progress, 100%), rgba(255, 255, 255, 0.1) var(--vol-progress, 100%), rgba(255, 255, 255, 0.1) 100%);
@@ -111,7 +104,7 @@
       </div>
   </div>
   <!-- Version --> 
-  <pre style="text-align: center;">Build 23</pre>
+  <pre style="text-align: center;">Build 24</pre>
   </div>
   <script>
     // const function collection
@@ -146,11 +139,19 @@
     });
     
     // volumeSlider.addEventListener
+    const savedVolume = localStorage.getItem('savedVolume');
+    if (savedVolume !== null) {
+      player.volume = savedVolume;
+      volumeSlider.value = savedVolume;
+      volumeSlider.style.setProperty('--vol-progress', `${savedVolume * 100}%`);
+    }
+    
     volumeSlider.addEventListener('input', (e) => {
       player.volume = e.target.value;
-
       const volPercentage = e.target.value * 100;
       volumeSlider.style.setProperty('--vol-progress', `${volPercentage}%`);
+
+      localStorage.setItem('savedVolume', e.target.value);
     });
     
     // seekBar.addEventListener collection
