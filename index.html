@@ -98,6 +98,10 @@
   #timeLabel {
     margin-top: 5px;
   }
+
+  #volumeSlider {
+    background: linear-gradient(to right, #fff 0%, #fff var(--vol-progress, 100%), rgba(255, 255, 255, 0.1) var(--vol-progress, 100%), rgba(255, 255, 255, 0.1) 100%);
+  }
 </style>
 </head>
 <body>
@@ -121,7 +125,7 @@
     <span id="timeLabel">0:00</span>
   </div>
   <!-- Version --> 
-  <pre style="text-align: center;">Build 20</pre>
+  <pre style="text-align: center;">Build 21</pre>
 </div>
   <script>
     // const function collection
@@ -157,6 +161,9 @@
     // volumeSlider.addEventListener
     volumeSlider.addEventListener('input', (e) => {
       player.volume = e.target.value;
+
+      const volPercentage = e.target.value * 100;
+      volumeSlider.style.setProperty('--vol-progress', `${volPercentage}%`);
     });
     
     // seekBar.addEventListener collection
@@ -193,6 +200,8 @@
     muteBtn.addEventListener('click', () => {
       player.muted = !player.muted;
       muteBtn.textContent = player.muted ? 'volume_off' : 'volume_up';
+      // Visual feedback: dim the slider if muted
+      volumeSlider.style.opacity = player.muted ? '0.5' : '1';
     });
     
     // fileInput.addEventListener   
