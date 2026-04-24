@@ -1,123 +1,30 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sonic Player - Pure HTML</title>
-    <!-- Tailwind CSS Play CDN for simplicity in "Plain HTML" mode -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-      body { font-family: 'Inter', sans-serif; }
-    </style>
-  </head>
-  <body class="bg-slate-950 text-white flex flex-col items-center justify-center min-h-screen p-6">
-    
-    <div class="w-full max-w-md bg-slate-900 rounded-[40px] p-8 border border-white/10 shadow-2xl space-y-8">
-      <!-- Header -->
-      <div class="text-center space-y-2">
-        <div class="inline-flex items-center gap-2 px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-xs font-bold uppercase tracking-wider">
-          <i data-lucide="music" class="w-3 h-3"></i>
-          Pure Audio
-        </div>
-      </div>
+<head>
+  <meta charset="UTF-8">
+  <title>Music App</title>
+  <style>
+  </style>
+</head>
+<body>
+  <div>
+    <h1>🎵 Music App</h1>
+    <input type="file" id="fileInput" accept="audio/*">
+    <audio id="player" controls></audio>
+  </div>
+  <pre>Build 1</pre>
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const player = document.getElementById('player');
 
-      <!-- Artwork / Visualization Area -->
-      <div class="relative group aspect-square bg-gradient-to-br from-blue-600 to-purple-700 rounded-[32px] flex items-center justify-center overflow-hidden shadow-inner">
-        <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
-        <i data-lucide="music" class="w-32 h-32 text-white/20 blur-sm absolute"></i>
-        <i data-lucide="music" class="w-20 h-20 text-white drop-shadow-2xl"></i>
-        
-        <!-- Now Playing Toast (Hidden by default) -->
-        <div id="now-playing" class="absolute bottom-6 left-6 right-6 hidden">
-          <div class="bg-black/40 backdrop-blur-md p-3 rounded-2xl border border-white/10">
-             <p class="text-[10px] font-bold truncate opacity-80 uppercase tracking-widest mb-1">Now Playing</p>
-             <p id="file-name" class="font-bold truncate text-sm">Song Title</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Controls -->
-      <div class="space-y-6">
-        <audio id="audio-player" class="hidden"></audio>
-
-        <div class="flex flex-col items-center gap-4">
-           <div class="flex items-center gap-8 text-slate-500">
-              <button class="hover:text-white transition-colors"><i data-lucide="skip-back"></i></button>
-              <button id="play-btn" class="w-16 h-16 bg-white text-black rounded-full flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-xl">
-                <i id="play-icon" data-lucide="play" class="ml-1"></i>
-                <i id="pause-icon" data-lucide="pause" class="hidden"></i>
-              </button>
-              <button class="hover:text-white transition-colors"><i data-lucide="skip-forward"></i></button>
-           </div>
-           
-           <div class="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
-              <div id="progress-bar" class="h-full bg-blue-500 w-0 rounded-full transition-all duration-100"></div>
-           </div>
-        </div>
-
-        <!-- File Upload -->
-        <label class="flex items-center justify-center gap-3 w-full py-4 bg-white/5 border border-white/10 rounded-2xl cursor-pointer hover:bg-white/10 transition-all group">
-          <i data-lucide="upload" class="text-slate-400 group-hover:text-blue-400"></i>
-          <span class="font-bold text-sm text-slate-300">Import Local Audio</span>
-          <input type="file" id="file-input" accept="audio/*" class="hidden" />
-        </label>
-      </div>
-    </div>
-
-    <script>
-      // Initialize Lucide icons
-      lucide.createIcons();
-
-      const audio = document.getElementById('audio-player');
-      const fileInput = document.getElementById('file-input');
-      const playBtn = document.getElementById('play-btn');
-      const playIcon = document.getElementById('play-icon');
-      const pauseIcon = document.getElementById('pause-icon');
-      const progressBar = document.getElementById('progress-bar');
-      const nowPlaying = document.getElementById('now-playing');
-      const fileNameLabel = document.getElementById('file-name');
-
-      let isPlaying = false;
-
-      fileInput.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (file) {
-          const url = URL.createObjectURL(file);
-          audio.src = url;
-          fileNameLabel.textContent = file.name;
-          nowPlaying.classList.remove('hidden');
-          togglePlay(true);
-        }
-      });
-
-      function togglePlay(forcePlay) {
-        if (forcePlay === true || (!isPlaying && forcePlay !== false)) {
-          audio.play();
-          isPlaying = true;
-          playIcon.classList.add('hidden');
-          pauseIcon.classList.remove('hidden');
-        } else {
-          audio.pause();
-          isPlaying = false;
-          playIcon.classList.remove('hidden');
-          pauseIcon.classList.add('hidden');
-        }
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const url = URL.createObjectURL(file);
+        player.src = url;
+        player.play();
       }
-
-      playBtn.addEventListener('click', () => togglePlay());
-
-      audio.addEventListener('timeupdate', () => {
-        const progress = (audio.currentTime / audio.duration) * 100;
-        progressBar.style.width = `${progress}%`;
-      });
-
-      audio.addEventListener('ended', () => {
-        togglePlay(false);
-        progressBar.style.width = '0%';
-      });
-    </script>
-  </body>
+    });
+  </script>
+</body>
 </html>
