@@ -285,7 +285,6 @@ function animate() {
     // ------------------------------
 
     canvas.style.boxShadow = `0 0 ${average / 5}px hsl(${average + hueOffset}, 70%, 50%)`;
-    document.querySelector('.app').style.transform = `scale(${scale})`;
     const angle = (average * 2) % 360;
     document.body.style.background = `linear-gradient(${angle}deg, #f0f2f5, hsl(${average + hueOffset}, 70%, 90%))`;
 
