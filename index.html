@@ -15,17 +15,7 @@
     
   body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 100vh; display: flex; justify-content: center; align-items: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 
-  .ui {
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: 30px;
-    width: 400px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    color: white;
-  }
+  .ui { background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 30px; width: 400px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); color: white; }
 
   .controls { margin-top: 20px; display: flex; flex-direction: column; gap: 15px; padding: 10px; }
 
@@ -44,6 +34,16 @@
   #volumeSlider { background: linear-gradient(to right, #fff 0%, #fff var(--vol-progress, 100%), rgba(255, 255, 255, 0.1) var(--vol-progress, 100%), rgba(255, 255, 255, 0.1) 100%); }
 
   #songTitle { text-align: center; margin-bottom: 10px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
+
+  @keyframes glass-pulse {
+    0% { transform: scale(1); box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37); }
+    50% { transform: scale(1.02); box-shadow: 0 8px 32px rgba(31, 38, 135, 0.6); }
+    100% { transform: scale(1); box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37); }
+  }
+
+  .ui-pulse {
+     animation: glass-pulse 2s infinite ease-in-out;
+  }
 </style>
 </head>
 <body>
@@ -76,7 +76,7 @@
     <div class="theme-dot" onclick="setTheme('linear-gradient(135deg, #f093fb 0%, #f5576c 100%)')" style="background: #f5576c; width: 15px; height: 15px; border-radius: 50%; cursor: pointer; border: 1px solid white;"></div>
   </div>
   <!-- Version --> 
-  <pre style="text-align: center;">Build 27.2</pre>
+  <pre style="text-align: center;">Build 28</pre>
   </div>
   <script>
     // const function collection
@@ -95,7 +95,8 @@
         player.volume = 0;
         player.play();
         playBtn.textContent = 'pause';
-    
+        document.querySelector('.ui').classList.add('ui-pulse');
+        document.querySelector('.ui').classList.remove('ui-pulse');
         // Quick fade in over 500ms
         let fadeIn = setInterval(() => {
            if (player.volume < volumeSlider.value) {
