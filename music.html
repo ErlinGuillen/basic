@@ -217,7 +217,7 @@
               <input type="range" id="seekBar" value="0" step="1">
               <div id="timeLabel" style="text-align: center; font-size: 0.8rem; opacity: 0.7;">0:00 / 0:00</div>
               <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1">
-              <pre style="text-align: center; margin-top: 20px; opacity: 0.5;">Build 32.4</pre>
+              <pre style="text-align: center; margin-top: 20px; opacity: 0.5;">Build 32.5</pre>
            </div>
         </div>
 
@@ -348,30 +348,17 @@
     let songQueue = [];
     
     fileInput.addEventListener('change', (e) => {
-      const files = Array.from(e.target.files);
-      
-      if (songQueue.length === 0) {
-         playlistList.innerHTML = '';
-      }
-      
-      files.forEach((file, index) => {
-        const newIndex = songQueue.length;
-        songQueue.push(file);
-        
-        // Create a visual row for each song
-        const songRow = document.createElement('div');
-        songRow.setAttribute('data-index', newIndex);
-        songRow.style.cssText = "padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); cursor: pointer; display: flex; justify-content: space-between;";
-        songRow.innerHTML = `<span>${newIndex + 1}. ${file.name}</span> <i class="fas fa-play-circle"></i>`;
-        
-        // Play song when clicked in playlist
-        songRow.onclick = () => playSong(newIndex);
-        playlistList.appendChild(songRow);
-      });
- 
-      if (player.paused && files.length > 0) {
-          playSong(songQueue.length - files.length); 
-      }
+        const files = Array.from(e.target.files);
+        if (songQueue.length === 0) playlistList.innerHTML = '';
+
+        files.forEach((file) => {
+            const newIndex = songQueue.length;
+            songQueue.push(file);
+            renderSongRow(file.name, newIndex);
+        });
+
+        const songNames = songQueue.map(f => f.name);
+        localStorage.setItem('savedPlaylist', JSON.stringify(songNames));
     });
     // window.addEventListener   
     window.addEventListener('keydown', (e) => {
@@ -389,6 +376,17 @@
           player.currentTime = Math.min(player.duration, player.currentTime + 5);
       }
     });
+    
+    window.addEventListener('load', () => {
+        const saved = localStorage.getItem('savedPlaylist');
+        if (saved) {
+            const names = JSON.parse(saved);
+            playlistList.innerHTML = '<p style="text-align:center; font-size:0.8rem; padding:10px; opacity:0.6;">Playlist loaded. Please re-upload files to play.</p>';
+            names.forEach((name, i) => {
+                renderSongRow(name, i);
+            });
+        }
+    });
     // function setTheme(gradient)
     const savedTheme = localStorage.getItem('savedTheme');
     if (savedTheme) {
@@ -403,41 +401,44 @@
 let currentPlayingIndex = 0;
 
 function playSong(index) {
-    // 1. Safety Check: Make sure the song exists
     if (index < 0 || index >= songQueue.length) return;
     
     currentPlayingIndex = index;
     const currentFile = songQueue[index];
     const url = URL.createObjectURL(currentFile);
     
-    // 2. Update the Player
     player.src = url;
     document.getElementById('songTitle').textContent = currentFile.name;
     document.getElementById('songTitle').classList.add('playing');
     document.getElementById('art').classList.add('rotating');
     document.querySelector('.ui').classList.add('ui-pulse');
     
-    // 3. Play and handle the promise to avoid AbortError
     player.play().then(() => {
         playBtn.textContent = 'pause';
     }).catch(error => {
         console.log("Playback interrupted, but that's okay!");
     });
 
-    // 4. Update the Playlist Highlight
     const allRows = playlistList.querySelectorAll('div');
     allRows.forEach((row, i) => {
         row.style.background = (i === index) ? 'rgba(255,255,255,0.2)' : 'none';
         row.style.borderLeft = (i === index) ? '4px solid #fff' : 'none';
     });
 
-    // 5. System Metadata (For Lock Screen)
     if ('mediaSession' in navigator) {
         navigator.mediaSession.metadata = new MediaMetadata({
             title: currentFile.name,
             artist: 'Music App',
             album: 'My Playlist'
         });
+    }
+  
+    function renderSongRow(name, index) {
+        const songRow = document.createElement('div');
+        songRow.style.cssText = "padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); cursor: pointer; display: flex; justify-content: space-between;";
+        songRow.innerHTML = `<span>${index + 1}. ${name}</span> <i class="fas fa-play-circle"></i>`;
+        songRow.onclick = () => playSong(index);
+        playlistList.appendChild(songRow);
     }
 }
 </script>
