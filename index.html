@@ -29,9 +29,7 @@ body {
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     display: flex;
     overflow: hidden;
-   }
-
-        /* Vertical Tab Navigation */
+    }
         .tabs-nav {
             width: 200px;
             background: rgba(0, 0, 0, 0.1);
@@ -69,7 +67,6 @@ body {
             justify-content: flex-start; 
             text-align: left;
         }
-
         .tab-content {
             display: none;
         }
@@ -77,12 +74,10 @@ body {
             display: block;
             animation: fadeIn 0.4s ease;
         }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
         .status-btn {
             display: inline-block;
             margin-top: 20px;
@@ -98,6 +93,53 @@ body {
             background: white;
             color: #764ba2;
         }
+    .changelog-container {
+        margin-top: 20px;
+        max-height: 300px;
+        overflow-y: auto;
+        padding-right: 10px;
+    }
+    .log-entry {
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .version-tag {
+        background: #fff;
+        color: #764ba2;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-weight: bold;
+        font-size: 0.8rem;
+        margin-right: 10px;
+    }
+
+    .date {
+        font-size: 0.8rem;
+        opacity: 0.5;
+    }
+
+    .log-entry ul {
+        margin-top: 10px;
+        padding-left: 20px;
+        list-style-type: none;
+    }
+    .log-entry li {
+        margin-bottom: 5px;
+        font-size: 0.95rem;
+        position: relative;
+    }
+    .log-entry li::before {
+        content: "•";
+        color: #fff;
+        position: absolute;
+        left: -15px;
+    }
+
+    .opacity-low {
+        opacity: 0.5;
+    }
     </style>
 </head>
 <body>
@@ -117,13 +159,34 @@ body {
                 <p>Interactive players and audio visualizers built with Web Audio API.</p>
                 <a href="music.html" class="status-btn">Launch Experience</a>
             </div>
-            <div id="version" class="tab-content">
-                <h2>Version</h2>
-                <p>Build 2</p>
-            </div>
+<div id="version" class="tab-content">
+    <h2>Changelog</h2>
+    <div class="changelog-container">
+        <div class="log-entry">
+            <span class="version-tag">Build 3</span>
+            <span class="date">April 2026</span>
+            <ul>
+                <li><strong>Added:</strong> New Changelog system to track project progress.</li>
+                <li><strong>Added:</strong> Vertical navigation tabs for better organization.</li>
+                <li><strong>Fixed:</strong> Viewport units (vw/vh) for true full-screen layout.</li>
+            </ul>
+        </div>
+        <div class="log-entry">
+            <span class="version-tag">Build 2</span>
+            <ul>
+                <li><strong>Added:</strong> Glassmorphism UI (frosted glass effect).</li>
+                <li><strong>Added:</strong> Modern linear gradient background.</li>
+                <li><strong>Link:</strong> Connected "Enter Music" button to music player.</li>
+            </ul>
+        </div>
+        <div class="log-entry">
+            <span class="version-tag opacity-low">Build 1</span>
+            <ul>
+                <li><strong>Initial:</strong> Basic HTML/CSS landing page structure.</li>
+            </ul>
         </div>
     </div>
-
+</div>
     <script>
         function openTab(evt, tabName) {
             let contents = document.getElementsByClassName("tab-content");
@@ -140,5 +203,8 @@ body {
             evt.currentTarget.classList.add("active");
         }
     </script>
-</body>
+  </body>
 </html>
+
+
+            
