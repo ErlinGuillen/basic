@@ -270,11 +270,13 @@
     });
     // volumeSlider.addEventListener
     const savedVolume = localStorage.getItem('savedVolume');
+    
     if (savedVolume !== null) {
       player.volume = savedVolume;
       volumeSlider.value = savedVolume;
       volumeSlider.style.setProperty('--vol-progress', `${savedVolume * 100}%`);
     }
+    
     volumeSlider.addEventListener('input', (e) => {
       player.volume = e.target.value;
       const volPercentage = e.target.value * 100;
@@ -379,12 +381,10 @@
           playBtn.click();
       }
     
-      // Left Arrow to seek back 5 seconds
       if (e.code === 'ArrowLeft') {
           player.currentTime = Math.max(0, player.currentTime - 5);
       }
     
-      // Right Arrow to seek forward 5 seconds
       if (e.code === 'ArrowRight') {
           player.currentTime = Math.min(player.duration, player.currentTime + 5);
       }
@@ -413,7 +413,6 @@
         playBtn.textContent = 'pause';
         player.play();
 
-        // Update System Media Metadata
         if ('mediaSession' in navigator) {
             navigator.mediaSession.metadata = new MediaMetadata({
                 title: currentFile.name,
@@ -421,6 +420,21 @@
                 album: 'My Playlist'
             });
         }
+      
+        if (index >= 0 && index < songQueue.length) {
+           const file = songQueue[index];
+           const url = URL.createObjectURL(file); // This creates a temporary link to the file
+        
+           player.src = url;
+           songTitle.textContent = file.name;
+           player.play();
+           playBtn.textContent = 'pause';
+        
+           player.onended = () => {
+               URL.revokeObjectURL(url); 
+               if (index + 1 < songQueue.length) playSong(index + 1);
+           };
+       }
     }
   
     let currentPlayingIndex = 0;
