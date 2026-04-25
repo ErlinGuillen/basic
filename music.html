@@ -440,18 +440,6 @@ function playSong(index) {
         });
     }
 }
-
-    const originalPlay = playSong;
-    playSong = function(index) {
-        currentPlayingIndex = index;
-        originalPlay(index);
-    
-        const allRows = playlistList.querySelectorAll('div');
-        allRows.forEach((row, i) => {
-            row.style.background = (i === index) ? 'rgba(255,255,255,0.2)' : 'none';
-            row.style.borderLeft = (i === index) ? '4px solid #fff' : 'none';
-        });
-    };
-  </script>
- </body>
+</script>
+</body>
 </html>
