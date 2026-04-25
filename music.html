@@ -351,16 +351,16 @@
       }
       
       files.forEach((file, index) => {
-        const index = songQueue.length;
+        const newIndex = songQueue.length;
         songQueue.push(file);
         
         // Create a visual row for each song
         const songRow = document.createElement('div');
         songRow.style.cssText = "padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); cursor: pointer; display: flex; justify-content: space-between;";
-        songRow.innerHTML = `<span>${index + 1}. ${file.name}</span> <i class="fas fa-play-circle"></i>`;
+        songRow.innerHTML = `<span>${newIndex + 1}. ${file.name}</span> <i class="fas fa-play-circle"></i>`;
         
         // Play song when clicked in playlist
-        songRow.onclick = () => playSong(index);
+        songRow.onclick = () => playSong(newIndex);
         playlistList.appendChild(songRow);
       });
  
