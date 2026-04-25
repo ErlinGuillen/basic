@@ -359,7 +359,8 @@
 
         const songNames = songQueue.map(f => f.name);
         localStorage.setItem('savedPlaylist', JSON.stringify(songNames));
-
+    });
+  
         function renderSongRow(name, index) {
             const songRow = document.createElement('div');
             songRow.style.cssText = "padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); cursor: pointer; display: flex; justify-content: space-between; align-items: center;";
@@ -368,7 +369,6 @@
             songRow.onclick = () => playSong(index);
             playlistList.appendChild(songRow);
         }
-    });
     // window.addEventListener   
     window.addEventListener('keydown', (e) => {
       // Spacebar to Play/Pause
