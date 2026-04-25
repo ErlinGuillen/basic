@@ -11,72 +11,144 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            text-align: center;
-		    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-		
+            min-height: 100 vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
         }
 
         .wrapper {
-           background: rgba(255, 255, 255, 0.2); 
-		   backdrop-filter: blur(10px); 
-		   -webkit-backdrop-filter: blur(10px); 
-		   padding: 30px; width: 400px;
-		   border-radius: 20px; 
-		   border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); color: white;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            width: 700px;
+            height: 400px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            display: flex;
+            overflow: hidden;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
+        /* Vertical Tab Navigation */
+        .tabs-nav {
+            width: 200px;
+            background: rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            padding: 20px 0;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        p {
-            font-size: 1.1rem;
+        .tab-btn {
+            background: none;
+            border: none;
+            color: white;
+            padding: 15px 25px;
+            text-align: left;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            opacity: 0.6;
+        }
+
+        .tab-btn:hover {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .tab-btn.active {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.2);
+            font-weight: bold;
+            border-left: 4px solid #fff;
+        }
+
+        /* Content Area */
+        .content-area {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .status-btn {
             display: inline-block;
             margin-top: 20px;
             color: white;
-            font-size: 0.9rem;
-            font-weight: bold;
-			background: rgba(255, 255, 255, 0.1); 
-			border: 1px solid rgba(255, 255, 255, 0.3); 
-			padding: 8px 16px; 
-			border-radius: 10px; cursor: pointer; 
-			transition: 0.3s;
-			margin-right: 10px;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 20px;
+            border-radius: 12px;
+            transition: 0.3s;
         }
 
-		.status-btn:hover { 
-		    background: rgba(255, 255, 255, 0.2); 
-		}
- 
-        footer {
-            margin-top: 30px;
-            font-family: monospace;
-            color: #484f58;
+        .status-btn:hover {
+            background: white;
+            color: #764ba2;
         }
     </style>
 </head>
 <body>
 
     <div class="wrapper">
-        <nav></nav>
-        <header>
-            <h1>Erlin Guillen</h1>
-        </header>
-        
-        <main>
-            <p>Welcome to my basic homepage. I build music players, audio visualizers, and creative edits.</p>
-            <a href="music.html" class="status-btn">Enter Music Experience</a>
-        </main>
+        <div class="tabs-nav">
+            <button class="tab-btn active" onclick="openTab(event, 'home')">Home</button>
+            <button class="tab-btn" onclick="openTab(event, 'music')">Music</button>
+            <button class="tab-btn" onclick="openTab(event, 'edits')">Creative Edits</button>
+        </div>
 
-        <footer>
-            <pre style="color:white">Build 2</pre>
-        </footer>
+        <div class="content-area">
+            <div id="home" class="tab-content active">
+                <h1>Erlin Guillen</h1>
+                <p>Welcome to my portfolio. Use the tabs on the left to explore my latest builds and projects.</p>
+            </div>
+
+            <div id="music" class="tab-content">
+                <h2>Music Player</h2>
+                <p>Interactive players and audio visualizers built with Web Audio API.</p>
+                <a href="music.html" class="status-btn">Launch Experience</a>
+            </div>
+
+            <div id="edits" class="tab-content">
+                <h2>Creative Edits</h2>
+                <p>Dance edits and motion design projects created with Alight Motion.</p>
+                <a href="#" class="status-btn">View Gallery</a>
+            </div>
+        </div>
     </div>
 
+    <script>
+        function openTab(evt, tabName) {
+            let contents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < contents.length; i++) {
+                contents[i].classList.remove("active");
+            }
+
+            let buttons = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove("active");
+            }
+
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
 </body>
 </html>
