@@ -201,22 +201,26 @@
         </div>
     </div>
     <div class="content-area">
-        <div class="ui">
-            <h1 style="text-align: center;">🎵 Music App</h1>
+        <div class="ui" id="player-view">
+            <h1 style="text-align: center;">🎵 Music Player</h1>
             <div class="album-art" id="art">🎵</div>
             <div id="songTitle">No song selected</div>
-            <input type="file" id="fileInput" accept="audio/*">
-            <audio id="player"></audio>
+            <input type="file" id="fileInput" accept="audio/*" multiple> <audio id="player"></audio>
             <div class="controls">
                 <button id="playBtn" class="material-symbols-rounded">play_arrow</button>
                 <input type="range" id="seekBar" value="0" step="1">
                 <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1">
-                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-top: 5px;">
-                    <span id="muteBtn" class="material-symbols-rounded" style="cursor: pointer; font-size: 22px;">volume_up</span>
-                    <span id="timeLabel" style="font-size: 14px; font-family: monospace;">0:00 / 0:00</span>
-                    <button id="speedBtn" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; border-radius: 5px; cursor: pointer; padding: 4px 10px; font-size: 12px;">1x</button>
-                </div>
             </div>
+        </div>
+
+        <div class="ui" id="playlist-view" style="display: none;">
+            <h1 style="text-align: center;">📜 Your Queue</h1>
+            <div id="playlist-list" style="margin-top: 20px; max-height: 300px; overflow-y: auto;">
+            <p style="text-align: center; opacity: 0.5;">Upload songs to see them here.</p>
+            </div>
+        </div>
+    </div>
+          
             <pre style="text-align: center; margin-top: 20px; opacity: 0.5;">Build 30.7</pre>
         </div>
     </div>
@@ -231,6 +235,10 @@
     const seekBar = document.getElementById('seekBar');
     const muteBtn = document.getElementById('muteBtn');
     const speedBtn = document.getElementById('speedBtn');
+    const playerView = document.getElementById('player-view');
+    const playlistView = document.getElementById('playlist-view');
+    const playlistList = document.getElementById('playlist-list');
+    const tabs = document.querySelectorAll('.tab-btn');
     // playBtn.addEventListener
     playBtn.addEventListener('click', () => {
         const uiContainer = document.querySelector('.ui'); // Get the UI container
@@ -313,9 +321,41 @@
        player.playbackRate = newSpeed;
        speedBtn.textContent = newSpeed + 'x';
     });
-    // fileInput.addEventListener   
+    // fileInput.addEventListener 
+
+    tabs[2].addEventListener('click', () => { // Playlist Button
+      playerView.style.display = 'none';
+      playlistView.style.display = 'block';
+      tabs[2].classList.add('active');
+      tabs[1].classList.remove('active');
+    });
+
+    tabs[1].addEventListener('click', () => { // Player Button
+      playlistView.style.display = 'none';
+      playerView.style.display = 'block';
+      tabs[1].classList.add('active');
+      tabs[2].classList.remove('active');
+    });
+    
+    let songQueue = [];
+    
     fileInput.addEventListener('change', (e) => {
       const file = e.target.files[0];
+      playlistList.innerHTML = '';
+      
+      files.forEach((file, index) => {
+        songQueue.push(file);
+        
+        // Create a visual row for each song
+        const songRow = document.createElement('div');
+        songRow.style.cssText = "padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); cursor: pointer; display: flex; justify-content: space-between;";
+        songRow.innerHTML = `<span>${index + 1}. ${file.name}</span> <i class="fas fa-play-circle"></i>`;
+        
+        // Play song when clicked in playlist
+        songRow.onclick = () => playSong(index);
+        playlistList.appendChild(songRow);
+      });
+                    
       if (file) {
         document.getElementById('songTitle').textContent = file.name;
         document.getElementById('songTitle').classList.add('playing');
@@ -366,6 +406,18 @@
     function setTheme(gradient) {
       document.body.style.background = gradient;
       localStorage.setItem('savedTheme', gradient);
+    }
+      
+    // function playSong(index)
+    function playSong(index) {
+      const file = songQueue[index];
+      document.getElementById('songTitle').textContent = file.name;
+      player.src = URL.createObjectURL(file);
+      player.play();
+      playBtn.textContent = 'pause';
+    
+      // Switch back to player view to see it playing
+      tabs[1].click(); 
     }
   </script>
 </body>
