@@ -217,7 +217,7 @@
               <input type="range" id="seekBar" value="0" step="1">
               <div id="timeLabel" style="text-align: center; font-size: 0.8rem; opacity: 0.7;">0:00 / 0:00</div>
               <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1">
-              <pre style="text-align: center; margin-top: 20px; opacity: 0.5;">Build 31.4</pre>
+              <pre style="text-align: center; margin-top: 20px; opacity: 0.5;">Build 32.1</pre>
            </div>
         </div>
 
@@ -282,32 +282,34 @@
       localStorage.setItem('savedVolume', e.target.value);
     });
     // seekBar.addEventListener collection
-    // 1. When the song is ready, set the slider max to the song duration
     player.addEventListener('loadedmetadata', () => {
       seekBar.max = Math.floor(player.duration);
     });
-    // 2. Update the slider as the song plays (Add this inside your existing timeupdate listener)
     player.addEventListener('timeupdate', () => { 
-     // 1. Update Seek Bar position
       seekBar.value = Math.floor(player.currentTime);
-      // 2. Update Progress Gradient
       const percentage = (player.currentTime / player.duration) * 100;
       seekBar.style.setProperty('--progress', `${percentage}%`);
-      // 3. Update Time Label
+      
       const formatTime = (time) => {
         const min = Math.floor(time / 60);
         const sec = Math.floor(time % 60).toString().padStart(2, '0');
         return `${min}:${sec}`;
       };
+      
       const current = formatTime(player.currentTime);
       const total = isNaN(player.duration) ? "0:00" : formatTime(player.duration);
       timeLabel.textContent = `${current} / ${total}`;
+    });
+    player.addEventListener('ended', () => {
+        if (currentPlayingIndex + 1 < songQueue.length) {
+            playSong(currentPlayingIndex + 1);
+        }
     });
     // 3. Seek to a new time when the user moves the slider
     seekBar.addEventListener('input', (e) => {
       player.currentTime = e.target.value;
     });
-    // MuteBtn.addEventListener   
+c   
     muteBtn.addEventListener('click', () => {
       player.muted = !player.muted;
       muteBtn.textContent = player.muted ? 'volume_off' : 'volume_up';
@@ -356,6 +358,7 @@
         
         // Create a visual row for each song
         const songRow = document.createElement('div');
+        songRow.setAttribute('data-index', newIndex);
         songRow.style.cssText = "padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); cursor: pointer; display: flex; justify-content: space-between;";
         songRow.innerHTML = `<span>${newIndex + 1}. ${file.name}</span> <i class="fas fa-play-circle"></i>`;
         
@@ -419,6 +422,20 @@
             });
         }
     }
+  
+    let currentPlayingIndex = 0;
+
+    const originalPlay = playSong;
+    playSong = function(index) {
+        currentPlayingIndex = index;
+        originalPlay(index);
+    
+        const allRows = playlistList.querySelectorAll('div');
+        allRows.forEach((row, i) => {
+            row.style.background = (i === index) ? 'rgba(255,255,255,0.2)' : 'none';
+            row.style.borderLeft = (i === index) ? '4px solid #fff' : 'none';
+        });
+    };
   </script>
  </body>
 </html>
