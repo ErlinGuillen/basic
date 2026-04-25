@@ -399,45 +399,47 @@
       document.body.style.background = gradient;
       localStorage.setItem('savedTheme', gradient);
     }
+// function playSong(index)
+let currentPlayingIndex = 0;
 
-    // function playSong(index)
-    function playSong(index) {
-        const currentFile = songQueue[index]; // Define the file here!
-        const titleElement = document.getElementById('songTitle');
+function playSong(index) {
+    // 1. Safety Check: Make sure the song exists
+    if (index < 0 || index >= songQueue.length) return;
     
-        titleElement.textContent = currentFile.name;
-        titleElement.classList.add('playing');
+    currentPlayingIndex = index;
+    const currentFile = songQueue[index];
+    const url = URL.createObjectURL(currentFile);
     
-        const url = URL.createObjectURL(currentFile);
-        player.src = url;
+    // 2. Update the Player
+    player.src = url;
+    document.getElementById('songTitle').textContent = currentFile.name;
+    document.getElementById('songTitle').classList.add('playing');
+    document.getElementById('art').classList.add('rotating');
+    document.querySelector('.ui').classList.add('ui-pulse');
+    
+    // 3. Play and handle the promise to avoid AbortError
+    player.play().then(() => {
         playBtn.textContent = 'pause';
-        player.play();
+    }).catch(error => {
+        console.log("Playback interrupted, but that's okay!");
+    });
 
-        if ('mediaSession' in navigator) {
-            navigator.mediaSession.metadata = new MediaMetadata({
-                title: currentFile.name,
-                artist: 'Music App',
-                album: 'My Playlist'
-            });
-        }
-      
-        if (index >= 0 && index < songQueue.length) {
-           const file = songQueue[index];
-           const url = URL.createObjectURL(file); // This creates a temporary link to the file
-        
-           player.src = url;
-           songTitle.textContent = file.name;
-           player.play();
-           playBtn.textContent = 'pause';
-        
-           player.onended = () => {
-               URL.revokeObjectURL(url); 
-               if (index + 1 < songQueue.length) playSong(index + 1);
-           };
-       }
+    // 4. Update the Playlist Highlight
+    const allRows = playlistList.querySelectorAll('div');
+    allRows.forEach((row, i) => {
+        row.style.background = (i === index) ? 'rgba(255,255,255,0.2)' : 'none';
+        row.style.borderLeft = (i === index) ? '4px solid #fff' : 'none';
+    });
+
+    // 5. System Metadata (For Lock Screen)
+    if ('mediaSession' in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata({
+            title: currentFile.name,
+            artist: 'Music App',
+            album: 'My Playlist'
+        });
     }
-  
-    let currentPlayingIndex = 0;
+}
 
     const originalPlay = playSong;
     playSong = function(index) {
