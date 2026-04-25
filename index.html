@@ -40,17 +40,21 @@ body {
             padding: 20px 0;
             border-right: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .tab-btn {
-            background: none;
-            border: none;
-            color: white;
-            padding: 15px 25px;
-            text-align: left;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.3s;
-            opacity: 0.6;
-        }
+       .tab-btn {
+           background: none;
+           border: none;
+           color: white;
+           padding: 15px 25px;
+           text-align: left;
+           width: 100%;
+           cursor: pointer;
+           opacity: 0.6;
+           transition: 0.3s;
+           font-size: 1rem;
+           display: flex;
+           align-items: center;
+           gap: 12px;
+       }
         .tab-btn:hover {
             opacity: 1;
             background: rgba(255, 255, 255, 0.1);
@@ -156,6 +160,7 @@ body {
 .social-links {
     display: flex;
     justify-content: space-around;
+    gap: 20px;
     padding: 20px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -177,16 +182,22 @@ body {
 <body>
     <div class="wrapper">
     <div class="tabs-nav">
-        <div class="main-tabs">
-            <button class="tab-btn active" onclick="openTab(event, 'home')">Home</button>
-            <button class="tab-btn" onclick="openTab(event, 'music')">Music</button>
-            <button class="tab-btn" onclick="openTab(event, 'version')">Version</button>
-        </div>
-        <div class="social-links">
-            <a href="https://github.com/ErlinGuillen" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-            <a href="#" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
-            <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-        </div>
+      <div class="main-tabs">
+        <button class="tab-btn active" onclick="openTab(event, 'home')">
+            <i class="fas fa-home"></i> Home
+        </button>
+        <button class="tab-btn" onclick="openTab(event, 'music')">
+            <i class="fas fa-music"></i> Music
+        </button>
+        <button class="tab-btn" onclick="openTab(event, 'version')">
+            <i class="fas fa-code-branch"></i> Version
+        </button>
+      </div>
+    <div class="social-links">
+        <a href="https://github.com/ErlinGuillen" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="#" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    </div>
     </div>
         <div class="content-area">
             <div id="home" class="tab-content active">
@@ -198,7 +209,7 @@ body {
                 <p>Interactive players and audio visualizers built with Web Audio API.</p>
                 <a href="music.html" class="status-btn">Launch Experience</a>
             </div>
-<div id="version" class="tab-content">
+            <div id="version" class="tab-content">
     <h2>Changelog</h2>
     <div class="changelog-container">
         <div class="log-entry">
