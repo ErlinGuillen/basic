@@ -29,7 +29,7 @@ body {
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     display: flex;
     overflow: hidden;
-}
+   }
 
         /* Vertical Tab Navigation */
         .tabs-nav {
@@ -40,7 +40,6 @@ body {
             padding: 20px 0;
             border-right: 1px solid rgba(255, 255, 255, 0.1);
         }
-
         .tab-btn {
             background: none;
             border: none;
@@ -52,33 +51,28 @@ body {
             transition: 0.3s;
             opacity: 0.6;
         }
-
         .tab-btn:hover {
             opacity: 1;
             background: rgba(255, 255, 255, 0.1);
         }
-
         .tab-btn.active {
             opacity: 1;
             background: rgba(255, 255, 255, 0.2);
             font-weight: bold;
             border-left: 4px solid #fff;
         }
-
-        /* Content Area */
         .content-area {
             flex: 1;
-            padding: 60px; /* Increased padding for the bigger screen */
+            padding: 60px; 
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; /* Aligns content to the top */
+            justify-content: flex-start; 
             text-align: left;
         }
 
         .tab-content {
             display: none;
         }
-
         .tab-content.active {
             display: block;
             animation: fadeIn 0.4s ease;
@@ -100,7 +94,6 @@ body {
             border-radius: 12px;
             transition: 0.3s;
         }
-
         .status-btn:hover {
             background: white;
             color: #764ba2;
@@ -108,26 +101,22 @@ body {
     </style>
 </head>
 <body>
-
     <div class="wrapper">
         <div class="tabs-nav">
             <button class="tab-btn active" onclick="openTab(event, 'home')">Home</button>
             <button class="tab-btn" onclick="openTab(event, 'music')">Music</button>
             <button class="tab-btn" onclick="openTab(event, 'version')">Version</button>
         </div>
-
         <div class="content-area">
             <div id="home" class="tab-content active">
                 <h1>Erlin Guillen</h1>
                 <p>Welcome to my portfolio. Use the tabs on the left to explore my latest builds and projects.</p>
             </div>
-
             <div id="music" class="tab-content">
                 <h2>Music Player</h2>
                 <p>Interactive players and audio visualizers built with Web Audio API.</p>
                 <a href="music.html" class="status-btn">Launch Experience</a>
             </div>
-
             <div id="version" class="tab-content">
                 <h2>Version</h2>
                 <p>Build 2</p>
