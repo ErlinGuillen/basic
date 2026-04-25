@@ -6,13 +6,10 @@
   <title>Music App</title>
   <style>
   @keyframes pulse { 0% { opacity: 0.8; } 50% { opacity: 1; transform: scale(1.02); } 100% { opacity: 0.8; } }
-  
   input[type="range"] { -webkit-appearance: none; width: 100%; background: rgba(255, 255, 255, 0.1); border-radius: 10px; height: 6px; outline: none; }
   input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 15px; height: 15px; background: white; border-radius: 50%; cursor: pointer; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); }
-
   input[type="file"]::file-selector-button { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3); color: white; padding: 8px 16px; border-radius: 10px; cursor: pointer; transition: 0.3s; margin-right: 10px; }
   input[type="file"]::file-selector-button:hover { background: rgba(255, 255, 255, 0.2); }
-    
   body {
       margin: 0;
       display: flex;
@@ -22,33 +19,21 @@
       height: 100vh;
       overflow: hidden; /* Important for the app feel */
   }
-
-  .ui { background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 30px; width: 400px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); color: white; }
-
   .controls { margin-top: 20px; display: flex; flex-direction: column; gap: 15px; padding: 10px; }
-
   .playing { animation: pulse 2s infinite ease-in-out; color: #fff; }
-
   .theme-dot { transition: transform 0.2s, border-width 0.2s; }
   .theme-dot:hover { transform: scale(1.3); border-width: 2px !important; }
-
   #playBtn { background: white; border-radius: 50px; cursor: pointer; transition: transform 0.2s; }
-  #playBtn:hover { transform: scale(1.1); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-    
+  #playBtn:hover { transform: scale(1.1); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }  
   #seekBar { flex-grow: 1; cursor: pointer; background: linear-gradient(to right, #fff 0%, #fff var(--progress, 0%), rgba(255, 255, 255, 0.1) var(--progress, 0%), rgba(255, 255, 255, 0.1) 100%); }
-
   #timeLabel { margin-top: 5px; }
-
   #volumeSlider { background: linear-gradient(to right, #fff 0%, #fff var(--vol-progress, 100%), rgba(255, 255, 255, 0.1) var(--vol-progress, 100%), rgba(255, 255, 255, 0.1) 100%); }
-
   #songTitle { text-align: center; margin-bottom: 10px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
-
   @keyframes glass-pulse {
     0% { transform: scale(1); box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37); }
     50% { transform: scale(1.02); box-shadow: 0 8px 32px rgba(31, 38, 135, 0.6); }
     100% { transform: scale(1); box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37); }
   }
-
   .ui-pulse {
      animation: glass-pulse 2s infinite ease-in-out;
   }
@@ -56,7 +41,6 @@
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
   }
-
   .album-art {
     width: 120px;
     height: 120px;
@@ -69,11 +53,9 @@
     border: 2px solid rgba(255, 255, 255, 0.3);
     font-size: 50px;
   }
-
   .rotating {
      animation: rotate 5s linear infinite;
-  }
-    
+  } 
 .wrapper {
     display: flex;
     width: 95vw;
@@ -85,7 +67,14 @@
     border: 1px solid rgba(255, 255, 255, 0.2);
     overflow: hidden;
 }
-
+.content-area {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+}
 .tabs-nav {
     width: 200px;
     background: rgba(0, 0, 0, 0.2);
@@ -95,12 +84,37 @@
     padding: 20px 0;
     border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
-
-.content-area {
-    flex: 1;
+.tab-btn {
+    background: none;
+    border: none;
+    color: white;
+    padding: 15px 25px;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: 0.3s;
+    font-size: 1rem;
     display: flex;
-    justify-content: center;
     align-items: center;
+    gap: 12px;
+}
+.tab-btn:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.1);
+}
+.tab-btn.active {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.15);
+    border-left: 4px solid #fff;
+    font-weight: bold;
+}
+.ui {
+    width: 100%;
+    max-width: 450px; /* Bigger for the new layout */
+    background: rgba(255, 255, 255, 0.15);
+    padding: 40px;
+    border-radius: 30px;
 }
 </style>
 </head>
@@ -112,28 +126,23 @@
             <button class="tab-btn active"><i class="fas fa-play"></i> Player</button>
             <button class="tab-btn"><i class="fas fa-list"></i> Playlist</button>
         </div>
-        
         <div class="social-links" style="flex-direction: row; gap: 10px;">
             <div class="theme-dot" onclick="setTheme('linear-gradient(135deg, #667eea 0%, #764ba2 100%)')" style="background: #764ba2; width: 15px; height: 15px; border-radius: 50%; cursor: pointer; border: 1px solid white;"></div>
             <div class="theme-dot" onclick="setTheme('linear-gradient(135deg, #2af598 0%, #009efd 100%)')" style="background: #009efd; width: 15px; height: 15px; border-radius: 50%; cursor: pointer; border: 1px solid white;"></div>
             <div class="theme-dot" onclick="setTheme('linear-gradient(135deg, #f093fb 0%, #f5576c 100%)')" style="background: #f5576c; width: 15px; height: 15px; border-radius: 50%; cursor: pointer; border: 1px solid white;"></div>
         </div>
     </div>
-
     <div class="content-area">
         <div class="ui">
             <h1 style="text-align: center;">🎵 Music App</h1>
             <div class="album-art" id="art">🎵</div>
             <div id="songTitle">No song selected</div>
-            
             <input type="file" id="fileInput" accept="audio/*">
             <audio id="player"></audio>
-
             <div class="controls">
                 <button id="playBtn" class="material-symbols-rounded">play_arrow</button>
                 <input type="range" id="seekBar" value="0" step="1">
                 <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1">
-                
                 <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-top: 5px;">
                     <span id="muteBtn" class="material-symbols-rounded" style="cursor: pointer; font-size: 22px;">volume_up</span>
                     <span id="timeLabel" style="font-size: 14px; font-family: monospace;">0:00 / 0:00</span>
@@ -154,7 +163,6 @@
     const seekBar = document.getElementById('seekBar');
     const muteBtn = document.getElementById('muteBtn');
     const speedBtn = document.getElementById('speedBtn');
-    
     // playBtn.addEventListener
     playBtn.addEventListener('click', () => {
         const uiContainer = document.querySelector('.ui'); // Get the UI container
@@ -181,7 +189,6 @@
             document.getElementById('art').classList.remove('rotating');
         }
     });
-    
     // volumeSlider.addEventListener
     const savedVolume = localStorage.getItem('savedVolume');
     if (savedVolume !== null) {
@@ -189,14 +196,12 @@
       volumeSlider.value = savedVolume;
       volumeSlider.style.setProperty('--vol-progress', `${savedVolume * 100}%`);
     }
-    
     volumeSlider.addEventListener('input', (e) => {
       player.volume = e.target.value;
       const volPercentage = e.target.value * 100;
       volumeSlider.style.setProperty('--vol-progress', `${volPercentage}%`);
       localStorage.setItem('savedVolume', e.target.value);
     });
-    
     // seekBar.addEventListener collection
     // 1. When the song is ready, set the slider max to the song duration
     player.addEventListener('loadedmetadata', () => {
@@ -223,7 +228,6 @@
     seekBar.addEventListener('input', (e) => {
       player.currentTime = e.target.value;
     });
-    
     // MuteBtn.addEventListener   
     muteBtn.addEventListener('click', () => {
       player.muted = !player.muted;
@@ -231,7 +235,6 @@
       // Visual feedback: dim the slider if muted
       volumeSlider.style.opacity = player.muted ? '0.5' : '1';
     });
-    
     // speedBtn.addEventListener   
     const speeds = [1, 1.5, 2, 0.5];
     let currentSpeedIndex = 0;
@@ -242,7 +245,6 @@
        player.playbackRate = newSpeed;
        speedBtn.textContent = newSpeed + 'x';
     });
-
     // fileInput.addEventListener   
     fileInput.addEventListener('change', (e) => {
       const file = e.target.files[0];
@@ -269,7 +271,6 @@
         navigator.mediaSession.setActionHandler('seekforward', () => player.currentTime += 5);
       }
     });
-
     // window.addEventListener   
     window.addEventListener('keydown', (e) => {
       // Spacebar to Play/Pause
@@ -288,7 +289,6 @@
           player.currentTime = Math.min(player.duration, player.currentTime + 5);
       }
     });
-
     // function setTheme(gradient)
     const savedTheme = localStorage.getItem('savedTheme');
     if (savedTheme) {
