@@ -217,6 +217,7 @@
               <input type="range" id="seekBar" value="0" step="1">
               <div id="timeLabel" style="text-align: center; font-size: 0.8rem; opacity: 0.7;">0:00 / 0:00</div>
               <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1">
+              <pre style="text-align: center; margin-top: 20px; opacity: 0.5;">Build 31.3</pre>
            </div>
         </div>
 
@@ -227,11 +228,6 @@
             </div>
         </div>
     </div>
-          
-            <pre style="text-align: center; margin-top: 20px; opacity: 0.5;">Build 31.1</pre>
-        </div>
-    </div>
-</div>
   <script>
     // const function collection
     const fileInput = document.getElementById('fileInput');
@@ -367,29 +363,6 @@
       if (files.length > 0) {
         playSong(0);
       }
-      
-      if (file) {
-        document.getElementById('songTitle').textContent = file.name;
-        document.getElementById('songTitle').classList.add('playing');
-        const url = URL.createObjectURL(file);
-        player.src = url;
-        playBtn.textContent = 'pause';
-        player.play();
-      }
-      // Update System Media Metadata
-      if ('mediaSession' in navigator) {
-        navigator.mediaSession.metadata = new MediaMetadata({
-          title: file.name,
-          artist: 'Music App',
-          album: 'My Playlist'
-        });
-
-        // Allow system buttons to control the app
-        navigator.mediaSession.setActionHandler('play', () => playBtn.click());
-        navigator.mediaSession.setActionHandler('pause', () => playBtn.click());
-        navigator.mediaSession.setActionHandler('seekbackward', () => player.currentTime -= 5);
-        navigator.mediaSession.setActionHandler('seekforward', () => player.currentTime += 5);
-      }
     });
     // window.addEventListener   
     window.addEventListener('keydown', (e) => {
@@ -419,20 +392,28 @@
       document.body.style.background = gradient;
       localStorage.setItem('savedTheme', gradient);
     }
-      
+
     // function playSong(index)
     function playSong(index) {
-       const file = songQueue[index];
-       document.getElementById('songTitle').textContent = file.name;
-       document.getElementById('songTitle').classList.add('playing');
+        const currentFile = songQueue[index]; // Define the file here!
+        const titleElement = document.getElementById('songTitle');
     
-       const url = URL.createObjectURL(file);
-       player.src = url;
-       player.play();
-       playBtn.textContent = 'pause';
+        titleElement.textContent = currentFile.name;
+        titleElement.classList.add('playing');
     
-       // Switch back to the Player tab so you can see the art
-       tabs[1].click(); 
+        const url = URL.createObjectURL(currentFile);
+        player.src = url;
+        playBtn.textContent = 'pause';
+        player.play();
+
+        // Update System Media Metadata
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.metadata = new MediaMetadata({
+                title: currentFile.name,
+                artist: 'Music App',
+                album: 'My Playlist'
+            });
+        }
     }
   </script>
 </body>
