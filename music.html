@@ -242,7 +242,6 @@
     const playerView = document.getElementById('player-view');
     const playlistView = document.getElementById('playlist-view');
     const playlistList = document.getElementById('playlist-list');
-    const tabs = document.querySelectorAll('.tab-btn');
     // playBtn.addEventListener
     playBtn.addEventListener('click', () => {
         const uiContainer = document.querySelector('.ui'); // Get the UI container
@@ -326,7 +325,8 @@
        speedBtn.textContent = newSpeed + 'x';
     });
     // fileInput.addEventListener 
-
+    const tabs = document.querySelectorAll('.tab-btn');
+    
     tabs[2].addEventListener('click', () => { // Playlist Button
       playerView.style.display = 'none';
       playlistView.style.display = 'block';
@@ -420,5 +420,5 @@
         }
     }
   </script>
-</body>
+ </body>
 </html>
