@@ -13,7 +13,15 @@
   input[type="file"]::file-selector-button { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3); color: white; padding: 8px 16px; border-radius: 10px; cursor: pointer; transition: 0.3s; margin-right: 10px; }
   input[type="file"]::file-selector-button:hover { background: rgba(255, 255, 255, 0.2); }
     
-  body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); height: 100vh; display: flex; justify-content: center; align-items: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+  body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden; /* Important for the app feel */
+  }
 
   .ui { background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 30px; width: 400px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); color: white; }
 
@@ -65,41 +73,77 @@
   .rotating {
      animation: rotate 5s linear infinite;
   }
+    
+.wrapper {
+    display: flex;
+    width: 95vw;
+    height: 90vh;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+}
+
+.tabs-nav {
+    width: 200px;
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.content-area {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 </style>
 </head>
 <body>
- <!-- Structure --> 
-<div class="ui">
-  <h1 style="text-align: center;">🎵 Music App</h1>
-  <!-- MP3 -->  
-  <div class="album-art" id="art">🎵</div>
-  <div id="songTitle">
-    No song selected
-  </div>
-  <!-- Upload File -->  
-  <input type="file" id="fileInput" accept="audio/*">
-  <audio id="player"></audio>
-  <!-- Controls -->  
-  <div class="controls">
-      <button id="playBtn" class="material-symbols-rounded">play_arrow</button>
-      <input type="range" id="seekBar" value="0" step="1">
-      <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1">
-    
-      <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-top: 5px;">
-          <span id="muteBtn" class="material-symbols-rounded" style="cursor: pointer; font-size: 22px;">volume_up</span>
-          <span id="timeLabel" style="font-size: 14px; font-family: monospace;">0:00 / 0:00</span>
-          <button id="speedBtn" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; border-radius: 5px; cursor: pointer; padding: 4px 10px; font-size: 12px;">1x</button>
-      </div>
-  </div>
-  <!-- Themes --> 
-  <div style="display: flex; justify-content: center; gap: 10px; margin-top: 10px;">
-    <div class="theme-dot" onclick="setTheme('linear-gradient(135deg, #667eea 0%, #764ba2 100%)')" style="background: #764ba2; width: 15px; height: 15px; border-radius: 50%; cursor: pointer; border: 1px solid white;"></div>
-    <div class="theme-dot" onclick="setTheme('linear-gradient(135deg, #2af598 0%, #009efd 100%)')" style="background: #009efd; width: 15px; height: 15px; border-radius: 50%; cursor: pointer; border: 1px solid white;"></div>
-    <div class="theme-dot" onclick="setTheme('linear-gradient(135deg, #f093fb 0%, #f5576c 100%)')" style="background: #f5576c; width: 15px; height: 15px; border-radius: 50%; cursor: pointer; border: 1px solid white;"></div>
-  </div>
-  <!-- Version --> 
-  <pre style="text-align: center;">Build 29</pre>
-  </div>
+<div class="wrapper">
+    <div class="tabs-nav">
+        <div class="main-tabs">
+            <a href="index.html" class="tab-btn" style="text-decoration:none;"><i class="fas fa-home"></i> Home</a>
+            <button class="tab-btn active"><i class="fas fa-play"></i> Player</button>
+            <button class="tab-btn"><i class="fas fa-list"></i> Playlist</button>
+        </div>
+        
+        <div class="social-links" style="flex-direction: row; gap: 10px;">
+            <div class="theme-dot" onclick="setTheme('linear-gradient(135deg, #667eea 0%, #764ba2 100%)')" style="background: #764ba2; width: 15px; height: 15px; border-radius: 50%; cursor: pointer; border: 1px solid white;"></div>
+            <div class="theme-dot" onclick="setTheme('linear-gradient(135deg, #2af598 0%, #009efd 100%)')" style="background: #009efd; width: 15px; height: 15px; border-radius: 50%; cursor: pointer; border: 1px solid white;"></div>
+            <div class="theme-dot" onclick="setTheme('linear-gradient(135deg, #f093fb 0%, #f5576c 100%)')" style="background: #f5576c; width: 15px; height: 15px; border-radius: 50%; cursor: pointer; border: 1px solid white;"></div>
+        </div>
+    </div>
+
+    <div class="content-area">
+        <div class="ui">
+            <h1 style="text-align: center;">🎵 Music App</h1>
+            <div class="album-art" id="art">🎵</div>
+            <div id="songTitle">No song selected</div>
+            
+            <input type="file" id="fileInput" accept="audio/*">
+            <audio id="player"></audio>
+
+            <div class="controls">
+                <button id="playBtn" class="material-symbols-rounded">play_arrow</button>
+                <input type="range" id="seekBar" value="0" step="1">
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1">
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-top: 5px;">
+                    <span id="muteBtn" class="material-symbols-rounded" style="cursor: pointer; font-size: 22px;">volume_up</span>
+                    <span id="timeLabel" style="font-size: 14px; font-family: monospace;">0:00 / 0:00</span>
+                    <button id="speedBtn" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; border-radius: 5px; cursor: pointer; padding: 4px 10px; font-size: 12px;">1x</button>
+                </div>
+            </div>
+            <pre style="text-align: center; margin-top: 20px; opacity: 0.5;">Build 30</pre>
+        </div>
+    </div>
+</div>
   <script>
     // const function collection
     const fileInput = document.getElementById('fileInput');
