@@ -1,11 +1,11 @@
 const startBtn = document.getElementById('startBtn');
 const startMenu = document.getElementById('startMenu');
 
-// Initial state: Hidden
+// Set the initial state
 startMenu.style.display = 'none';
 
 startBtn.addEventListener('click', (e) => {
-    e.stopPropagation(); // Prevents immediate closing
+    e.stopPropagation(); // Stops the click from hitting the document
     if (startMenu.style.display === 'none') {
         startMenu.style.display = 'block';
     } else {
@@ -13,7 +13,7 @@ startBtn.addEventListener('click', (e) => {
     }
 });
 
-// Close menu if clicking outside on the "desktop"
+// Close the menu if you click the "Desktop" background
 document.addEventListener('click', (e) => {
     if (!startMenu.contains(e.target) && e.target !== startBtn) {
         startMenu.style.display = 'none';
