@@ -1,0 +1,43 @@
+.start-menu {
+    /* Glassmorphism core */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    width: 260px;
+    padding: 15px;
+    color: white;
+	position: fixed;
+    bottom: 20px; /* Moves it to the bottom */
+    left: 20px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.username { 
+	font-weight: 600; 
+	font-size: 14px; 
+}
+
+.status { 
+	font-size: 10px; 
+	opacity: 0.7; 
+}
+
+.divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 15px 0;
+}
+
+.menu-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
