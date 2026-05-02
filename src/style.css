@@ -1,5 +1,25 @@
 body {
-    background: url('your-wallpaper.jpg') no-repeat center center fixed;
+    background: url("../image/Forest.jpg") no-repeat center center fixed;
     background-size: cover;
     font-family: sans-serif;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.item:hover {
+    background: rgba(255, 255, 255, 0.15); /* Slightly brighter */
+    transform: translateX(5px);          
+    transition: all 0.3s ease;
+}
+
+.icon {
+    font-size: 18px;
 }
