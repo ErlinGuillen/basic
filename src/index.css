@@ -1,53 +1,43 @@
 .start-menu {
-    /* The Glass Effect */
-    background: rgba(255, 255, 255, 0.1); /* White with 10% opacity */
-    backdrop-filter: blur(15px);           /* The blur behind the card */
-    -webkit-backdrop-filter: blur(15px);
+    /* Glassmorphism core */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 15px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    /* Border and Shadow */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-top: 1px solid rgba(255, 255, 255, 0.4); /* Light reflect on top edge */
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
     
-    /* Positioning & Size */
-    width: 300px;
-    padding: 20px;
-    position: absolute;
-    bottom: 60px; /* Adjust based on your taskbar height */
-    left: 20px;
+    width: 260px;
+    padding: 15px;
     color: white;
 }
 
-.profile-section {
+.user-info {
     display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
+    flex-direction: column;
 }
 
-.avatar {
-    width: 35px;
-    height: 35px;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
+.username { 
+	font-weight: 600; 
+	font-size: 14px; 
 }
 
-.apps-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-top: 15px;
+.status { 
+	font-size: 10px; 
+	opacity: 0.7; 
 }
 
-.app-icon {
-    padding: 10px;
-    text-align: center;
-    font-size: 12px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    transition: 0.3s;
-    cursor: pointer;
+.divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 15px 0;
 }
 
-.app-icon:hover {
-    background: rgba(255, 255, 255, 0.2);
+.menu-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
