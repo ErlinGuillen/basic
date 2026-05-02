@@ -13,6 +13,7 @@
 	position: fixed;
     bottom: 20px; /* Moves it to the bottom */
     left: 20px;
+	z-index: 9998; /* Just below taskbar */
 }
 
 .user-info {
@@ -43,6 +44,7 @@
 }
 
 .taskbar {
+	z-index: 9999; /* High value to stay on top */
     position: fixed;
     bottom: 20px;
     left: 50%;
@@ -78,6 +80,16 @@
 .taskbar-item:hover {
     background: rgba(255, 255, 255, 0.2);
     transform: translateY(-5px); /* Gentle lift on hover */
+}
+
+.taskbar-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    width: 5px;
+    height: 5px;
+    background: white;
+    border-radius: 50%;
 }
 
 .taskbar-divider {
