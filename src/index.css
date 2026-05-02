@@ -11,9 +11,10 @@
     padding: 15px;
     color: white;
 	position: fixed;
-    bottom: 20px; /* Moves it to the bottom */
+    bottom: 80px; /* Space for the taskbar */
     left: 20px;
-	z-index: 9998; /* Just below taskbar */
+    z-index: 9999; /* Ensure it stays on top */
+    display: block;/* Just below taskbar */
 }
 
 .user-info {
