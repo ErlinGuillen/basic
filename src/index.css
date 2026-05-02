@@ -1,0 +1,53 @@
+.start-menu {
+    /* The Glass Effect */
+    background: rgba(255, 255, 255, 0.1); /* White with 10% opacity */
+    backdrop-filter: blur(15px);           /* The blur behind the card */
+    -webkit-backdrop-filter: blur(15px);
+    
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    
+    /* Positioning & Size */
+    width: 300px;
+    padding: 20px;
+    position: absolute;
+    bottom: 60px; /* Adjust based on your taskbar height */
+    left: 20px;
+    color: white;
+}
+
+.profile-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.avatar {
+    width: 35px;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+}
+
+.apps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.app-icon {
+    padding: 10px;
+    text-align: center;
+    font-size: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.app-icon:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
