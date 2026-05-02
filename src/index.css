@@ -3,16 +3,16 @@
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    
-    /* Border and Shadow */
     border: 1px solid rgba(255, 255, 255, 0.15);
-    border-top: 1px solid rgba(255, 255, 255, 0.4); /* Light reflect on top edge */
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 20px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    
     width: 260px;
     padding: 15px;
     color: white;
+	position: fixed;
+    bottom: 20px; /* Moves it to the bottom */
+    left: 20px;
 }
 
 .user-info {

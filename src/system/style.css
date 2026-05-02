@@ -15,8 +15,10 @@ body {
 }
 
 .item:hover {
-    background: rgba(255, 255, 255, 0.15);
-    transform: translateX(5px); /* Slight slide effect on hover */
+    background: rgba(255, 255, 255, 0.2); /* Slightly brighter */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
 }
 
 .icon {
