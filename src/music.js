@@ -3,6 +3,9 @@ const musicWindow = document.getElementById('musicWindow');
 const closeMusic = document.getElementById('closeMusic');
 const menu = document.getElementById('startMenu');
 const header = musicWindow.querySelector('.window-header');
+const musicWindow = document.getElementById('musicWindow');
+const playBtn = document.getElementById('mainPlayBtn');
+const audio = document.getElementById('audioPlayer');
 
 musicItem.addEventListener('click', () => {
     musicWindow.style.display = 'block';
@@ -33,3 +36,24 @@ document.addEventListener('mouseup', () => {
     isDragging = false;
     header.style.cursor = 'move';
 });
+
+playBtn.addEventListener('click', () => {
+    const albumArt = document.querySelector('.album-art');
+    
+    if (!isPlaying) {
+        audio.play();
+        playBtn.innerText = "⏸"; // Change icon to Pause
+        isPlaying = true;
+        albumArt.classList.add('playing');
+    } else {
+        audio.pause();
+        playBtn.innerText = "▶"; // Change icon to Play
+        isPlaying = false;
+        albumArt.classList.remove('playing');
+    }
+});
+
+audio.onended = () => {
+    isPlaying = false;
+    playBtn.innerText = "▶";
+};
