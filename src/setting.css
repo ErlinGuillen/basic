@@ -1,1 +1,20 @@
+.wallpaper-grid {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
 
+.wall-opt {
+    font-size: 30px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.wall-opt:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
