@@ -13,6 +13,10 @@ tabs.forEach(tab => {
     });
 });
 // Music App //
+const contents = document.querySelectorAll('.tab-content');
+const audio = document.getElementById('main-audio');
+const playBtn = document.getElementById('play-btn');
+
 playBtn.addEventListener('click', () => {
     if (audio.paused) {
         audio.play();
