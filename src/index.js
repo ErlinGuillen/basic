@@ -20,6 +20,8 @@ const progressBar = document.getElementById('progress-bar');
 const currentTimeEl = document.getElementById('current-time');
 const durationEl = document.getElementById('duration');
 const volumeSlider = document.getElementById('volume-slider');
+const albumArt = document.querySelector('.album-art');
+const musicCard = document.querySelector('.glass-card.music-app');
 
 progressBar.addEventListener('input', () => {   
     if (!isNaN(audio.duration) && isFinite(audio.duration)) {
@@ -59,6 +61,8 @@ if (playBtn && audio) {
         if (audio.paused) {
             audio.play().then(() => {
                 playBtn.innerHTML = '<span>⏸ Pause</span>';
+                albumArt.classList.add('playing');
+                musicCard.classList.add('playing');
             }).catch(error => {
                 console.error("Playback failed. Error:", error);
                 // If it fails, try to 'load' it first
@@ -68,6 +72,8 @@ if (playBtn && audio) {
         } else {
             audio.pause();
             playBtn.innerHTML = '<span>▶ Play</span>';
+            albumArt.classList.remove('playing');
+            musicCard.classList.remove('playing');
         }
     });
 }
