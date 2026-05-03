@@ -1,5 +1,6 @@
 // Blog Homepage //
 const tabs = document.querySelectorAll('.tab-btn');
+const contents = document.querySelectorAll('.tab-content');
 
 tabs.forEach(tab => {
     tab.addEventListener('click', () => {
@@ -13,7 +14,6 @@ tabs.forEach(tab => {
     });
 });
 // Music App //
-const contents = document.querySelectorAll('.tab-content');
 const audio = document.getElementById('main-audio');
 const playBtn = document.getElementById('play-btn');
 
