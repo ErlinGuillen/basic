@@ -18,14 +18,17 @@ audio.addEventListener('timeupdate', () => {
     }
 })
 
+// Inside the musicItem click listener:
 musicItem.addEventListener('click', () => {
     musicWindow.style.display = 'block';
     menu.style.display = 'none';
+    musicItem.classList.add('active'); // Light up the icon
 });
 
+// Inside the closeMusic click listener:
 closeMusic.addEventListener('click', () => {
     musicWindow.style.display = 'none';
-    audio.pause(); // Optional: Stop music when closing
+    musicItem.classList.remove('active'); // Turn off the light
 });
 
 // 3. Dragging Logic
