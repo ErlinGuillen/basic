@@ -1,3 +1,12 @@
+:root {
+    /* Light Mode (Default) */
+    --bg-gradient: linear-gradient(45deg, #ee9ca7, #ffdde1);
+    --glass-bg: rgba(255, 255, 255, 0.2);
+    --glass-border: rgba(255, 255, 255, 0.3);
+    --text-color: white;
+    --btn-bg: rgba(255, 255, 255, 0.3);
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -9,8 +18,18 @@ body {
     flex-direction: column; /* Allows content to flow top-to-bottom */
     align-items: center;
     padding-top: 50px; /* Gives the tabs some breathing room */
-    background: linear-gradient(45deg, #ee9ca7, #ffdde1);
     font-family: sans-serif;
+    background: var(--bg-gradient) !important;
+    color: var(--text-color);
+    transition: background 0.5s ease, color 0.5s ease;
+}
+
+body.dark-mode {
+    --bg-gradient: linear-gradient(45deg, #2c3e50, #000000);
+    --glass-bg: rgba(0, 0, 0, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-color: #e0e0e0;
+    --btn-bg: rgba(255, 255, 255, 0.1);
 }
 
 @keyframes bounce {
@@ -101,14 +120,14 @@ body {
     padding: 2rem; /* Reduced from 3rem to save space */
     width: 100%;   /* Let the flex container decide the width */
     box-sizing: border-box; /* Prevents padding from breaking the width */
-    color: white;
-    background: rgba(255, 255, 255, 0.2);
     border-radius: 20px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--text-color);
 }
 
 .glass-card:hover {
@@ -131,12 +150,12 @@ body {
 .glass-btn {
     margin-top: 20px;
     padding: 10px 20px;
-    background: rgba(255, 255, 255, 0.3);
     border: 1px solid white;
     border-radius: 8px;
-    color: white;
     cursor: pointer;
     transition: 0.3s ease;
+    background: var(--btn-bg);
+    color: var(--text-color);
 }
 
 .glass-btn:hover {
