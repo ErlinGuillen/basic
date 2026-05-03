@@ -19,8 +19,8 @@ closeSettings.addEventListener('click', () => {
 window.changeWall = (type) => {
     const body = document.body;
     if(type === 'forest') body.style.backgroundImage = "url('image/forest.jpg')";
-    if(type === 'ocean') body.style.backgroundImage = "url('https://images.unsplash.com/photo-1505118380757-91f5f5832de0?q=80&w=1500')";
-    if(type === 'night') body.style.backgroundImage = "url('https://images.unsplash.com/photo-1472552947727-b42ff75d7931?q=80&w=1500')";
+    if(type === 'ocean') body.style.backgroundImage = "url('image/ocean.jpg')";
+    if(type === 'night') body.style.backgroundImage = "url('image/night.webp')";
 };
 
 // 4. Unique Dragging Logic for Settings
