@@ -62,11 +62,13 @@ playBtn.addEventListener('click', () => {
         playBtn.innerText = "⏸";
         isPlaying = true;
         albumArt.classList.add('playing');
+        document.title = "Now Playing: Forest Melodies";
     } else {
         audio.pause();
         playBtn.innerText = "▶";
         isPlaying = false;
         albumArt.classList.remove('playing');
+        document.title = "Basic OS";
     }
 });
 
