@@ -86,12 +86,17 @@ volumeControl.addEventListener('input', (e) => {
 
 window.loadSong = (name, path) => {
     const titleDisplay = document.querySelector('.song-title');
+    const albumArt = document.querySelector('.album-art');
+    
     audio.src = path;
     titleDisplay.innerText = name;
-    if (isPlaying) {
-        audio.play();
-        document.title = "Now Playing: " + name;
-    }
+    
+    // Auto-play the new song
+    audio.play();
+    isPlaying = true;
+    playBtn.innerText = "⏸";
+    albumArt.classList.add('playing');
+    document.title = "Now Playing: " + name;
 };
 
 audio.onended = () => {
