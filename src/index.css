@@ -33,9 +33,10 @@ body.dark-mode {
 }
 
 body.dark-mode .glass-btn:hover {
-    background: rgba(255, 255, 255, 0.8);
-    color: #1a1a1a; /* Dark text on light hover background */
-    box-shadow: 0 0 20px rgba(255, 154, 158, 0.4); /* Adds a slight pink glow */
+    background: rgba(255, 255, 255, 0.15) !important; /* This creates the transparent look */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff !important;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
 }
 
 @keyframes bounce {
@@ -136,11 +137,10 @@ body.dark-mode .glass-btn:hover {
     color: var(--text-color);
 }
 
-.glass-card:hover {
-    background: var(--text-color);
-    color: var(--glass-bg);
+.glass-btn:hover {
+    background: rgba(255, 255, 255, 0.4) !important;
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
 }
 
 .glass-card::before {
