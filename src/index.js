@@ -103,3 +103,22 @@ function loadSong(song) {
     audio.src = song.src;
     albumArt.style.backgroundImage = `url('${song.art}')`;
 }
+// Light/Dark Mode
+const themeToggle = document.getElementById('theme-toggle');
+const body = document.body;
+
+// Check for saved user preference
+if (localStorage.getItem('theme') === 'dark') {
+    body.classList.add('dark-mode');
+}
+
+themeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    
+    // Save the preference to local storage
+    if (body.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+    } else {
+        localStorage.setItem('theme', 'light');
+    }
+})
