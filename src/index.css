@@ -38,3 +38,69 @@ body {
 .glass-btn:hover {
     background: rgba(255, 255, 255, 0.5);
 }
+
+/* Layout Container */
+.blog-container {
+    display: flex;
+    gap: 2rem;
+    max-width: 1000px;
+    width: 90%;
+    margin: 2rem;
+    align-items: flex-start;
+}
+
+/* Blog Feed Area */
+.blog-feed {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.post {
+    text-align: left; /* Better for reading blog posts */
+    width: auto; /* Overriding the fixed width from before */
+}
+
+.date {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Sidebar Styling */
+.changelog {
+    flex: 1;
+    padding: 1.5rem;
+    width: auto;
+    font-size: 0.9rem;
+}
+
+.changelog h3 {
+    margin-top: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 10px;
+}
+
+.changelog ul {
+    list-style: none;
+    padding: 0;
+}
+
+.changelog li {
+    margin: 10px 0;
+    padding-left: 10px;
+    border-left: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .blog-container {
+        flex-direction: column;
+    }
+    .changelog {
+        order: -1; /* Puts changelog at top on mobile */
+        width: 100%;
+    }
+}
