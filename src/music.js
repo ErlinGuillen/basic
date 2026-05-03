@@ -67,10 +67,11 @@ playBtn.addEventListener('click', () => {
 });
 
 progressContainer.addEventListener('click', (e) => {
+    if (isNaN(audio.duration)) return; // Don't do anything if audio isn't loaded
+    
     const width = progressContainer.clientWidth;
     const clickX = e.offsetX;
-    const duration = audio.duration;
-    audio.currentTime = (clickX / width) * duration;
+    audio.currentTime = (clickX / width) * audio.duration;
 });
 
 audio.onended = () => {
