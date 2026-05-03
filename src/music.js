@@ -1,0 +1,58 @@
+.window {
+    position: fixed;
+    top: 20%;
+    left: 30%;
+    width: 300px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    color: white;
+    z-index: 10001; /* Above Start Menu */
+    overflow: hidden;
+}
+
+.window-header {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.window-content {
+    padding: 20px;
+    text-align: center;
+}
+
+.album-art {
+    width: 150px;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 0 auto 15px;
+    border-radius: 10px;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.controls button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
