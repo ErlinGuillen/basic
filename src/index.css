@@ -240,11 +240,12 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .bar {
-    width: 4px;
-    height: 5px;
+    width: 6px;
+    height: 8px;
     background: white;
     border-radius: 2px;
     transition: height 0.2s ease;
+    opacity: 0.8;
 }
 
 .bar:nth-child(2) { animation-delay: 0.1s; }
