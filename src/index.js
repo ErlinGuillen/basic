@@ -40,9 +40,11 @@ if (audio) {
     });
 
     audio.addEventListener('timeupdate', () => {
-        const progress = (audio.currentTime / audio.duration) * 100;
-        if (progressBar) progressBar.value = progress;
-        
+        if (audio.duration && isFinite(audio.duration)) {
+            const progress = (audio.currentTime / audio.duration) * 100;
+            if (progressBar) progressBar.value = progress;
+        }
+    
         let mins = Math.floor(audio.currentTime / 60);
         let secs = Math.floor(audio.currentTime % 60);
         if (currentTimeEl) currentTimeEl.textContent = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
