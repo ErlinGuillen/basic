@@ -23,6 +23,18 @@ const volumeSlider = document.getElementById('volume-slider');
 const albumArt = document.querySelector('.album-art');
 const musicCard = document.querySelector('.glass-card.music-app');
 
+document.getElementById('next-btn').addEventListener('click', () => {
+    songIndex = (songIndex + 1) % songs.length;
+    loadSong(songs[songIndex]);
+    audio.play();
+});
+
+document.getElementById('prev-btn').addEventListener('click', () => {
+    songIndex = (songIndex - 1 + songs.length) % songs.length;
+    loadSong(songs[songIndex]);
+    audio.play();
+})
+
 progressBar.addEventListener('input', () => {   
     if (!isNaN(audio.duration) && isFinite(audio.duration)) {
         const time = (progressBar.value / 100) * audio.duration;
@@ -76,4 +88,18 @@ if (playBtn && audio) {
             musicCard.classList.remove('playing');
         }
     });
+}
+
+const songs = [
+    { title: "Animal I Have Become", artist: "Three Days Grace", src: "AnimalIHaveBecome.mp3", art: "https://upload.wikimedia.org/wikipedia/en/b/b8/One-X.jpg" },
+    { title: "saraunh0ly", artist: "wutiwant", src: "wutiwant.mp3", art: "https://upload.wikimedia.org/wikipedia/en/b/b8/One-X.jpg" }
+];
+
+let songIndex = 0;
+
+function loadSong(song) {
+    document.querySelector('.song-title').textContent = song.title;
+    document.querySelector('.artist-name').textContent = song.artist;
+    audio.src = song.src;
+    albumArt.style.backgroundImage = `url('${song.art}')`;
 }
