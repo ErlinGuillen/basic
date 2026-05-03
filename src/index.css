@@ -18,6 +18,11 @@ body {
     to { transform: translate(100px, 100px); }
 }
 
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* Blog Homepage */
 .blob {
     position: fixed;
     width: 300px;
@@ -161,11 +166,31 @@ body {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
+.tab-content {
+    width: 100%;
+    animation: fadeIn 0.5s ease;
+}
+
 .date {
     font-size: 0.8rem;
     opacity: 0.8;
     text-transform: uppercase;
     letter-spacing: 1px;
+}
+/* Music App */
+.music-player {
+    text-align: center;
+    max-width: 400px;
+    margin: 2rem auto;
+}
+
+.album-art {
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(45deg, #ee9ca7, #ffdde1);
+    margin: 1rem auto;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 /* Mobile Responsive */
 @media (max-width: 768px) {
