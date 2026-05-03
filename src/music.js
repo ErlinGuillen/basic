@@ -84,6 +84,16 @@ volumeControl.addEventListener('input', (e) => {
     audio.volume = e.target.value;
 });
 
+window.loadSong = (name, path) => {
+    const titleDisplay = document.querySelector('.song-title');
+    audio.src = path;
+    titleDisplay.innerText = name;
+    if (isPlaying) {
+        audio.play();
+        document.title = "Now Playing: " + name;
+    }
+};
+
 audio.onended = () => {
     isPlaying = false;
     playBtn.innerText = "▶";
