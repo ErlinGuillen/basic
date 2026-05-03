@@ -41,6 +41,11 @@
 			<div class="progress-container">
                 <div class="progress-bar" id="progress"></div>
             </div>
+			<div class="volume-container">
+   				 <span>🔈</span>
+   				 <input type="range" id="volumeControl" min="0" max="1" step="0.1" value="1">
+    			<span>🔊</span>
+			</div>
 			    <audio id="audioPlayer">
                 <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
                 Your browser does not support the audio element.
@@ -55,11 +60,15 @@
     	</div>
     	<div class="window-content">
        	   <h3>Wallpaper</h3>
-        		<div class="wallpaper-grid">
-            	<div class="wall-opt" onclick="changeWall('forest')">🌲</div>
-            	<div class="wall-opt" onclick="changeWall('ocean')">🌊</div>
-            	<div class="wall-opt" onclick="changeWall('night')">🌙</div>
-        	</div>
+        	<div class="wallpaper-grid">
+            <div class="wall-opt" onclick="changeWall('forest')">🌲</div>
+            <div class="wall-opt" onclick="changeWall('ocean')">🌊</div>
+            <div class="wall-opt" onclick="changeWall('night')">🌙</div>
+        </div>
+		<div class="setting-row">
+            <span>Glass Theme</span>
+            <button onclick="toggleTheme()" id="themeBtn">Light</button>
+        </div>
     	</div>
     </div>
 	
