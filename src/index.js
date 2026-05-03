@@ -16,13 +16,20 @@ tabs.forEach(tab => {
 // Music App //
 const audio = document.getElementById('main-audio');
 const playBtn = document.getElementById('play-btn');
-
-playBtn.addEventListener('click', () => {
-    if (audio.paused) {
-        audio.play();
-        playBtn.textContent = '⏸ Pause';
-    } else {
-        audio.pause();
-        playBtn.textContent = '▶ Play';
-    }
-});
+// Music Player Logic
+if (playBtn && audio) {
+    playBtn.addEventListener('click', () => {
+        if (audio.paused) {
+            // .play() returns a promise, we should catch errors (like 404s)
+            audio.play().then(() => {
+                playBtn.textContent = '⏸ Pause';
+            }).catch(error => {
+                console.error("Playback failed:", error);
+                alert("Song file not found. Check your file path!");
+            });
+        } else {
+            audio.pause();
+            playBtn.textContent = '▶ Play';
+        }
+    });
+}
