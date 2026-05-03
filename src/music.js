@@ -6,10 +6,15 @@ const menu = document.getElementById('startMenu');
 const header = musicWindow.querySelector('.window-header');
 const playBtn = document.getElementById('mainPlayBtn');
 const audio = document.getElementById('audioPlayer');
+const progressBar = document.getElementById('progress');
 
 let isPlaying = false; // Added this missing declaration
 
-// 2. Open/Close Logic
+audio.addEventListener('timeupdate', () => {
+    const progressPercent = (audio.currentTime / audio.duration) * 100;
+    progressBar.style.width = `${progressPercent}%`;
+})
+
 musicItem.addEventListener('click', () => {
     musicWindow.style.display = 'block';
     menu.style.display = 'none';
