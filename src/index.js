@@ -1,49 +1,7 @@
-const startBtn = document.getElementById('startBtn');
-const startMenu = document.getElementById('startMenu');
-
-// Ensure it starts hidden
-startMenu.style.display = 'none';
-
-document.getElementById('musicWindow').addEventListener('mousedown', function() {
-    bringToFront(this);
-});
-
-document.getElementById('settingsWindow').addEventListener('mousedown', function() {
-    bringToFront(this);
-});
-
-startBtn.addEventListener('click', (e) => {
-    e.stopPropagation(); // Prevents the click from closing the menu immediately
-    
-    if (startMenu.style.display === 'none') {
-        startMenu.style.display = 'block';
-    } else {
-        startMenu.style.display = 'none';
-    }
-});
-
-// Close the menu if you click the background
-document.addEventListener('click', (e) => {
-    if (!startMenu.contains(e.target) && e.target !== startBtn) {
-        startMenu.style.display = 'none';
-    }
-});
-// function bringToFront
-let topZ = 10001;
-
-function bringToFront(windowElement) {
-    topZ++;
-    windowElement.style.zIndex = topZ;
-}
-// function updateClock
-function updateClock() {
-    const now = new Date();
-    const timeString = now.toLocaleTimeString([], { 
-        hour: '2-digit', 
-        minute: '2-digit' 
+const tabs = document.querySelectorAll('.tab-btn');
+tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
     });
-    document.getElementById('clock').textContent = timeString;
-}
-
-setInterval(updateClock, 1000);
-updateClock(); // Run immediately
+});
