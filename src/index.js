@@ -33,7 +33,7 @@ document.getElementById('prev-btn').addEventListener('click', () => {
     songIndex = (songIndex - 1 + songs.length) % songs.length;
     loadSong(songs[songIndex]);
     audio.play();
-})
+});
 
 progressBar.addEventListener('input', () => {   
     if (!isNaN(audio.duration) && isFinite(audio.duration)) {
