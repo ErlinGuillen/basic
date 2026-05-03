@@ -86,11 +86,14 @@
 .taskbar-item.active::after {
     content: '';
     position: absolute;
-    bottom: -5px;
-    width: 5px;
-    height: 5px;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
     background: white;
     border-radius: 50%;
+    box-shadow: 0 0 5px white;
 }
 
 .taskbar-time {
@@ -104,6 +107,7 @@
 
 .taskbar-divider {
     width: 1px;
-    height: 25px;
+    height: 24px;
     background: rgba(255, 255, 255, 0.2);
+    margin: 0 10px;
 }
