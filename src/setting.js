@@ -4,17 +4,17 @@ const settingsWindow = document.getElementById('settingsWindow');
 const closeSettings = document.getElementById('closeSettings');
 const settingsMenu = document.getElementById('startMenu');
 const settingsHeader = settingsWindow.querySelector('.window-header');
-
 // 2. Open/Close Logic
 settingsItem.addEventListener('click', () => {
     settingsWindow.style.display = 'block';
     settingsMenu.style.display = 'none';
+    settingsItem.classList.add('active'); // Add this
 });
 
 closeSettings.addEventListener('click', () => {
     settingsWindow.style.display = 'none';
+    settingsItem.classList.remove('active'); // Add this
 });
-
 // 3. Wallpaper Switcher Function
 window.changeWall = (type) => {
     const body = document.body;
