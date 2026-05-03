@@ -8,6 +8,7 @@ const playBtn = document.getElementById('mainPlayBtn');
 const audio = document.getElementById('audioPlayer');
 const progressBar = document.getElementById('progress');
 const progressContainer = document.querySelector('.progress-container');
+const volumeControl = document.getElementById('volumeControl');
 
 let isPlaying = false; // Added this missing declaration
 
@@ -75,6 +76,10 @@ progressContainer.addEventListener('click', (e) => {
     const width = progressContainer.clientWidth;
     const clickX = e.offsetX;
     audio.currentTime = (clickX / width) * audio.duration;
+});
+
+volumeControl.addEventListener('input', (e) => {
+    audio.volume = e.target.value;
 });
 
 audio.onended = () => {
