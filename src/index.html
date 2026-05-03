@@ -9,28 +9,42 @@
     
 <div class="blog-container">
     <nav class="glass-tabs">
-        <button class="tab-btn active">All Posts</button>
-        <button class="tab-btn">Tutorials</button>
-        <button class="tab-btn">Changelog</button>
-        <button class="tab-btn">About</button>
+        <button class="tab-btn active" data-target="blog-section">Blog</button>
+        <button class="tab-btn" data-target="music-section">Music</button>
+        <button class="tab-btn" data-target="changelog-section">Changelog</button>
     </nav>
 
-    <div class="main-content-wrapper">
-        <main class="blog-feed">
-            <article class="glass-card post">
-                <span class="date">May 3, 2026</span>
-                <h2>The Future of Glassmorphism</h2>
-                <p>Glass UI is evolving. By combining backdrop blurs with subtle noise textures...</p>
-                <button class="glass-btn">Read More</button>
-            </article>
+    <div id="blog-section" class="tab-content">
+        <div class="main-content-wrapper">
+            <main class="blog-feed">
+                <article class="glass-card post">
+                    <span class="date">May 3, 2026</span>
+                    <h2>The Future of Glassmorphism</h2>
+                    <p>Glass UI is evolving. By combining backdrop blurs with subtle noise textures...</p>
+                    <button class="glass-btn">Read More</button>
+                </article>
 
-            <article class="glass-card post">
-                <span class="date">May 1, 2026</span>
-                <h2>CSS Tips & Tricks</h2>
-                <p>Mastering gradients and transparency is the key to modern web design...</p>
-                <button class="glass-btn">Read More</button>
-            </article>
-        </main>
+                <article class="glass-card post">
+                    <span class="date">May 1, 2026</span>
+                    <h2>CSS Tips & Tricks</h2>
+                    <p>Mastering gradients and transparency is the key to modern web design...</p>
+                    <button class="glass-btn">Read More</button>
+                </article>
+            </main>
+        </div>
+    </div>
+
+    <div id="music-section" class="tab-content" style="display: none;">
+        <div class="glass-card music-app">
+            <h2>Now Playing</h2>
+            <div class="album-art-large"></div>
+            <div class="controls">
+                <button class="ctrl-btn">⏮</button>
+                <button id="main-play" class="ctrl-btn">▶</button>
+                <button class="ctrl-btn">⏭</button>
+            </div>
+        </div>
+    </div>
 
         <aside class="glass-card changelog">
             <h3>Version Log</h3>
