@@ -1,11 +1,11 @@
-const musicItem = document.querySelector('.item:nth-child(2)'); // The Music item in menu
+const musicItem = document.querySelector('.item:nth-child(2)');
 const musicWindow = document.getElementById('musicWindow');
 const closeMusic = document.getElementById('closeMusic');
-const menu = document.getElementById('startMenu');
+const menu = document.getElementById('startMenu'); // Variable is 'menu'
 
 musicItem.addEventListener('click', () => {
     musicWindow.style.display = 'block';
-    startMenu.style.display = 'none'; // Auto-close menu
+    menu.style.display = 'none'; // Use 'menu' here too!
 });
 
 closeMusic.addEventListener('click', () => {
