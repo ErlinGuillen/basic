@@ -23,9 +23,14 @@
     border-radius: 5px;
 }
 
+.browser-content {
+    padding: 0 !important; /* Remove padding for the iframe */
+    height: calc(100% - 100px); /* Adjust based on header/nav height */
+}
+
 #browserFrame {
     width: 100%;
     height: 100%;
     border: none;
-    background: white; /* Most sites expect white background */
+    border-radius: 0 0 15px 15px;
 }
