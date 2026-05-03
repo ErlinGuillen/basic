@@ -22,6 +22,17 @@ body {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes pulseGlow {
+    0% { box-shadow: 0 8px 32px rgba(238, 156, 167, 0.4); }
+    50% { box-shadow: 0 8px 45px rgba(238, 156, 167, 0.8); }
+    100% { box-shadow: 0 8px 32px rgba(238, 156, 167, 0.4); }
+}
 /* Blog Homepage */
 .blob {
     position: fixed;
@@ -204,11 +215,17 @@ input[type="range"]::-webkit-slider-thumb {
     height: 150px;
     background: linear-gradient(45deg, #ee9ca7, #ffdde1);
     margin: 1rem auto;
-    border-radius: 15px;
+    border-radius: 50%;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     background-image: url('https://upload.wikimedia.org/wikipedia/en/b/b8/One-X.jpg');
     background-size: cover;
     background-position: center;
+    transition: transform 0.5s ease;
+}
+
+.album-art.playing {
+    animation: rotate 10s linear infinite;
+    border: 4px solid rgba(255, 255, 255, 0.5);
 }
 
 .artist-name { 
@@ -221,6 +238,10 @@ input[type="range"]::-webkit-slider-thumb {
     text-align: center;
     max-width: 400px;
     margin: 2rem auto;
+}
+
+.music-app.playing {
+    animation: pulseGlow 3s infinite ease-in-out;
 }
 
 .progress-container, .volume-container {
