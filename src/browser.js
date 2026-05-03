@@ -21,10 +21,14 @@ goBtn.addEventListener('click', () => {
     let url = browserUrl.value;
     if (!url.startsWith('http')) url = 'https://' + url;
 
+    // Convert standard YouTube link to Embed link
     if (url.includes("youtube.com/watch?v=")) {
         url = url.replace("watch?v=", "embed/");
+    } else if (url.includes("youtu.be/")) {
+        // Handle short links like https://youtu.be/ID
+        url = url.replace("youtu.be/", "www.youtube.com/embed/");
     }
-    
+
     browserFrame.src = url;
 });
 
