@@ -1,17 +1,21 @@
-const settingsItem = document.querySelector('.item:nth-child(1)'); // Settings item in menu
+// 1. Declare Variables with unique names
+const settingsItem = document.querySelector('.item:nth-child(1)'); 
 const settingsWindow = document.getElementById('settingsWindow');
 const closeSettings = document.getElementById('closeSettings');
+const settingsMenu = document.getElementById('startMenu');
+const settingsHeader = settingsWindow.querySelector('.window-header');
 
+// 2. Open/Close Logic
 settingsItem.addEventListener('click', () => {
     settingsWindow.style.display = 'block';
-    menu.style.display = 'none';
+    settingsMenu.style.display = 'none';
 });
 
 closeSettings.addEventListener('click', () => {
     settingsWindow.style.display = 'none';
 });
 
-// Wallpaper Switcher Function
+// 3. Wallpaper Switcher Function
 window.changeWall = (type) => {
     const body = document.body;
     if(type === 'forest') body.style.backgroundImage = "url('image/forest.jpg')";
@@ -19,26 +23,24 @@ window.changeWall = (type) => {
     if(type === 'night') body.style.backgroundImage = "url('https://images.unsplash.com/photo-1472552947727-b42ff75d7931?q=80&w=1500')";
 };
 
-const settingsHeader = settingsWindow.querySelector('.window-header');
+// 4. Unique Dragging Logic for Settings
+let isDraggingSet = false;
+let offsetSetX, offsetSetY;
 
-let isDragging = false;
-let offsetX, offsetY;
-
-header.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    offsetX = e.clientX - musicWindow.offsetLeft;
-    offsetY = e.clientY - musicWindow.offsetTop;
-    header.style.cursor = 'grabbing';
+settingsHeader.addEventListener('mousedown', (e) => {
+    isDraggingSet = true;
+    offsetSetX = e.clientX - settingsWindow.offsetLeft;
+    offsetSetY = e.clientY - settingsWindow.offsetTop;
+    settingsHeader.style.cursor = 'grabbing';
 });
 
 document.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    musicWindow.style.left = `${e.clientX - offsetX}px`;
-    musicWindow.style.top = `${e.clientY - offsetY}px`;
+    if (!isDraggingSet) return;
+    settingsWindow.style.left = `${e.clientX - offsetSetX}px`;
+    settingsWindow.style.top = `${e.clientY - offsetSetY}px`;
 });
 
 document.addEventListener('mouseup', () => {
-    isDragging = false;
-    header.style.cursor = 'move';
+    isDraggingSet = false;
+    settingsHeader.style.cursor = 'move';
 });
-
