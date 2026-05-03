@@ -33,12 +33,6 @@ body {
     max-width: 1200px;
     margin: 0 auto;
 }
-/* Layout Container */
-.blog-container {
-    flex-direction: column; /* Stack tabs on top of content */
-    align-items: center;
-}
-
 /* Blog Feed Area */
 .blog-feed {
     flex: 3;
