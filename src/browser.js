@@ -20,6 +20,11 @@ closeBrowser.addEventListener('click', () => {
 goBtn.addEventListener('click', () => {
     let url = browserUrl.value;
     if (!url.startsWith('http')) url = 'https://' + url;
+
+    if (url.includes("youtube.com/watch?v=")) {
+        url = url.replace("watch?v=", "embed/");
+    }
+    
     browserFrame.src = url;
 });
 
