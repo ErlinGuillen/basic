@@ -235,10 +235,11 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .album-art {
-    width: 150px;
-    height: 150px;
-    margin: 1rem auto;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
+    flex-shrink: 0;
+    margin: 10px 0;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     background: var(--btn-bg);
     background-image: url('https://upload.wikimedia.org/wikipedia/en/b/b8/One-X.jpg');
@@ -276,6 +277,22 @@ input[type="range"]::-webkit-slider-thumb {
 .bar:nth-child(3) { animation-delay: 0.2s; }
 .bar:nth-child(4) { animation-delay: 0.3s; }
 
+.controls {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.music-app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    gap: 20px; /* This creates even space between all elements */
+    min-height: 500px;
+}
+
 .music-player {
     text-align: center;
     max-width: 400px;
@@ -286,12 +303,24 @@ input[type="range"]::-webkit-slider-thumb {
     animation: bounce 0.6s infinite alternate;
 }
 
-.progress-container, .volume-container {
+.progress-container {
+    width: 100%;
     display: flex;
     align-items: center;
     gap: 10px;
-    margin: 15px 0;
-    font-size: 0.8rem;
+}
+
+.volume-container {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.song-info {
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 .song-title { 
@@ -305,17 +334,4 @@ input[type="range"]::-webkit-slider-thumb {
     gap: 4px;
     height: 30px;
     margin-top: 15px;
-}
-/* Mobile Responsive */
-@media (max-width: 768px) {
-    .main-content-wrapper {
-        flex-direction: column;
-    }
-    .blog-container {
-        flex-direction: column;
-    }
-    .changelog {
-        order: -1; /* Puts changelog at top on mobile */
-        width: 100%;
-    }
 }
