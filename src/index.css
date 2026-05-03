@@ -14,7 +14,7 @@
     bottom: 90px;    /* Sits above the taskbar */
     left: 20px;
     z-index: 9999;   /* High number to beat the background */
-    display: block; /* Temporarily force show to test */
+    display: none; /* Temporarily force show to test */
 }
 
 .user-info {
