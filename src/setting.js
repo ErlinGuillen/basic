@@ -20,3 +20,25 @@ window.changeWall = (type) => {
 };
 
 const settingsHeader = settingsWindow.querySelector('.window-header');
+
+let isDragging = false;
+let offsetX, offsetY;
+
+header.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    offsetX = e.clientX - musicWindow.offsetLeft;
+    offsetY = e.clientY - musicWindow.offsetTop;
+    header.style.cursor = 'grabbing';
+});
+
+document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    musicWindow.style.left = `${e.clientX - offsetX}px`;
+    musicWindow.style.top = `${e.clientY - offsetY}px`;
+});
+
+document.addEventListener('mouseup', () => {
+    isDragging = false;
+    header.style.cursor = 'move';
+});
+
