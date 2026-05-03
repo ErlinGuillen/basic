@@ -21,9 +21,11 @@ const currentTimeEl = document.getElementById('current-time');
 const durationEl = document.getElementById('duration');
 const volumeSlider = document.getElementById('volume-slider');
 
-progressBar.addEventListener('input', () => {
-    const time = (progressBar.value / 100) * audio.duration;
-    audio.currentTime = time;
+progressBar.addEventListener('input', () => {   
+    if (!isNaN(audio.duration) && isFinite(audio.duration)) {
+        const time = (progressBar.value / 100) * audio.duration;
+        audio.currentTime = time;
+    }
 });
 
 volumeSlider.addEventListener('input', () => {
