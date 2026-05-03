@@ -18,7 +18,28 @@
             <div class="item"><span class="icon">⚙️</span><span>Settings</span></div>
             <div class="item"><span class="icon">🎵</span><span>Music</span></div>
         </div>
-    </div> <div class="taskbar">
+    </div> 
+
+	<div class="window glass" id="musicWindow" style="display: none;">
+    	<div class="window-header">
+        	<span>🎵 Music Player</span>
+        	<button class="close-btn" id="closeMusic">×</button>
+   	 	</div>
+    	<div class="window-content">
+        	<div class="album-art"></div>
+        	<div class="song-info">
+            	<p class="song-title">Forest Melodies</p>
+            	<p class="artist-name">Nature Synth</p>
+        	</div>
+        	<div class="controls">
+            	<button>⏮</button>
+            	<button class="play-btn">▶</button>
+            	<button>⏭</button>
+        	</div>
+    	</div>
+	</div>
+	
+	<div class="taskbar">
         <div class="taskbar-item active" id="startBtn">
             <span class="icon">🏠</span>
         </div>
