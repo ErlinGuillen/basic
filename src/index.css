@@ -66,18 +66,23 @@ body {
 }
 
 .glass-card {
-    padding: 3rem;
-    width: 350px;
-    text-align: center;
+    padding: 2rem; /* Reduced from 3rem to save space */
+    width: 100%;   /* Let the flex container decide the width */
+    box-sizing: border-box; /* Prevents padding from breaking the width */
     color: white;
-    
-    /* The Glassmorphism Recipe */
     background: rgba(255, 255, 255, 0.2);
     border-radius: 20px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
 }
 
 .glass-btn {
