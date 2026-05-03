@@ -7,12 +7,15 @@ const header = musicWindow.querySelector('.window-header');
 const playBtn = document.getElementById('mainPlayBtn');
 const audio = document.getElementById('audioPlayer');
 const progressBar = document.getElementById('progress');
+const progressContainer = document.querySelector('.progress-container');
 
 let isPlaying = false; // Added this missing declaration
 
 audio.addEventListener('timeupdate', () => {
     const progressPercent = (audio.currentTime / audio.duration) * 100;
-    progressBar.style.width = `${progressPercent}%`;
+    if (audio.duration) {
+        progressBar.style.width = `${progressPercent}%`;
+    }
 })
 
 musicItem.addEventListener('click', () => {
@@ -61,6 +64,13 @@ playBtn.addEventListener('click', () => {
         isPlaying = false;
         albumArt.classList.remove('playing');
     }
+});
+
+progressContainer.addEventListener('click', (e) => {
+    const width = progressContainer.clientWidth;
+    const clickX = e.offsetX;
+    const duration = audio.duration;
+    audio.currentTime = (clickX / width) * duration;
 });
 
 audio.onended = () => {
