@@ -21,13 +21,12 @@ goBtn.addEventListener('click', () => {
     let url = browserUrl.value;
     if (!url.startsWith('http')) url = 'https://' + url;
 
-    // Fix for standard YouTube links
+    // Convert standard links to Embed links
     if (url.includes("youtube.com/watch?v=")) {
-        url = url.replace("watch?v=", "embed/").split('&')[0];
-    } 
-    // Fix for short youtu.be links
-    else if (url.includes("youtu.be/")) {
-        const videoId = url.split('/').pop().split('?')[0];
+        const videoId = url.split("v=")[1].split("&")[0];
+        url = `https://www.youtube.com/embed/${videoId}`;
+    } else if (url.includes("youtu.be/")) {
+        const videoId = url.split("/").pop().split("?")[0];
         url = `https://www.youtube.com/embed/${videoId}`;
     }
 
