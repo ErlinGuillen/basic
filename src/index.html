@@ -35,16 +35,27 @@
     </div>
 
     <div id="music-section" class="tab-content" style="display: none;">
-        <div class="glass-card music-player">
-            <h2>Music Player</h2>
+        <div class="glass-card music-app">
+            <h2 class="song-title">Animal I Have Become</h2>
+            <p class="artist-name">Three Days Grace</p>
+        
             <div class="album-art"></div>
+
+            <div class="progress-container">
+                <span id="current-time">0:00</span>
+                <input type="range" id="progress-bar" value="0" max="100">
+                <span id="duration">0:00</span>
+            </div>
+
             <div class="controls">
                 <button id="play-btn" class="glass-btn">▶ Play</button>
             </div>
-            <audio id="main-audio" preload="auto">
-                <source src="AnimalIHaveBecome.mp3" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
+
+            <div class="volume-container">
+                <span>🔈</span>
+                <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="1">
+                <span>🔊</span>
+            </div>
         </div>
     </div>
     
