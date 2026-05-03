@@ -4,6 +4,14 @@ const startMenu = document.getElementById('startMenu');
 // Ensure it starts hidden
 startMenu.style.display = 'none';
 
+document.getElementById('musicWindow').addEventListener('mousedown', function() {
+    bringToFront(this);
+});
+
+document.getElementById('settingsWindow').addEventListener('mousedown', function() {
+    bringToFront(this);
+});
+
 startBtn.addEventListener('click', (e) => {
     e.stopPropagation(); // Prevents the click from closing the menu immediately
     
@@ -20,7 +28,14 @@ document.addEventListener('click', (e) => {
         startMenu.style.display = 'none';
     }
 });
+// function bringToFront
+let topZ = 10001;
 
+function bringToFront(windowElement) {
+    topZ++;
+    windowElement.style.zIndex = topZ;
+}
+// function updateClock
 function updateClock() {
     const now = new Date();
     const timeString = now.toLocaleTimeString([], { 
