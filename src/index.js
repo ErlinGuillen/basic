@@ -16,19 +16,24 @@ tabs.forEach(tab => {
 // Music App //
 const audio = document.getElementById('main-audio');
 const playBtn = document.getElementById('play-btn');
-// Music Player Logic
+
 if (playBtn && audio) {
     playBtn.addEventListener('click', () => {
+        // Debugging: check in console if file is found
+        console.log("Attempting to play:", audio.currentSrc);
+
         if (audio.paused) {
-            // We removed the alert() so it doesn't interrupt the loading process
             audio.play().then(() => {
-                playBtn.textContent = '⏸ Pause';
+                playBtn.innerHTML = '<span>⏸ Pause</span>';
             }).catch(error => {
-                console.log("Waiting for audio to load or interaction required:", error);
+                console.error("Playback failed. Error:", error);
+                // If it fails, try to 'load' it first
+                audio.load();
+                audio.play();
             });
         } else {
             audio.pause();
-            playBtn.textContent = '▶ Play';
+            playBtn.innerHTML = '<span>▶ Play</span>';
         }
     });
 }
