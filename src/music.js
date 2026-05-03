@@ -1,6 +1,7 @@
 const musicItem = document.querySelector('.item:nth-child(2)'); // The Music item in menu
 const musicWindow = document.getElementById('musicWindow');
 const closeMusic = document.getElementById('closeMusic');
+const menu = document.getElementById('startMenu');
 
 musicItem.addEventListener('click', () => {
     musicWindow.style.display = 'block';
