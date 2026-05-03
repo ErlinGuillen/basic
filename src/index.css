@@ -19,7 +19,7 @@ body {
     align-items: center;
     padding-top: 50px; /* Gives the tabs some breathing room */
     font-family: sans-serif;
-    background: var(--bg-gradient) !important;
+    background: var(--bg-gradient);
     color: var(--text-color);
     transition: background 0.5s ease, color 0.5s ease;
 }
@@ -237,10 +237,10 @@ input[type="range"]::-webkit-slider-thumb {
 .album-art {
     width: 150px;
     height: 150px;
-    background: linear-gradient(45deg, #ee9ca7, #ffdde1);
     margin: 1rem auto;
     border-radius: 50%;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    background: var(--btn-bg);
     background-image: url('https://upload.wikimedia.org/wikipedia/en/b/b8/One-X.jpg');
     background-size: cover;
     background-position: center;
