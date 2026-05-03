@@ -1,14 +1,37 @@
 body {
     margin: 0;
-    height: 100vh;
+    min-height: 100vh; /* Changed from height to min-height */
     display: flex;
-    justify-content: center;
+    flex-direction: column; /* Allows content to flow top-to-bottom */
     align-items: center;
-    /* This gradient is key to making the glass effect visible */
+    padding-top: 50px; /* Gives the tabs some breathing room */
     background: linear-gradient(45deg, #ee9ca7, #ffdde1);
     font-family: sans-serif;
 }
 
+@keyframes move {
+    from { transform: translate(0, 0); }
+    to { transform: translate(100px, 100px); }
+}
+
+.blob {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    filter: blur(50px);
+    z-index: -1;
+    opacity: 0.5;
+    animation: move 20s infinite alternate;
+}
+
+.blog-container {
+    display: flex; /* Ensure this is present to keep feed/sidebar side-by-side */
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    max-width: 1100px;
+}
 /* Layout Container */
 .blog-container {
     flex-direction: column; /* Stack tabs on top of content */
