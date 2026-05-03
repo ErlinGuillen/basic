@@ -19,6 +19,7 @@ const playBtn = document.getElementById('play-btn');
 // Music Player Logic
 if (playBtn && audio) {
     playBtn.addEventListener('click', () => {
+        console.log("Current audio source:", audio.currentSrc);
         if (audio.paused) {
             // .play() returns a promise, we should catch errors (like 404s)
             audio.play().then(() => {
