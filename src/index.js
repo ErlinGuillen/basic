@@ -19,14 +19,12 @@ const playBtn = document.getElementById('play-btn');
 // Music Player Logic
 if (playBtn && audio) {
     playBtn.addEventListener('click', () => {
-        console.log("Current audio source:", audio.currentSrc);
         if (audio.paused) {
-            // .play() returns a promise, we should catch errors (like 404s)
+            // We removed the alert() so it doesn't interrupt the loading process
             audio.play().then(() => {
                 playBtn.textContent = '⏸ Pause';
             }).catch(error => {
-                console.error("Playback failed:", error);
-                alert("Song file not found. Check your file path!");
+                console.log("Waiting for audio to load or interaction required:", error);
             });
         } else {
             audio.pause();
