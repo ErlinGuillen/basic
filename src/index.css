@@ -4,46 +4,37 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* A vibrant background is essential for the glass effect */
-    background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
-    font-family: 'Segoe UI', sans-serif;
+    /* This gradient is key to making the glass effect visible */
+    background: linear-gradient(45deg, #ee9ca7, #ffdde1);
+    font-family: sans-serif;
 }
 
 .glass-card {
+    padding: 3rem;
     width: 350px;
-    padding: 40px;
-    border-radius: 20px;
-    /* The core Glassmorphism properties */
-    background: rgba(255, 255, 255, 0.2); 
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px); /* Safari support */
-    
-    /* Border and Shadow for depth */
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-    
     text-align: center;
-    color: #fff;
-}
-
-.glass-card h2 {
-    margin-top: 0;
-    font-size: 2rem;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    color: white;
+    
+    /* The Glassmorphism Recipe */
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .glass-btn {
     margin-top: 20px;
-    padding: 10px 25px;
+    padding: 10px 20px;
     background: rgba(255, 255, 255, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    border-radius: 10px;
+    border: 1px solid white;
+    border-radius: 8px;
     color: white;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.3s ease;
 }
 
 .glass-btn:hover {
     background: rgba(255, 255, 255, 0.5);
-    transform: translateY(-2px);
 }
