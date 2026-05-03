@@ -23,7 +23,23 @@ window.changeWall = (type) => {
     if(type === 'night') body.style.backgroundImage = "url('image/night.webp')";
 };
 
-// 4. Unique Dragging Logic for Settings
+window.toggleTheme = () => {
+    const btn = document.getElementById('themeBtn');
+    const root = document.documentElement;
+    
+    if (btn.innerText === "Light") {
+        document.querySelectorAll('.glass').forEach(el => {
+            el.style.background = "rgba(0, 0, 0, 0.4)";
+        });
+        btn.innerText = "Dark";
+    } else {
+        document.querySelectorAll('.glass').forEach(el => {
+            el.style.background = "rgba(255, 255, 255, 0.1)";
+        });
+        btn.innerText = "Light";
+    }
+};
+
 let isDraggingSet = false;
 let offsetSetX, offsetSetY;
 
