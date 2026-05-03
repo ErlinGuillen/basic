@@ -9,6 +9,20 @@ body {
     font-family: sans-serif;
 }
 
+/* Layout Container */
+.blog-container {
+    flex-direction: column; /* Stack tabs on top of content */
+    align-items: center;
+}
+
+/* Blog Feed Area */
+.blog-feed {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
 .glass-card {
     padding: 3rem;
     width: 350px;
@@ -39,27 +53,48 @@ body {
     background: rgba(255, 255, 255, 0.5);
 }
 
-/* Layout Container */
-.blog-container {
+.glass-tabs {
     display: flex;
-    gap: 2rem;
-    max-width: 1000px;
-    width: 90%;
-    margin: 2rem;
-    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 2rem;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: fit-content;
 }
 
-/* Blog Feed Area */
-.blog-feed {
-    flex: 2;
+.main-content-wrapper {
     display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
+    width: 100%;
 }
 
 .post {
     text-align: left; /* Better for reading blog posts */
     width: auto; /* Overriding the fixed width from before */
+}
+
+.tab-btn {
+    padding: 8px 20px;
+    border: none;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+/* Hover and Active States */
+.tab-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.tab-btn.active {
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .date {
