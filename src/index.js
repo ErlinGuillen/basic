@@ -35,26 +35,23 @@ const albumArt = document.querySelector('.album-art');
 const musicCard = document.querySelector('.glass-card.music-app');
 
 prevBtn.addEventListener('click', () => {
-    songIndex = (songIndex - 1 + songs.length) % songs.length;
+    songIndex--;
+    if (songIndex < 0) {
+        songIndex = songs.length - 1;
+    }
     loadSong(songs[songIndex]);
-
-    const isPlaying = musicApp.classList.contains('playing');
-    if (isPlaying) {
+    
+    if (musicCard.classList.contains('playing')) {
         audio.play();
-    } else {
-        audio.pause(); // Force it to stay paused if you weren't already listening
     }
 });
 
 nextBtn.addEventListener('click', () => {
     songIndex = (songIndex + 1) % songs.length; 
     loadSong(songs[songIndex]);
-
-    const isPlaying = musicApp.classList.contains('playing');
-    if (isPlaying) {
+    
+    if (musicCard.classList.contains('playing')) {
         audio.play();
-    } else {
-        audio.pause(); // Force it to stay paused if you weren't already listening
     }
 });
 
