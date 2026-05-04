@@ -14,6 +14,14 @@ tabs.forEach(tab => {
     });
 });
 // Music App //
+const songs = [
+    { title: "Animal I Have Become", artist: "Three Days Grace", src: "AnimalIHaveBecome.mp3", art: "musicicon.png" },
+    { title: "saraunh0ly", artist: "wutiwant", src: "wutiwant.mp3", art: "musicicon.png" },
+    { title: "Bensound", artist: "Summer", src: "Summer.mp3", art: "musicicon.png" }
+];
+
+let songIndex = 0;
+
 const audio = document.getElementById('main-audio');
 const playBtn = document.getElementById('play-btn');
 const progressBar = document.getElementById('progress-bar');
@@ -23,14 +31,14 @@ const volumeSlider = document.getElementById('volume-slider');
 const albumArt = document.querySelector('.album-art');
 const musicCard = document.querySelector('.glass-card.music-app');
 
-document.getElementById('next-btn').addEventListener('click', () => {
-    songIndex = (songIndex + 1) % songs.length;
+document.getElementById('prev-btn').addEventListener('click', () => {
+    songIndex = (songIndex - 1 + songs.length) % songs.length;
     loadSong(songs[songIndex]);
     audio.play();
 });
 
-document.getElementById('prev-btn').addEventListener('click', () => {
-    songIndex = (songIndex - 1 + songs.length) % songs.length;
+nextBtn.addEventListener('click', () => {
+    songIndex = (songIndex + 1) % songs.length; 
     loadSong(songs[songIndex]);
     audio.play();
 });
@@ -89,14 +97,6 @@ if (playBtn && audio) {
         }
     });
 }
-
-const songs = [
-    { title: "Animal I Have Become", artist: "Three Days Grace", src: "AnimalIHaveBecome.mp3", art: "musicicon.png" },
-    { title: "saraunh0ly", artist: "wutiwant", src: "wutiwant.mp3", art: "musicicon.png" },
-    { title: "Bensound", artist: "Summer", src: "Summer.mp3", art: "musicicon.png" }
-];
-
-let songIndex = 0;
 
 function loadSong(song) {
     document.querySelector('.song-title').textContent = song.title;
