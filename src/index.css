@@ -253,27 +253,13 @@ input[type="range"]::-webkit-slider-thumb {
     flex-shrink: 0;
     margin: 10px 0;
     position: relative;
-    background-color: #111 !important; 
+    background-color: var(--glass-bg);
     background-image: url('musicicon.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 50%;
-    border: 8px solid #222;
+    border: 8px solid var(--glass-border);
     box-shadow: 0 0 20px rgba(0,0,0,0.5);
-}
-
-.album-art::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 15px;
-    height: 15px;
-    background: var(--accent); /* Now this will change with your theme! */
-    border-radius: 50%;
-    border: 2px solid #111;
-    z-index: 2; /* Keeps it above the music icon */
 }
 
 .album-art.playing {
