@@ -24,6 +24,8 @@ let songIndex = 0;
 
 const audio = document.getElementById('main-audio');
 const playBtn = document.getElementById('play-btn');
+const prevBtn = document.getElementById('prev-btn'); // ADD THIS
+const nextBtn = document.getElementById('next-btn');
 const progressBar = document.getElementById('progress-bar');
 const currentTimeEl = document.getElementById('current-time');
 const durationEl = document.getElementById('duration');
@@ -31,7 +33,7 @@ const volumeSlider = document.getElementById('volume-slider');
 const albumArt = document.querySelector('.album-art');
 const musicCard = document.querySelector('.glass-card.music-app');
 
-document.getElementById('prev-btn').addEventListener('click', () => {
+prevBtn.addEventListener('click', () => {
     songIndex = (songIndex - 1 + songs.length) % songs.length;
     loadSong(songs[songIndex]);
     audio.play();
