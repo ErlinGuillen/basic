@@ -362,3 +362,10 @@ input[type="range"]::-webkit-slider-thumb {
     height: 30px;
     margin-top: 15px;
 }
+
+#volume-slider {
+    width: 100px;
+    height: 4px;
+    cursor: pointer;
+    accent-color: var(--accent); /* This makes the slider handle match your theme! */
+}
