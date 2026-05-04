@@ -5,6 +5,7 @@
     --glass-border: rgba(255, 255, 255, 0.3);
     --text-color: white;
     --btn-bg: rgba(255, 255, 255, 0.3);
+    --accent: #ff9a9e;
 }
 
 html {
@@ -30,6 +31,7 @@ body.dark-mode {
     --glass-border: rgba(255, 255, 255, 0.1);
     --text-color: #e0e0e0;
     --btn-bg: rgba(255, 255, 255, 0.1);
+    --accent: #ee9ca7;
 }
 
 body.dark-mode .glass-btn:hover {
@@ -223,12 +225,12 @@ body.dark-mode .glass-btn:hover {
 input[type="range"] {
     flex-grow: 1;
     cursor: pointer;
-    accent-color: rgba(255, 255, 255, 0.8);
     -webkit-appearance: none;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
     height: 6px;
     outline: none;
+    accent-color: var(--accent);
 }
 
 input[type="range"]::-webkit-slider-thumb {
