@@ -13,6 +13,13 @@ tabs.forEach(tab => {
         });
     });
 });
+
+const latestDateLabel = document.querySelector('.post .date');
+if (latestDateLabel) {
+    const today = new Date();
+    const options = { month: 'long', day: 'numeric', year: 'numeric' };
+    latestDateLabel.innerText = today.toLocaleDateString('en-US', options).toUpperCase();
+}
 // Music App //
 const songs = [
     { title: "Animal I Have Become", artist: "Three Days Grace", src: "AnimalIHaveBecome.mp3", art: "musicicon.png" },
