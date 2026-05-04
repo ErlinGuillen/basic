@@ -255,7 +255,10 @@ input[type="range"]::-webkit-slider-thumb {
     background-size: 60%; /* This keeps the icon centered and not touching the edges */
     background-repeat: no-repeat;
     background-position: center;
-    background-color: rgba(0, 0, 0, 0.3); /* Makes it look like a black vinyl disc */
+    background-color: #222;
+    border: 10px solid #111; 
+    outline: 2px solid rgba(255,255,255,0.1);
+    outline-offset: -15px;
     transition: transform 0.5s ease;
 }
 
