@@ -37,11 +37,25 @@ const musicCard = document.querySelector('.glass-card.music-app');
 prevBtn.addEventListener('click', () => {
     songIndex = (songIndex - 1 + songs.length) % songs.length;
     loadSong(songs[songIndex]);
+
+    const isPlaying = musicApp.classList.contains('playing');
+    if (isPlaying) {
+        audio.play();
+    } else {
+        audio.pause(); // Force it to stay paused if you weren't already listening
+    }
 });
 
 nextBtn.addEventListener('click', () => {
     songIndex = (songIndex + 1) % songs.length; 
     loadSong(songs[songIndex]);
+
+    const isPlaying = musicApp.classList.contains('playing');
+    if (isPlaying) {
+        audio.play();
+    } else {
+        audio.pause(); // Force it to stay paused if you weren't already listening
+    }
 });
 
 progressBar.addEventListener('input', () => {   
