@@ -252,15 +252,14 @@ input[type="range"]::-webkit-slider-thumb {
     justify-content: center;
     flex-shrink: 0;
     margin: 10px 0;
-    position: relative; /* Essential for the 'dot' to center correctly */
-    background: var(--glass-bg);
+    position: relative;
+    background-color: #111 !important; 
     background-image: url('musicicon.png');
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 60%;
-    border: var(--glass-border);
-    box-shadow: 0 0 20px rgba(0,0,0,0.5), inset 0 0 40px rgba(255,255,255,0.05);
-    filter: invert(0.8);
+    background-size: 50%;
+    border: 8px solid #222;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
 .album-art.playing {
