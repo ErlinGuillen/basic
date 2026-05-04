@@ -262,6 +262,21 @@ input[type="range"]::-webkit-slider-thumb {
     box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
+.album-art::before {
+    content: '';
+    width: 60%;
+    height: 60%;
+    background-color: var(--accent); /* This connects it to root! */
+    -webkit-mask-image: url('musicicon.png');
+    mask-image: url('musicicon.png');
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+}
+
 .album-art.playing {
     animation: rotate 10s linear infinite;
     border: 5px solid rgba(255, 255, 255, 0.1); /* Adds a subtle vinyl edge */
