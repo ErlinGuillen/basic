@@ -247,6 +247,9 @@ input[type="range"]::-webkit-slider-thumb {
     width: 200px;
     height: 200px;
     border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
     margin: 10px 0;
     position: relative; /* Essential for the 'dot' to center correctly */
@@ -257,6 +260,7 @@ input[type="range"]::-webkit-slider-thumb {
     background-size: 60%;
     border: var(--glass-border);
     box-shadow: 0 0 20px rgba(0,0,0,0.5), inset 0 0 40px rgba(255,255,255,0.05);
+    filter: invert(0.8);
 }
 
 .album-art.playing {
