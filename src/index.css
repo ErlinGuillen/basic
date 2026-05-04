@@ -262,6 +262,20 @@ input[type="range"]::-webkit-slider-thumb {
     box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
+.album-art::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 15px;
+    height: 15px;
+    background: var(--accent); /* Now this will change with your theme! */
+    border-radius: 50%;
+    border: 2px solid #111;
+    z-index: 2; /* Keeps it above the music icon */
+}
+
 .album-art.playing {
     animation: rotate 10s linear infinite;
     border: 5px solid rgba(255, 255, 255, 0.1); /* Adds a subtle vinyl edge */
