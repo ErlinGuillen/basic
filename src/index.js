@@ -91,9 +91,9 @@ if (playBtn && audio) {
 }
 
 const songs = [
-    { title: "Animal I Have Become", artist: "Three Days Grace", src: "AnimalIHaveBecome.mp3", art: "https://upload.wikimedia.org/wikipedia/en/b/b8/One-X.jpg" },
-    { title: "saraunh0ly", artist: "wutiwant", src: "wutiwant.mp3", art: "https://upload.wikimedia.org/wikipedia/en/b/b8/One-X.jpg" },
-    { title: "Bensound", artist: "Summer", src: "Summer.mp3", art: "https://upload.wikimedia.org/wikipedia/en/b/b8/One-X.jpg" }
+    { title: "Animal I Have Become", artist: "Three Days Grace", src: "AnimalIHaveBecome.mp3", art: "musicicon.png" },
+    { title: "saraunh0ly", artist: "wutiwant", src: "wutiwant.mp3", art: "musicicon.png" },
+    { title: "Bensound", artist: "Summer", src: "Summer.mp3", art: "musicicon.png" }
 ];
 
 let songIndex = 0;
