@@ -5,7 +5,7 @@
     --glass-border: rgba(255, 255, 255, 0.3);
     --text-color: white;
     --btn-bg: rgba(255, 255, 255, 0.3);
-    --accent: #ff9a9e;
+    --accent: #bfbfbf;
 }
 
 html {
@@ -254,7 +254,6 @@ input[type="range"]::-webkit-slider-thumb {
     margin: 10px 0;
     position: relative;
     background-color: var(--glass-bg);
-    background-image: url('musicicon.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 50%;
