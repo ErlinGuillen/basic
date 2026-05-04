@@ -17,7 +17,8 @@ tabs.forEach(tab => {
 const songs = [
     { title: "Animal I Have Become", artist: "Three Days Grace", src: "AnimalIHaveBecome.mp3", art: "musicicon.png" },
     { title: "saraunh0ly", artist: "wutiwant", src: "wutiwant.mp3", art: "musicicon.png" },
-    { title: "Bensound", artist: "Summer", src: "Summer.mp3", art: "musicicon.png" }
+    { title: "Bensound", artist: "Summer", src: "Summer.mp3", art: "musicicon.png" },
+    { title: "Parry Gripp", artist: "Raining Tacos", src: "RainingTacos.mp3", art: "musicicon.png" }
 ];
 
 let songIndex = 0;
