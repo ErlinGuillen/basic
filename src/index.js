@@ -37,13 +37,11 @@ const musicCard = document.querySelector('.glass-card.music-app');
 prevBtn.addEventListener('click', () => {
     songIndex = (songIndex - 1 + songs.length) % songs.length;
     loadSong(songs[songIndex]);
-    audio.play();
 });
 
 nextBtn.addEventListener('click', () => {
     songIndex = (songIndex + 1) % songs.length; 
     loadSong(songs[songIndex]);
-    audio.play();
 });
 
 progressBar.addEventListener('input', () => {   
