@@ -250,8 +250,7 @@ input[type="range"]::-webkit-slider-thumb {
     flex-shrink: 0;
     margin: 10px 0;
     position: relative; /* Essential for the 'dot' to center correctly */
-    background-color: #111;
-    background-image: url('./musicicon.png'); /* Added ./ to look in the current folder */
+    background: #111 url('musicicon.png') no-repeat center;
     background-repeat: no-repeat;
     background-position: center;
     background-size: 60%;
