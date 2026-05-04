@@ -34,6 +34,10 @@ const volumeSlider = document.getElementById('volume-slider');
 const albumArt = document.querySelector('.album-art');
 const musicCard = document.querySelector('.glass-card.music-app');
 
+audio.addEventListener('ended', () => {
+    nextBtn.click(); // This triggers your next song logic automatically!
+});
+
 prevBtn.addEventListener('click', () => {
     songIndex--;
     if (songIndex < 0) {
