@@ -157,6 +157,39 @@ volumeSlider.addEventListener('input', () => {
     audio.volume = volumeSlider.value;
 });
 
+window.addSongToCurrent = function(songIndex) {
+    if (userPlaylists.length === 0) {
+        alert("Please create a playlist first!");
+        return;
+    }
+    
+    // Add the song to the last playlist created
+    const selectedSong = songs[songIndex];
+    const targetPlaylist = userPlaylists[userPlaylists.length - 1];
+    
+    targetPlaylist.tracks.push(selectedSong);
+    alert(`Added ${selectedSong.title} to ${targetPlaylist.name}`);
+    renderPlaylists();
+};
+
+window.playPlaylist = function(playlistIndex) {
+    const selectedPlaylist = userPlaylists[playlistIndex];
+    
+    if (selectedPlaylist.tracks.length === 0) {
+        alert("This playlist is empty!");
+        return;
+    }
+    
+    loadSong(selectedPlaylist.tracks[0]);
+    songIndex = 0;
+    
+    if (!audio.paused || musicCard.classList.contains('playing')) {
+        audio.play();
+    }
+    
+    alert(`Now playing playlist: ${selectedPlaylist.name}`);
+};
+
 if (audio) {
     audio.addEventListener('loadedmetadata', () => {
         let mins = Math.floor(audio.duration / 60);
