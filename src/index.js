@@ -92,6 +92,8 @@ const songs = [
     }
 ];
 
+let userPlaylists = [];
+
 let songIndex = 0;
 
 const audio = document.getElementById('main-audio');
@@ -102,11 +104,25 @@ const progressBar = document.getElementById('progress-bar');
 const currentTimeEl = document.getElementById('current-time');
 const durationEl = document.getElementById('duration');
 const volumeSlider = document.getElementById('volume-slider');
+const playlistNameInput = document.getElementById('playlist-name');
+const createPlaylistBtn = document.getElementById('create-playlist-btn');
+const playlistsContainer = document.getElementById('playlists-container');
+const tracksList = document.getElementById('available-tracks');
 const albumArt = document.querySelector('.album-art');
 const musicCard = document.querySelector('.glass-card.music-app');
 
 audio.addEventListener('ended', () => {
     nextBtn.click(); // This triggers your next song logic automatically!
+});
+
+createPlaylistBtn.addEventListener('click', () => {
+    const name = playlistNameInput.value.trim();
+    if (name) {
+        const newPlaylist = { name: name, tracks: [] };
+        userPlaylists.push(newPlaylist);
+        renderPlaylists();
+        playlistNameInput.value = "";
+    }
 });
 
 prevBtn.addEventListener('click', () => {
@@ -210,3 +226,31 @@ themeToggle.addEventListener('click', () => {
         localStorage.setItem('theme', 'light');
     }
 });
+
+function renderAvailableTracks() {
+    tracksList.innerHTML = '<h4>Available Tracks</h4>';
+    songs.forEach((song, index) => {
+        const item = document.createElement('div');
+        item.className = 'track-item';
+        item.innerHTML = `
+            <span>${song.title} - ${song.artist}</span>
+            <button class="glass-btn small-btn" onclick="addSongToCurrent('${index}')">+</button>
+        `;
+        tracksList.appendChild(item);
+    });
+}
+
+function renderPlaylists() {
+    playlistsContainer.innerHTML = "";
+    userPlaylists.forEach((pl, i) => {
+        const div = document.createElement('div');
+        div.className = 'playlist-card';
+        div.innerHTML = `
+            <strong>${pl.name}</strong> (${pl.tracks.length} songs)
+            <button class="glass-btn" onclick="playPlaylist(${i})">Play This</button>
+        `;
+        playlistsContainer.appendChild(div);
+    });
+}
+
+renderAvailableTracks();
