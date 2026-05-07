@@ -189,7 +189,7 @@ function loadSong(song) {
     document.querySelector('.song-title').textContent = song.title;
     document.querySelector('.artist-name').textContent = song.artist;
     audio.src = song.src;
-    albumArt.style.backgroundImage = `url('${song.art}')`;
+    albumArt.style.backgroundImage = `url('${ song . art }')`;
 }
 // Light/Dark Mode
 const themeToggle = document.getElementById('theme-toggle');
