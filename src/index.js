@@ -92,8 +92,7 @@ const songs = [
     }
 ];
 
-let userPlaylists = [];
-
+let userPlaylists = JSON.parse(localStorage.getItem('myCustomPlaylists')) || [];
 let songIndex = 0;
 
 const audio = document.getElementById('main-audio');
@@ -110,6 +109,7 @@ const playlistsContainer = document.getElementById('playlists-container');
 const tracksList = document.getElementById('available-tracks');
 const albumArt = document.querySelector('.album-art');
 const musicCard = document.querySelector('.glass-card.music-app');
+
 
 audio.addEventListener('ended', () => {
     nextBtn.click(); // This triggers your next song logic automatically!
@@ -240,25 +240,6 @@ function loadSong(song) {
     audio.src = song.src;
     albumArt.style.backgroundImage = `url('${ song . art }')`;
 }
-// Light/Dark Mode
-const themeToggle = document.getElementById('theme-toggle');
-const body = document.body;
-
-// Check for saved user preference
-if (localStorage.getItem('theme') === 'dark') {
-    body.classList.add('dark-mode');
-}
-
-themeToggle.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
-    
-    // Save the preference to local storage
-    if (body.classList.contains('dark-mode')) {
-        localStorage.setItem('theme', 'dark');
-    } else {
-        localStorage.setItem('theme', 'light');
-    }
-});
 
 function renderAvailableTracks() {
     tracksList.innerHTML = '<h4>Available Tracks</h4>';
@@ -286,4 +267,38 @@ function renderPlaylists() {
     });
 }
 
+function togglePlay() {
+    if (elements.audio.paused) {
+        elements.audio.play();
+        elements.playBtn.innerHTML = '<span>Pause</span>';
+        elements.albumArt.classList.add('playing');
+        elements.musicCard.classList.add('playing');
+    } else {
+        elements.audio.pause();
+        elements.playBtn.innerHTML = '<span>Play</span>';
+        elements.albumArt.classList.remove('playing');
+        elements.musicCard.classList.remove('playing');
+    }
+}
+
 renderAvailableTracks();
+renderPlaylists();
+// Light/Dark Mode
+const themeToggle = document.getElementById('theme-toggle');
+const body = document.body;
+
+// Check for saved user preference
+if (localStorage.getItem('theme') === 'dark') {
+    body.classList.add('dark-mode');
+}
+
+themeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    
+    // Save the preference to local storage
+    if (body.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+    } else {
+        localStorage.setItem('theme', 'light');
+    }
+});
