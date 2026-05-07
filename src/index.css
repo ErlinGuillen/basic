@@ -5,7 +5,7 @@
     --glass-border: rgba(255, 255, 255, 0.3);
     --text-color: white;
     --btn-bg: rgba(255, 255, 255, 0.3);
-    --accent: #ee9ca7;
+    --accent: #bfbfbf;
 }
 
 html {
@@ -31,7 +31,7 @@ body.dark-mode {
     --glass-border: rgba(255, 255, 255, 0.1);
     --text-color: #e0e0e0;
     --btn-bg: rgba(255, 255, 255, 0.1);
-    --accent: #bfbfbf;
+    --accent: #ee9ca7;
 }
 
 body.dark-mode .glass-btn:hover {
