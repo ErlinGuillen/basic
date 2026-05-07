@@ -358,6 +358,13 @@ input[type="range"]::-webkit-slider-thumb {
     padding: 20px;
 }
 
+.playlist-manager h4 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    margin: 20px 0 10px;
+    opacity: 0.6;
+}
+
 .progress-container {
     width: 100%;
     display: flex;
@@ -372,12 +379,10 @@ input[type="range"]::-webkit-slider-thumb {
     margin-top: 10px;
 }
 
-.track-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px;
-    border-bottom: 1px solid var(--glass-border);
-    font-size: 0.9rem;
+.small-btn {
+    padding: 4px 12px;
+    margin-top: 0;
+    font-size: 0.75rem;
 }
 
 .song-info {
@@ -387,6 +392,25 @@ input[type="range"]::-webkit-slider-thumb {
 
 .song-title { 
     margin-bottom: 5px; 
+}
+
+.track-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    border-bottom: 1px solid var(--glass-border);
+    font-size: 0.9rem;
+    background: rgba(255, 255, 255, 0.05);
+    margin-bottom: 5px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: 0.3s;
+}
+
+.track-item:hover {
+    border-color: var(--glass-border);
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .visualizer {
