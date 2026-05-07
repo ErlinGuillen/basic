@@ -353,6 +353,11 @@ input[type="range"]::-webkit-slider-thumb {
     animation: bounce 0.6s infinite alternate;
 }
 
+.playlist-manager {
+    margin-top: 20px;
+    padding: 20px;
+}
+
 .progress-container {
     width: 100%;
     display: flex;
@@ -360,12 +365,19 @@ input[type="range"]::-webkit-slider-thumb {
     gap: 10px;
 }
 
-.volume-container {
-    width: 80%;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.playlist-card {
+    background: var(--btn-bg);
+    padding: 10px;
+    border-radius: 8px;
     margin-top: 10px;
+}
+
+.track-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    border-bottom: 1px solid var(--glass-border);
+    font-size: 0.9rem;
 }
 
 .song-info {
@@ -384,6 +396,14 @@ input[type="range"]::-webkit-slider-thumb {
     gap: 4px;
     height: 30px;
     margin-top: 15px;
+}
+
+.volume-container {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
 }
 
 #volume-slider {
