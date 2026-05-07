@@ -1,6 +1,24 @@
 // Blog Homepage //
 const tabs = document.querySelectorAll('.tab-btn');
 const contents = document.querySelectorAll('.tab-content');
+const postBtn = document.getElementById('post-comment');
+const commentInput = document.getElementById('user-comment');
+const commentsDisplay = document.getElementById('comments-display');
+
+postBtn.addEventListener('click', () => {
+    const commentText = commentInput.value.trim();
+    
+    if (commentText !== "") {
+        // Create a new comment element
+        const newComment = document.createElement('p');
+        newComment.classList.add('comment');
+        newComment.innerHTML = `<strong>User:</strong> ${commentText}`;
+        
+        // Add it to the list and clear the input
+        commentsDisplay.prepend(newComment);
+        commentInput.value = "";
+    }
+});
 
 tabs.forEach(tab => {
     tab.addEventListener('click', () => {
@@ -22,13 +40,48 @@ if (latestDateLabel) {
 }
 // Music App //
 const songs = [
-    { title: "Animal I Have Become", artist: "Three Days Grace", src: "AnimalIHaveBecome.mp3", art: "musicicon.png" },
-    { title: "saraunh0ly", artist: "wutiwant", src: "wutiwant.mp3", art: "musicicon.png" },
-    { title: "Bensound", artist: "Summer", src: "Summer.mp3", art: "musicicon.png" },
-    { title: "Parry Gripp", artist: "Raining Tacos", src: "RainingTacos.mp3", art: "musicicon.png" },
-    { title: "BBpanzu", artist: "Bang Bang Bang", src: "BangBangBang.mp3", art: "musicicon.png" },
-    { title: "Alan Walker and Alok", artist: "Headlights (ft. KIDDO)", src: "Headlights.mp3", art: "musicicon.png" },
-    { title: "DJ KVNXD", artist: "Nervy Funk", src: "Nervy Funk.mp3", art: "musicicon.png" }
+    { 
+      title: "Animal I Have Become", 
+      artist: "Three Days Grace", 
+      src: "AnimalIHaveBecome.mp3", 
+      art: "musicicon.png" 
+    },
+    { 
+      title: "saraunh0ly", 
+      artist: "wutiwant", 
+      src: "wutiwant.mp3", 
+      art: "musicicon.png" 
+    },
+    { 
+      title: "Bensound", 
+      artist: "Summer", 
+      src: "Summer.mp3", 
+      art: "musicicon.png" 
+    },
+    { 
+      title: "Parry Gripp", 
+      artist: "Raining Tacos", 
+      src: "RainingTacos.mp3", 
+      art: "musicicon.png" 
+    },
+    { 
+      title: "BBpanzu", 
+      artist: "Bang Bang Bang", 
+      src: "BangBangBang.mp3", 
+      art: "musicicon.png" 
+    },
+    { 
+      title: "Alan Walker and Alok", 
+      artist: "Headlights (ft. KIDDO)", 
+      src: "Headlights.mp3", 
+      art: "musicicon.png" 
+    },
+    { 
+      title: "DJ KVNXD", 
+      artist: "Nervy Funk", 
+      src: "Nervy Funk.mp3", 
+      art: "musicicon.png" 
+    }
 ];
 
 let songIndex = 0;
