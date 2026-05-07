@@ -118,26 +118,27 @@ body.dark-mode .glass-btn:hover {
     border-left: 2px solid rgba(255, 255, 255, 0.3);
 }
 
+.comment {
+    padding: 10px;
+    border-bottom: 1px solid var(--glass-border);
+    font-size: 0.95rem;
+}
+
+.comment-input-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+}
+
 .comment-input {
-    width: 100%;
-    padding: 8px;
-    background: var(--btn-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 5px;
-    color: var(--text-color);
-    margin-bottom: 10px;
+    flex: 1;
+    margin-bottom: 0 !important; /* Overriding your existing margin */
 }
 
 .comment-section {
-    margin-top: 15px;
-    padding-top: 10px;
-    border-top: 1px solid var(--glass-border);
-}
-
-.comment {
-    font-size: 0.9rem;
-    margin: 5px 0;
-    opacity: 0.8;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    width: 100%;
 }
 
 .date {
