@@ -7,14 +7,22 @@ const commentsDisplay = document.getElementById('comments-display');
 
 postBtn.addEventListener('click', () => {
     const commentText = commentInput.value.trim();
-    
     if (commentText !== "") {
-        // Create a new comment element
-        const newComment = document.createElement('p');
+        const newComment = document.createElement('div'); // Changed to div for layout
         newComment.classList.add('comment');
-        newComment.innerHTML = `<strong>User:</strong> ${commentText}`;
+        newComment.style.display = "flex";
+        newComment.style.justifyContent = "space-between";
         
-        // Add it to the list and clear the input
+        newComment.innerHTML = `
+            <span><strong>User:</strong> ${commentText}</span>
+            <button class="delete-btn" style="background:none; border:none; color:red; cursor:pointer;">&times;</button>
+        `;
+        
+        // Add delete functionality
+        newComment.querySelector('.delete-btn').addEventListener('click', () => {
+            newComment.remove();
+        });
+
         commentsDisplay.prepend(newComment);
         commentInput.value = "";
     }
