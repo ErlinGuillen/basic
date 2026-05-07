@@ -27,6 +27,8 @@ const songs = [
     { title: "Bensound", artist: "Summer", src: "Summer.mp3", art: "musicicon.png" },
     { title: "Parry Gripp", artist: "Raining Tacos", src: "RainingTacos.mp3", art: "musicicon.png" },
     { title: "BBpanzu", artist: "Bang Bang Bang", src: "BangBangBang.mp3", art: "musicicon.png" },
+    { title: "Alan Walker and Alok", artist: "Headlights (ft. KIDDO)", src: "Headlights.mp3", art: "musicicon.png" },
+    { title: "DJ KVNXD", artist: "Nervy Funk", src: "Nervy Funk.mp3", art: "musicicon.png" }
 ];
 
 let songIndex = 0;
