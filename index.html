@@ -6,14 +6,14 @@
     <title>MS-DOS Executive</title>
     <style>
         :root {
-            --win1-blue: #0000AA;
-            --win1-light-blue: #5555FF;
+            --win1-blue: #0000AA; /* Header Blue */
+            --win1-teal: #00AAAA; /* Classic Background/Border Teal */
             --win1-white: #FFFFFF;
             --win1-black: #000000;
         }
 
         body {
-            background-color: var(--win1-white);
+            background-color: var(--win1-teal);
             font-family: "Courier New", Courier, monospace;
             margin: 0;
             padding: 0;
@@ -89,8 +89,9 @@
         .file-item:hover {
             background-color: var(--win1-blue);
             color: var(--win1-white);
+            outline: 1px dotted var(--win1-white);
+            outline-offset: -2px;
         }
-
     </style>
 </head>
 <body>
@@ -126,7 +127,10 @@
             <div class="file-item">TERMINAL.EXE</div>
             <div class="file-item">WRITE.EXE</div>
         </div>
-    </div>
 
+        <div class="desktop-icons" style="position: fixed; bottom: 0; width: 100%; height: 50px; background: var(--win1-teal); border-top: 2px solid black; display: flex; align-items: center; padding-left: 10px;">
+            <div style="border: 2px solid black; background: white; padding: 2px 5px; font-size: 10px; font-weight: bold;">PAINT</div>
+        </div>
+    </div>
 </body>
 </html>
