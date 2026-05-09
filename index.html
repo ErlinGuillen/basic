@@ -1,101 +1,140 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Page Title</title>
-<style>
-:root {
-    --glass-bg: rgba(255, 255, 255, 0.1);
-    --glass-border: rgba(255, 255, 255, 0.2);
-    --glass-shimmer: rgba(255, 255, 255, 0.4);
-    --accent: #00f2ff;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catch the Square - Glass UI</title>
+    <style>
+        :root {
+            --bg-color: #e0f2fe;
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --accent-blue: #0ea5e9;
+        }
 
-body {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #bae6fd 0%, #e0f2fe 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
 
-/* The Core Glass Panel */
-.glass-panel {
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px) saturate(180%);
-    -webkit-backdrop-filter: blur(12px) saturate(180%);
-    border-radius: 16px;
-    border: 1px solid var(--glass-border);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-    padding: 20px;
-    color: white;
-}
+        /* Glassmorphism Container */
+        .game-container {
+            position: relative;
+            width: 90vw;
+            max-width: 600px;
+            height: 400px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            overflow: hidden;
+            cursor: crosshair;
+        }
 
-/* HUD Positioning */
-.hud {
-    position: absolute;
-    top: 20px;
-    display: flex;
-    gap: 30px;
-    font-family: 'Inter', sans-serif;
-}
+        .stats-panel {
+            margin-bottom: 20px;
+            padding: 15px 30px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(8px);
+            border-radius: 50px;
+            border: 1px solid var(--glass-border);
+            color: #0369a1;
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: flex;
+            gap: 20px;
+        }
 
-/* The "Catch Square" Element */
-.glass-square {
-    width: 60px;
-    height: 60px;
-    background: var(--glass-bg);
-    backdrop-filter: blur(8px);
-    border: 1px solid var(--glass-border);
-    border-radius: 12px;
-    cursor: pointer;
-    transition: transform 0.2s ease, border-color 0.2s;
-}
+        /* The Target Square */
+        #target {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: var(--accent-blue);
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(14, 165, 233, 0.4);
+            transition: all 0.2s ease-out;
+            cursor: pointer;
+        }
 
-.glass-square.active {
-    border-color: var(--accent);
-    box-shadow: 0 0 15px var(--accent);
-    /* Specular highlight at the top */
-    background: linear-gradient(170deg, var(--glass-shimmer) 0%, transparent 50%);
-}
+        #target:hover {
+            transform: scale(1.1);
+        }
 
-.glass-square:hover {
-    transform: scale(1.1);
-}
-
-/* Interactive Glass Buttons */
-.glass-button {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--glass-border);
-    color: white;
-    padding: 10px 25px;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: all 0.3s;
-}
-
-.glass-button:hover {
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-}
-</style>
+        #target:active {
+            transform: scale(0.9);
+        }
+    </style>
 </head>
 <body>
-<div class="game-container">
-    <div class="glass-panel hud">
-        <div class="stat">Score: <span id="score">0</span></div>
-        <div class="stat">Time: <span id="timer">60</span>s</div>
+
+    <div class="stats-panel">
+        <div>Score: <span id="score">0</span></div>
+        <div>Time: <span id="timer">30</span>s</div>
     </div>
 
-    <div class="glass-square active"></div>
-
-    <div class="glass-panel menu">
-        <h2>Paused</h2>
-        <button class="glass-button">Resume</button>
-        <button class="glass-button">Quit</button>
+    <div class="game-container" id="game-area">
+        <div id="target"></div>
     </div>
-</div>
+
+    <script>
+        const target = document.getElementById('target');
+        const gameArea = document.getElementById('game-area');
+        const scoreDisplay = document.getElementById('score');
+        const timerDisplay = document.getElementById('timer');
+
+        let score = 0;
+        let timeLeft = 30;
+        let gameActive = true;
+
+        // Function to move the square to a random position
+        function moveSquare() {
+            if (!gameActive) return;
+
+            const maxX = gameArea.clientWidth - target.clientWidth;
+            const maxY = gameArea.clientHeight - target.clientHeight;
+
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+
+            target.style.left = `${randomX}px`;
+            target.style.top = `${randomY}px`;
+        }
+
+        // Handle the "Catch"
+        target.addEventListener('click', () => {
+            if (gameActive) {
+                score++;
+                scoreDisplay.textContent = score;
+                moveSquare();
+            }
+        });
+
+        // Countdown Timer
+        const countdown = setInterval(() => {
+            timeLeft--;
+            timerDisplay.textContent = timeLeft;
+
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                gameActive = false;
+                alert(`Game Over! Your final score is: ${score}`);
+                location.reload(); // Reset the game
+            }
+        }, 1000);
+
+        // Initial placement
+        moveSquare();
+    </script>
 </body>
 </html>
-
