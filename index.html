@@ -17,69 +17,98 @@
             align-items: center;
             justify-content: center;
         }
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+.animate-blob { animation: blob 7s infinite; }
+.animation-delay-2000 { animation-delay: 2s; }
     </style>
 </head>
 <body>
     <div id="root"></div>
 
-    <script type="text/babel">
-        const { useState } = React;
+<script type="text/babel">
+    const { useState, useRef, useEffect } = React;
 
-        const MusicCard = () => {
-            const [isPlaying, setIsPlaying] = useState(false);
+    const MusicCard = () => {
+        const [isPlaying, setIsPlaying] = useState(false);
+        const [progress, setProgress] = useState(0);
+        const audioRef = useRef(new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'));
 
-            return (
+        // Handle Play/Pause logic
+        const togglePlay = () => {
+            if (isPlaying) {
+                audioRef.current.pause();
+            } else {
+                audioRef.current.play();
+            }
+            setIsPlaying(!isPlaying);
+        };
+
+        // Update progress bar
+        useEffect(() => {
+            const audio = audioRef.current;
+            const updateProgress = () => {
+                setProgress((audio.currentTime / audio.duration) * 100);
+            };
+            audio.addEventListener('timeupdate', updateProgress);
+            return () => audio.removeEventListener('timeupdate', updateProgress);
+        }, []);
+
+        return (
+            <div className="relative">
+                {/* Animated Background Blobs (To show off the Blur) */}
+                <div className="absolute -top-10 -left-10 w-40 h-40 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+                <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-cyan-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+
+                {/* Main Card */}
                 <div className="relative w-80 overflow-hidden rounded-[2.5rem] border border-white/40 bg-white/30 p-8 shadow-2xl backdrop-blur-xl">
-                    {/* Album Art */}
                     <div className="relative mb-8 aspect-square w-full overflow-hidden rounded-3xl shadow-lg border border-white/20">
                         <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-400 to-blue-600">
                             <i className="lucide-music text-white/50 w-16 h-16"></i>
                         </div>
                     </div>
 
-                    {/* Song Info */}
                     <div className="mb-8 text-center">
                         <h2 className="text-2xl font-bold text-blue-900 tracking-tight">Ethereal Blue</h2>
-                        <p className="text-blue-800/60 font-medium">Glass Synthesis</p>
+                        <p className="text-blue-800/60 font-medium tracking-wide">Glass Synthesis</p>
                     </div>
 
-                    {/* Progress Bar */}
                     <div className="mb-8">
                         <div className="h-1.5 w-full rounded-full bg-blue-900/10">
-                            <div className="h-1.5 w-2/3 rounded-full bg-blue-600 shadow-[0_0_12px_rgba(37,99,235,0.4)]"></div>
+                            <div 
+                                className="h-1.5 rounded-full bg-blue-600 shadow-[0_0_12px_rgba(37,99,235,0.4)] transition-all duration-300"
+                                style={{ width: `${progress}%` }}
+                            ></div>
                         </div>
                         <div className="mt-2 flex justify-between text-xs font-bold text-blue-900/40">
-                            <span>2:45</span>
+                            <span>{Math.floor(audioRef.current.currentTime / 60)}:{(Math.floor(audioRef.current.currentTime % 60)).toString().padStart(2, '0')}</span>
                             <span>4:12</span>
                         </div>
                     </div>
 
-                    {/* Controls */}
                     <div className="flex items-center justify-center gap-8">
-                        <button className="text-blue-900/70 hover:text-blue-900 transition hover:scale-110">
-                            <i className="lucide-skip-back fill-current w-6 h-6"></i>
-                        </button>
+                        <button className="text-blue-900/70 hover:text-blue-900 transition hover:scale-110"><i className="lucide-skip-back fill-current w-6 h-6"></i></button>
                         
                         <button 
-                            onClick={() => setIsPlaying(!isPlaying)}
-                            className="flex h-16 w-16 items-center justify-center rounded-full bg-blue-600 text-white shadow-lg transition-all hover:bg-blue-700 hover:scale-105 active:scale-95"
+                            onClick={togglePlay}
+                            className={`flex h-16 w-16 items-center justify-center rounded-full text-white shadow-lg transition-all hover:scale-105 active:scale-95 ${isPlaying ? 'bg-blue-700 shadow-blue-400/50' : 'bg-blue-600'}`}
                         >
-                            {isPlaying ? 
-                                <i className="lucide-pause fill-current w-6 h-6"></i> : 
-                                <i className="lucide-play fill-current w-6 h-6 ml-1"></i>
-                            }
+                            {isPlaying ? <i className="lucide-pause fill-current w-6 h-6"></i> : <i className="lucide-play fill-current w-6 h-6 ml-1"></i>}
                         </button>
 
-                        <button className="text-blue-900/70 hover:text-blue-900 transition hover:scale-110">
-                            <i className="lucide-skip-forward fill-current w-6 h-6"></i>
-                        </button>
+                        <button className="text-blue-900/70 hover:text-blue-900 transition hover:scale-110"><i className="lucide-skip-forward fill-current w-6 h-6"></i></button>
                     </div>
                 </div>
-            );
-        };
+            </div>
+        );
+    };
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<MusicCard />);
-    </script>
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<MusicCard />);
+</script>
 </body>
 </html>
