@@ -36,71 +36,85 @@
     const MusicCard = () => {
         const [isPlaying, setIsPlaying] = useState(false);
         const [progress, setProgress] = useState(0);
+        const [volume, setVolume] = useState(0.7);
         const audioRef = useRef(new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'));
 
-        // Handle Play/Pause logic
+        // 1. Sync Playback & Browser Tab Title
         const togglePlay = () => {
             if (isPlaying) {
                 audioRef.current.pause();
+                document.title = "Paused | Glass Player";
             } else {
                 audioRef.current.play();
+                document.title = "♪ Now Playing...";
             }
             setIsPlaying(!isPlaying);
         };
 
-        // Update progress bar
+        // 2. Handle Volume
+        const handleVolumeChange = (e) => {
+            const val = parseFloat(e.target.value);
+            setVolume(val);
+            audioRef.current.volume = val;
+        };
+
+        // 3. Update progress bar
         useEffect(() => {
             const audio = audioRef.current;
             const updateProgress = () => {
-                setProgress((audio.currentTime / audio.duration) * 100);
+                setProgress((audio.currentTime / audio.duration) * 100 || 0);
             };
             audio.addEventListener('timeupdate', updateProgress);
             return () => audio.removeEventListener('timeupdate', updateProgress);
         }, []);
 
         return (
-            <div className="relative">
-                {/* Animated Background Blobs (To show off the Blur) */}
-                <div className="absolute -top-10 -left-10 w-40 h-40 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-                <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-cyan-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+            <div className="relative group">
+                {/* Background Blobs */}
+                <div className="absolute -top-10 -left-10 w-48 h-48 bg-blue-400 rounded-full mix-blend-multiply filter blur-2xl opacity-50 animate-blob"></div>
+                <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-cyan-300 rounded-full mix-blend-multiply filter blur-2xl opacity-50 animate-blob animation-delay-2000"></div>
 
-                {/* Main Card */}
-                <div className="relative w-80 overflow-hidden rounded-[2.5rem] border border-white/40 bg-white/30 p-8 shadow-2xl backdrop-blur-xl">
+                {/* Main Card with Hover Glow */}
+                <div className="relative w-80 overflow-hidden rounded-[2.5rem] border border-white/40 bg-white/30 p-8 shadow-2xl backdrop-blur-xl transition-all duration-500 group-hover:shadow-blue-400/30 group-hover:border-white/60">
+                    
+                    {/* Album Art */}
                     <div className="relative mb-8 aspect-square w-full overflow-hidden rounded-3xl shadow-lg border border-white/20">
-                        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-400 to-blue-600">
-                            <i className="lucide-music text-white/50 w-16 h-16"></i>
+                        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-500 to-blue-700 transition-transform duration-700 group-hover:scale-110">
+                            <i className="lucide-music text-white/40 w-16 h-16"></i>
                         </div>
                     </div>
 
-                    <div className="mb-8 text-center">
+                    {/* Info */}
+                    <div className="mb-6 text-center">
                         <h2 className="text-2xl font-bold text-blue-900 tracking-tight">Ethereal Blue</h2>
-                        <p className="text-blue-800/60 font-medium tracking-wide">Glass Synthesis</p>
+                        <p className="text-blue-800/60 font-medium">Glass Synthesis</p>
                     </div>
 
-                    <div className="mb-8">
+                    {/* Progress */}
+                    <div className="mb-6">
                         <div className="h-1.5 w-full rounded-full bg-blue-900/10">
-                            <div 
-                                className="h-1.5 rounded-full bg-blue-600 shadow-[0_0_12px_rgba(37,99,235,0.4)] transition-all duration-300"
-                                style={{ width: `${progress}%` }}
-                            ></div>
-                        </div>
-                        <div className="mt-2 flex justify-between text-xs font-bold text-blue-900/40">
-                            <span>{Math.floor(audioRef.current.currentTime / 60)}:{(Math.floor(audioRef.current.currentTime % 60)).toString().padStart(2, '0')}</span>
-                            <span>4:12</span>
+                            <div className="h-1.5 rounded-full bg-blue-600 shadow-[0_0_12px_rgba(37,99,235,0.4)] transition-all duration-300" style={{ width: `${progress}%` }}></div>
                         </div>
                     </div>
 
-                    <div className="flex items-center justify-center gap-8">
-                        <button className="text-blue-900/70 hover:text-blue-900 transition hover:scale-110"><i className="lucide-skip-back fill-current w-6 h-6"></i></button>
-                        
-                        <button 
-                            onClick={togglePlay}
-                            className={`flex h-16 w-16 items-center justify-center rounded-full text-white shadow-lg transition-all hover:scale-105 active:scale-95 ${isPlaying ? 'bg-blue-700 shadow-blue-400/50' : 'bg-blue-600'}`}
-                        >
-                            {isPlaying ? <i className="lucide-pause fill-current w-6 h-6"></i> : <i className="lucide-play fill-current w-6 h-6 ml-1"></i>}
+                    {/* Controls */}
+                    <div className="flex items-center justify-center gap-6 mb-8">
+                        <button className="text-blue-900/60 hover:text-blue-900 transition transform active:scale-90"><i className="lucide-skip-back fill-current w-5 h-5"></i></button>
+                        <button onClick={togglePlay} className={`flex h-16 w-16 items-center justify-center rounded-full text-white shadow-lg transition-all duration-300 hover:scale-110 active:scale-95 ${isPlaying ? 'bg-blue-700 shadow-blue-500/50 rotate-180' : 'bg-blue-600'}`}>
+                            {isPlaying ? <i className="lucide-pause fill-current w-6 h-6 rotate-180"></i> : <i className="lucide-play fill-current w-6 h-6 ml-1"></i>}
                         </button>
+                        <button className="text-blue-900/60 hover:text-blue-900 transition transform active:scale-90"><i className="lucide-skip-forward fill-current w-5 h-5"></i></button>
+                    </div>
 
-                        <button className="text-blue-900/70 hover:text-blue-900 transition hover:scale-110"><i className="lucide-skip-forward fill-current w-6 h-6"></i></button>
+                    {/* Volume Slider - Fades in on card hover */}
+                    <div className="flex items-center gap-3 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <i className={`lucide-volume-${volume === 0 ? 'x' : volume < 0.5 ? '1' : '2'} text-blue-900/40 w-4 h-4`}></i>
+                        <input 
+                            type="range" min="0" max="1" step="0.01" 
+                            value={volume} 
+                            onChange={handleVolumeChange}
+                            className="w-full h-1 bg-blue-900/10 rounded-lg appearance-none cursor-pointer accent-blue-600"
+                        />
                     </div>
                 </div>
             </div>
