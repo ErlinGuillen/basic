@@ -63,7 +63,7 @@
             background: var(--accent-blue);
             border-radius: 12px;
             box-shadow: 0 0 15px rgba(14, 165, 233, 0.4);
-            transition: left 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), top 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.1s ease;
             cursor: pointer;
             z-index: 10;
         }
@@ -78,102 +78,62 @@
     </style>
 </head>
 <body>
+<div class="stats-panel">
+    <div>Score: <span id="score">0</span></div>
+    <div>Time: <span id="timer">30</span>s</div>
+</div>
 
-    <div class="stats-panel">
-        <div>Score: <span id="score">0</span></div>
-        <div>Time: <span id="timer">30</span>s</div>
-    </div>
+<div class="game-container" id="game-area">
+    <div id="target"></div>
+</div>
+<script>
+const target = document.getElementById('target');
+const gameArea = document.getElementById('game-area');
+const scoreDisplay = document.getElementById('score');
+const timerDisplay = document.getElementById('timer');
 
-    <div class="game-container" id="game-area">
-        <div id="target"></div>
-    </div>
+let score = 0;
+let timeLeft = 30;
+let gameActive = true;
 
-    <script>
-        const target = document.getElementById('target');
-        const gameArea = document.getElementById('game-area');
-        const scoreDisplay = document.getElementById('score');
-        const timerDisplay = document.getElementById('timer');
+// Classic Random Movement (No AI/Mouse Tracking)
+function moveSquare() {
+    if (!gameActive) return;
 
-        let score = 0;
-        let timeLeft = 30;
-        let gameActive = true;
-        let mouseX = 0;
-        let mouseY = 0;
+    // Pure random coordinates within the glass container
+    const maxX = gameArea.clientWidth - target.clientWidth;
+    const maxY = gameArea.clientHeight - target.clientHeight;
 
-        gameArea.addEventListener('mousemove', (e) => {
-            const rect = gameArea.getBoundingClientRect();
-            mouseX = e.clientX - rect.left;
-            mouseY = e.clientY - rect.top;
+    const randomX = Math.floor(Math.random() * maxX);
+    const randomY = Math.floor(Math.random() * maxY);
 
-            const targetRect = target.getBoundingClientRect();
-            const targetCenterX = targetRect.left + targetRect.width / 2 - rect.left;
-            const targetCenterY = targetRect.top + targetRect.height / 2 - rect.top;
-    
-            const distance = Math.sqrt(
-                Math.pow(targetCenterX - mouseX, 2) + 
-                Math.pow(targetCenterY - mouseY, 2)
-            );
+    target.style.left = `${randomX}px`;
+    target.style.top = `${randomY}px`;
+}
 
-            if (gameActive && distance < 100) {
-                moveSquare();
-            }
-        });
-        // Function to move the square to a random position
-        function moveSquare() {
-            if (!gameActive) return;
-
-            const padding = 20;
-            const maxX = gameArea.clientWidth - target.clientWidth;
-            const maxY = gameArea.clientHeight - target.clientHeight;
-
-            const corners = [
-                { x: padding, y: padding },             // Top Left
-                { x: maxX, y: padding },                // Top Right
-                { x: padding, y: maxY },                // Bottom Left
-                { x: maxX, y: maxY }                    // Bottom Right
-            ];
-
-            let furthestCorner = corners[0];
-            let maxDistance = 0;
-
-            corners.forEach(corner => {
-                const dist = Math.sqrt(
-                    Math.pow(corner.x - mouseX, 2) + Math.pow(corner.y - mouseY, 2)
-                );
-                if (dist > maxDistance) {
-                    maxDistance = dist;
-                    furthestCorner = corner;
-                }
-            });
-
-            const jitterX = (Math.random() - 0.5) * 40;
-            const jitterY = (Math.random() - 0.5) * 40;
-
-            target.style.left = `${Math.min(maxX, Math.max(padding, furthestCorner.x + jitterX))}px`;
-            target.style.top = `${Math.min(maxY, Math.max(padding, furthestCorner.y + jitterY))}px`;
-        }
-        // Handle the "Catch"
-        target.addEventListener('click', () => {
-            if (gameActive) {
-                score++;
-                scoreDisplay.textContent = score;
-                moveSquare();
-            }
-        });
-        // Countdown Timer
-        const countdown = setInterval(() => {
-            timeLeft--;
-            timerDisplay.textContent = timeLeft;
-
-            if (timeLeft <= 0) {
-                clearInterval(countdown);
-                gameActive = false;
-                alert(`Game Over! Your final score is: ${score}`);
-                location.reload(); // Reset the game
-            }
-        }, 1000);
-        // Initial placement
+// Simple Click Handler
+target.addEventListener('click', () => {
+    if (gameActive) {
+        score++;
+        scoreDisplay.textContent = score;
         moveSquare();
-    </script>
+    }
+});
+
+// Static Timer
+const countdown = setInterval(() => {
+    timeLeft--;
+    timerDisplay.textContent = timeLeft;
+
+    if (timeLeft <= 0) {
+        clearInterval(countdown);
+        gameActive = false;
+        alert(`Game Over! Final Score: ${score}`);
+        location.reload();
+    }
+}, 1000);
+
+moveSquare();
+</script>
 </body>
 </html>
