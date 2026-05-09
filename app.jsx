@@ -1,5 +1,3 @@
-import React from 'react';
-
 const GlassBlog = () => {
   const styles = {
     container: {
