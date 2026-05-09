@@ -1,1 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+<style>
+:root {
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-shimmer: rgba(255, 255, 255, 0.4);
+    --accent: #00f2ff;
+}
+
+body {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* The Core Glass Panel */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border-radius: 16px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    padding: 20px;
+    color: white;
+}
+
+/* HUD Positioning */
+.hud {
+    position: absolute;
+    top: 20px;
+    display: flex;
+    gap: 30px;
+    font-family: 'Inter', sans-serif;
+}
+
+/* The "Catch Square" Element */
+.glass-square {
+    width: 60px;
+    height: 60px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s;
+}
+
+.glass-square.active {
+    border-color: var(--accent);
+    box-shadow: 0 0 15px var(--accent);
+    /* Specular highlight at the top */
+    background: linear-gradient(170deg, var(--glass-shimmer) 0%, transparent 50%);
+}
+
+.glass-square:hover {
+    transform: scale(1.1);
+}
+
+/* Interactive Glass Buttons */
+.glass-button {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    color: white;
+    padding: 10px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s;
+}
+
+.glass-button:hover {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+</style>
+</head>
+<body>
+<div class="game-container">
+    <div class="glass-panel hud">
+        <div class="stat">Score: <span id="score">0</span></div>
+        <div class="stat">Time: <span id="timer">60</span>s</div>
+    </div>
+
+    <div class="glass-square active"></div>
+
+    <div class="glass-panel menu">
+        <h2>Paused</h2>
+        <button class="glass-button">Resume</button>
+        <button class="glass-button">Quit</button>
+    </div>
+</div>
+</body>
+</html>
 
