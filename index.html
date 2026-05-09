@@ -7,11 +7,60 @@
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body, html { margin: 0; padding: 0; }
+    </style>
 </head>
 <body>
     <div id="root"></div>
 
-    <script type="text/babel" src="./app.jsx"></script>
-    <script type="text/babel" src="./main.jsx"></script>
+    <script type="text/babel">
+        // 1. The Blog Component
+        const GlassBlog = () => {
+            const styles = {
+                container: {
+                    minHeight: '100vh',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                    fontFamily: 'sans-serif',
+                    padding: '20px',
+                },
+                glassCard: {
+                    background: 'rgba(255, 255, 255, 0.2)',
+                    borderRadius: '16px',
+                    boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(255, 255, 255, 0.3)',
+                    padding: '40px',
+                    maxWidth: '600px',
+                    color: 'white',
+                }
+            };
+
+            return (
+                <div style={styles.container}>
+                    <article style={styles.glassCard}>
+                        <h1>Glass UI Blog</h1>
+                        <p>If you see this, your React connection is officially working!</p>
+                        <button style={{
+                            background: 'rgba(255,255,255,0.3)', 
+                            border: 'none', 
+                            padding: '10px 20px', 
+                            color: 'white', 
+                            borderRadius: '5px'
+                        }}>
+                            Success
+                        </button>
+                    </article>
+                </div>
+            );
+        };
+
+        // 2. The Render Bridge
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<GlassBlog />);
+    </script>
 </body>
 </html>
